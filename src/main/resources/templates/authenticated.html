@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="/fragments/header :: header"/>
+ 
+<body>
+  <div class="container">
+    <nav th:replace="/fragments/navbar :: navbar" />
+    
+    <h1 th:text="${'Hello ' + customer.username}" class="display-3 text-center"></h1>
+  </div>
+</body>
+</html>

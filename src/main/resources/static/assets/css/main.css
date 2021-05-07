@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body, html {
+  background-color: #f7fff9;
+}
+
+.bg-row {
+  background-color: #fafafa;
+}
+
+.icon {
+  color:white;
+  font-size: 20px;
+}
