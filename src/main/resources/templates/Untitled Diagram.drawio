@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-05-08T10:34:11.714Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36" etag="7plQXpv3ck4L2GgKGQRF" version="14.6.11" type="github">
+<mxfile host="app.diagrams.net" modified="2021-05-08T10:40:08.151Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36" etag="5otV1zlUk3r2syQz8sdh" version="14.6.11" type="github">
   <diagram id="TFVVUKBu-hhXwRltEdNP" name="Page-1">
-    <mxGraphModel dx="981" dy="526" grid="1" gridSize="10" guides="0" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="5000" pageHeight="3000" math="0" shadow="0">
+    <mxGraphModel dx="2844" dy="1524" grid="1" gridSize="10" guides="0" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="5000" pageHeight="3000" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -26,6 +26,9 @@
         <mxCell id="IsKmeeJijTPSRjMwdKZ4-1" value="&lt;font style=&quot;font-size: 26px&quot;&gt;CUSTOMER&lt;/font&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontStyle=1" vertex="1" parent="1">
           <mxGeometry x="160" y="60" width="100" height="160" as="geometry" />
         </mxCell>
+        <mxCell id="IsKmeeJijTPSRjMwdKZ4-71" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=25;fontColor=#007FFF;" edge="1" parent="1" source="IsKmeeJijTPSRjMwdKZ4-4" target="IsKmeeJijTPSRjMwdKZ4-46">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="IsKmeeJijTPSRjMwdKZ4-4" value="LOGIN PAGE" style="swimlane;fontSize=22;startSize=70;labelBackgroundColor=#E6E6E6;" vertex="1" parent="1">
           <mxGeometry x="610" y="60" width="520" height="380" as="geometry" />
         </mxCell>
@@ -49,6 +52,9 @@
         </mxCell>
         <mxCell id="IsKmeeJijTPSRjMwdKZ4-30" value="LOGIN" style="rounded=1;fillColor=#0057D8;align=center;strokeColor=none;html=1;fontColor=#ffffff;fontSize=12;labelBackgroundColor=none;" vertex="1" parent="IsKmeeJijTPSRjMwdKZ4-4">
           <mxGeometry x="210" y="290" width="80" height="33" as="geometry" />
+        </mxCell>
+        <mxCell id="IsKmeeJijTPSRjMwdKZ4-72" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=25;fontColor=#007FFF;" edge="1" parent="1" source="IsKmeeJijTPSRjMwdKZ4-14" target="IsKmeeJijTPSRjMwdKZ4-46">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="IsKmeeJijTPSRjMwdKZ4-14" value="REGISTRATION PAGE" style="swimlane;fontSize=22;startSize=70;labelBackgroundColor=#E6E6E6;" vertex="1" parent="1">
           <mxGeometry x="610" y="500" width="520" height="760" as="geometry" />
@@ -99,7 +105,7 @@
           <mxGeometry x="320" y="810" width="170" height="20" as="geometry" />
         </mxCell>
         <mxCell id="IsKmeeJijTPSRjMwdKZ4-46" value="" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;strokeColor=#DFDFDF;html=1;whiteSpace=wrap;fillColor=#FFFFFF;fontColor=#000000;labelBackgroundColor=none;fontSize=25;align=center;" vertex="1" parent="1">
-          <mxGeometry x="1350" y="50" width="830" height="490" as="geometry" />
+          <mxGeometry x="1350" y="50" width="830" height="1000" as="geometry" />
         </mxCell>
         <mxCell id="IsKmeeJijTPSRjMwdKZ4-47" value="" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.topButton;strokeColor=inherit;fillColor=#F7F7F7;rSize=5;perimeter=none;whiteSpace=wrap;resizeWidth=1;align=center;spacing=20;fontSize=14;" vertex="1" parent="IsKmeeJijTPSRjMwdKZ4-46">
           <mxGeometry width="830.0000000000001" height="60" relative="1" as="geometry" />
@@ -119,14 +125,9 @@
             <mxPoint x="750" y="10" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="IsKmeeJijTPSRjMwdKZ4-51" value="&lt;b&gt;&lt;font style=&quot;font-size: 20px&quot;&gt;Special title treatment&lt;/font&gt;&lt;/b&gt;&lt;br style=&quot;font-size: 14px&quot;&gt;&lt;br style=&quot;font-size: 14px&quot;&gt;With supporting text below as a natural lead-in to additional content." style="perimeter=none;html=1;whiteSpace=wrap;fillColor=none;strokeColor=none;resizeWidth=1;verticalAlign=top;align=center;spacing=20;spacingTop=-10;fontSize=14;fontColor=#212529" vertex="1" parent="IsKmeeJijTPSRjMwdKZ4-46">
-          <mxGeometry width="830.0000000000001" height="120" relative="1" as="geometry">
-            <mxPoint y="60" as="offset" />
-          </mxGeometry>
-        </mxCell>
         <mxCell id="IsKmeeJijTPSRjMwdKZ4-59" value="HUBERT" style="strokeColor=none;fillColor=none;rSize=5;perimeter=none;whiteSpace=wrap;resizeWidth=1;align=center;spacing=20;fontSize=14;fontColor=#0085FC;fontColor=#4B5259;" vertex="1" parent="IsKmeeJijTPSRjMwdKZ4-46">
           <mxGeometry width="62.25000000000001" height="40" relative="1" as="geometry">
-            <mxPoint x="680" y="10" as="offset" />
+            <mxPoint x="645" y="10" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="IsKmeeJijTPSRjMwdKZ4-60" value="SERIES" style="strokeColor=none;fillColor=none;rSize=5;perimeter=none;whiteSpace=wrap;resizeWidth=1;align=center;spacing=20;fontSize=14;fontColor=#0085FC;" vertex="1" parent="IsKmeeJijTPSRjMwdKZ4-46">
@@ -135,7 +136,34 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="IsKmeeJijTPSRjMwdKZ4-61" value="" style="html=1;verticalLabelPosition=bottom;align=center;labelBackgroundColor=#ffffff;verticalAlign=top;strokeWidth=2;strokeColor=#0080F0;shadow=0;dashed=0;shape=mxgraph.ios7.icons.user;fontSize=25;" vertex="1" parent="IsKmeeJijTPSRjMwdKZ4-46">
-          <mxGeometry x="659" y="20" width="20" height="20" as="geometry" />
+          <mxGeometry x="620" y="21.69135802469136" width="20" height="24.69135802469136" as="geometry" />
+        </mxCell>
+        <mxCell id="IsKmeeJijTPSRjMwdKZ4-62" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/glyphs/24/icons_exit2-128.png;fontSize=25;align=center;fontColor=#007FFF;" vertex="1" parent="IsKmeeJijTPSRjMwdKZ4-46">
+          <mxGeometry x="718" y="19.75308641975309" width="29" height="29" as="geometry" />
+        </mxCell>
+        <mxCell id="IsKmeeJijTPSRjMwdKZ4-63" value="&lt;span style=&quot;font-size: 20px&quot;&gt;&lt;b&gt;movie 1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;br&gt;This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer." style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;strokeColor=#DFDFDF;html=1;whiteSpace=wrap;fillColor=#ffffff;fontColor=#000000;verticalAlign=top;align=left;spacing=20;spacingBottom=0;fontSize=14;spacingTop=160;labelBackgroundColor=none;" vertex="1" parent="IsKmeeJijTPSRjMwdKZ4-46">
+          <mxGeometry x="40" y="170.0008641975309" width="370" height="358.0246913580247" as="geometry" />
+        </mxCell>
+        <mxCell id="IsKmeeJijTPSRjMwdKZ4-64" value="Image cap" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.topButton;rSize=5;perimeter=none;whiteSpace=wrap;fillColor=#868E96;strokeColor=#DFDFDF;fontColor=#DEE2E6;resizeWidth=1;fontSize=18;" vertex="1" parent="IsKmeeJijTPSRjMwdKZ4-63">
+          <mxGeometry width="370" height="160" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IsKmeeJijTPSRjMwdKZ4-65" value="&lt;b&gt;&lt;font style=&quot;font-size: 20px&quot;&gt;movie 2&lt;/font&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer." style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;strokeColor=#DFDFDF;html=1;whiteSpace=wrap;fillColor=#ffffff;fontColor=#000000;verticalAlign=top;align=left;spacing=20;spacingBottom=0;fontSize=14;spacingTop=160;labelBackgroundColor=none;" vertex="1" parent="IsKmeeJijTPSRjMwdKZ4-46">
+          <mxGeometry x="430" y="170.0008641975309" width="370" height="358.0246913580247" as="geometry" />
+        </mxCell>
+        <mxCell id="IsKmeeJijTPSRjMwdKZ4-66" value="Image cap" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.topButton;rSize=5;perimeter=none;whiteSpace=wrap;fillColor=#868E96;strokeColor=#DFDFDF;fontColor=#DEE2E6;resizeWidth=1;fontSize=18;" vertex="1" parent="IsKmeeJijTPSRjMwdKZ4-65">
+          <mxGeometry width="370" height="160" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IsKmeeJijTPSRjMwdKZ4-69" value="&lt;b&gt;&lt;font style=&quot;font-size: 20px&quot;&gt;movie 4&lt;/font&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer." style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;strokeColor=#DFDFDF;html=1;whiteSpace=wrap;fillColor=#ffffff;fontColor=#000000;verticalAlign=top;align=left;spacing=20;spacingBottom=0;fontSize=14;spacingTop=160;labelBackgroundColor=none;" vertex="1" parent="IsKmeeJijTPSRjMwdKZ4-46">
+          <mxGeometry x="430" y="589.9982716049383" width="370" height="358.0246913580247" as="geometry" />
+        </mxCell>
+        <mxCell id="IsKmeeJijTPSRjMwdKZ4-70" value="Image cap" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.topButton;rSize=5;perimeter=none;whiteSpace=wrap;fillColor=#868E96;strokeColor=#DFDFDF;fontColor=#DEE2E6;resizeWidth=1;fontSize=18;" vertex="1" parent="IsKmeeJijTPSRjMwdKZ4-69">
+          <mxGeometry width="370" height="160" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IsKmeeJijTPSRjMwdKZ4-67" value="&lt;b&gt;&lt;font style=&quot;font-size: 20px&quot;&gt;Card title&lt;/font&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;This is a wider card with supporting text below as a natural lead-in to additional content." style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;strokeColor=#DFDFDF;html=1;whiteSpace=wrap;fillColor=#ffffff;fontColor=#000000;verticalAlign=top;align=left;spacing=20;spacingBottom=0;fontSize=14;spacingTop=160;labelBackgroundColor=none;" vertex="1" parent="IsKmeeJijTPSRjMwdKZ4-46">
+          <mxGeometry x="40" y="589.9982716049383" width="370" height="358.0246913580247" as="geometry" />
+        </mxCell>
+        <mxCell id="IsKmeeJijTPSRjMwdKZ4-68" value="Image cap" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.topButton;rSize=5;perimeter=none;whiteSpace=wrap;fillColor=#868E96;strokeColor=#DFDFDF;fontColor=#DEE2E6;resizeWidth=1;fontSize=18;" vertex="1" parent="IsKmeeJijTPSRjMwdKZ4-67">
+          <mxGeometry width="370" height="160" relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
