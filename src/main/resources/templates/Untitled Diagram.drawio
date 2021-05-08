@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-05-08T11:11:57.994Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36" etag="sphOAi3daES-W9GyOKmN" version="14.6.11" type="github">
+<mxfile host="app.diagrams.net" modified="2021-05-08T11:15:03.381Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36" etag="7EGenMirmVkKrdsRSqVz" version="14.6.11" type="github">
   <diagram id="TFVVUKBu-hhXwRltEdNP" name="flow">
-    <mxGraphModel dx="3555" dy="1905" grid="1" gridSize="10" guides="0" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="5000" pageHeight="3000" math="0" shadow="0">
+    <mxGraphModel dx="4063" dy="2177" grid="1" gridSize="10" guides="0" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="5000" pageHeight="3000" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -352,7 +352,7 @@
           <mxGeometry x="2370" y="30" width="350" height="40" as="geometry" />
         </mxCell>
         <mxCell id="IsKmeeJijTPSRjMwdKZ4-135" value="" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;strokeColor=#DFDFDF;html=1;whiteSpace=wrap;fillColor=#FFFFFF;fontColor=#000000;labelBackgroundColor=none;fontSize=25;align=center;" vertex="1" parent="1">
-          <mxGeometry x="1370" y="1350" width="830" height="1000" as="geometry" />
+          <mxGeometry x="210" y="1440" width="830" height="1000" as="geometry" />
         </mxCell>
         <mxCell id="IsKmeeJijTPSRjMwdKZ4-136" value="HOME" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;arcSize=5;strokeColor=none;rSize=5;perimeter=none;whiteSpace=wrap;resizeWidth=1;align=center;spacing=20;fontSize=14;labelBackgroundColor=none;fillColor=#FFFFFF;" vertex="1" parent="IsKmeeJijTPSRjMwdKZ4-135">
           <mxGeometry width="110" height="40" relative="1" as="geometry">
@@ -401,7 +401,7 @@
             <mxPoint x="2130" y="425" as="sourcePoint" />
             <Array as="points">
               <mxPoint x="2290" y="425" />
-              <mxPoint x="2290" y="1716" />
+              <mxPoint x="2290" y="1806" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -632,6 +632,9 @@
           <mxGeometry width="150" height="40" relative="1" as="geometry">
             <mxPoint x="340" y="10" as="offset" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="IsKmeeJijTPSRjMwdKZ4-270" value="&lt;font color=&quot;#000000&quot;&gt;CREATE POST PAGE&lt;/font&gt;" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;strokeWidth=1;fillColor=none;fontColor=#33A64C;whiteSpace=wrap;align=center;verticalAlign=middle;spacingLeft=0;fontStyle=1;fontSize=16;spacing=5;labelBackgroundColor=none;" vertex="1" parent="1">
+          <mxGeometry x="3410" y="40" width="350" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
