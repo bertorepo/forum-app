@@ -20,6 +20,10 @@
             Logged out successfully
           </div>
 
+          <div class="alert alert-success" th:if="${success_register}"   role="alert">
+            [[${success_register}]]
+          </div>
+
         <div class="input-group flex-nowrap">
           <div class="input-group-prepend">
             <span class="input-group-text">
@@ -40,7 +44,7 @@
 
         <button type="submit" class="btn btn-success btn-block">Log In</button>
     </form>
-    <p class="text-center mt-2">Not yet registered? <a class="text-success" href="/register">Create Account</a></p>
+    <p class="text-center mt-2">Not yet registered? <a class="text-success" th:href="@{/register}">Create Account</a></p>
       </div>
     </div>
    

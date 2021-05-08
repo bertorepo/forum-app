@@ -20,10 +20,15 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final CustomerService customerService;
+  private final BCryptPasswordEncoder passwordEncoder;
 
   @Autowired
-  public SecurityConfig(CustomerService customerService) {
+  public SecurityConfig(
+    CustomerService customerService,
+    BCryptPasswordEncoder passwordEncoder
+  ) {
     this.customerService = customerService;
+    this.passwordEncoder = passwordEncoder;
   }
 
   //get Customer Details
@@ -43,18 +48,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     };
   }
 
-  //Encrypt password
-
-  @Bean
-  public BCryptPasswordEncoder bCryptPasswordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
-
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth
       .userDetailsService(userDetailsService())
-      .passwordEncoder(bCryptPasswordEncoder());
+      .passwordEncoder(passwordEncoder);
   }
 
   @Override
@@ -67,7 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         "/assets/**",
         "/js/**",
         "/img/**",
-        "/webjars/**"
+        "/webjars/**",
+        "/register"
       )
       .permitAll()
       .anyRequest()
@@ -83,6 +82,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .clearAuthentication(true)
       .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
       .logoutSuccessUrl("/login?logout")
-      .permitAll();
+      .permitAll()
+      .and()
+      .exceptionHandling()
+      .accessDeniedPage("/403");
   }
 }

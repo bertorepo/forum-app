@@ -17,6 +17,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,6 +42,7 @@ public class Customer implements UserDetails {
   private String password;
 
   @Column(name = "created_at")
+  @CreationTimestamp
   private Timestamp createdAt;
 
   private boolean enabled;
@@ -75,7 +77,6 @@ public class Customer implements UserDetails {
     authorities.forEach(
       r -> auth.add(new SimpleGrantedAuthority(r.getAuthority()))
     );
-
     return auth;
   }
 
