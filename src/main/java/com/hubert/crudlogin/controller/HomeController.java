@@ -12,6 +12,11 @@ public class HomeController {
     return authentication != null ? "redirect:/authenticated" : "index";
   }
 
+  @GetMapping("/admin")
+  public String admin(){
+    return "admin";
+  }
+
   @GetMapping("/authenticated")
   public String home() {
     return "authenticated";

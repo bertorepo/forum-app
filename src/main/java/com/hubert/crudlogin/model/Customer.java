@@ -14,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
@@ -82,31 +81,37 @@ public class Customer implements UserDetails {
 
   @Override
   public String getPassword() {
+    // TODO Auto-generated method stub
     return password;
   }
 
   @Override
   public String getUsername() {
+    // TODO Auto-generated method stub
     return username;
   }
 
   @Override
   public boolean isAccountNonExpired() {
+    // TODO Auto-generated method stub
     return true;
   }
 
   @Override
   public boolean isAccountNonLocked() {
+    // TODO Auto-generated method stub
     return true;
   }
 
   @Override
   public boolean isCredentialsNonExpired() {
+    // TODO Auto-generated method stub
     return true;
   }
 
   @Override
   public boolean isEnabled() {
+    // TODO Auto-generated method stub
     return enabled;
   }
 
@@ -165,4 +170,8 @@ public class Customer implements UserDetails {
   public void setAuthorities(List<Authority> authorities) {
     this.authorities = authorities;
   }
+
+
+  
+
 }
