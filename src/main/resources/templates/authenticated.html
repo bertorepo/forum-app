@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en"
-xmlns:th="http://www.thymeleaf.org"
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  layout:decorate="~{/fragments/layout}"
 >
-<head th:replace="/fragments/header :: header"/>
- 
-<body>
-  <div class="container">
-    <nav th:replace="/fragments/navbar :: navbar" />
-    
-    <h1 th:text="${'Hello ' + customer.username}" class="display-3 text-center"></h1>
-  </div>
-</body>
+  <body class="fixed-sn white-skin">
+    <div layout:fragment="content">
+      <h1
+        th:text="${'Hello ' + customer.username}"
+        class="display-3 text-center"
+      ></h1>
+    </div>
+  </body>
 </html>

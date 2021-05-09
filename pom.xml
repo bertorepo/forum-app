@@ -72,8 +72,14 @@
 			<version>2.4.2</version>
 		</dependency>
 
+		<dependency>
+			<groupId>nz.net.ultraq.thymeleaf</groupId>
+			<artifactId>thymeleaf-layout-dialect</artifactId>
+			<version>2.0.5</version>
+		</dependency>
+
 		     <!-- Plugins -->
-			<dependency>
+			<!-- <dependency>
 					<groupId>org.webjars</groupId>
 					<artifactId>bootstrap</artifactId>
 					<version>4.6.0</version>
@@ -87,7 +93,7 @@
 					<groupId>org.webjars</groupId>
 					<artifactId>jquery</artifactId>
 					<version>3.6.0</version>
-			</dependency>
+			</dependency> -->
 	</dependencies>
 
 	<build>

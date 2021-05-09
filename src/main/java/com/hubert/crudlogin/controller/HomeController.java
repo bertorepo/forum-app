@@ -9,7 +9,7 @@ public class HomeController {
 
   @GetMapping("/")
   public String index(Authentication authentication) {
-    return authentication != null ? "redirect:/authenticated" : "login";
+    return authentication != null ? "redirect:/authenticated" : "index";
   }
 
   @GetMapping("/authenticated")

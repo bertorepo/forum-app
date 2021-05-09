@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="/fragments/header :: header" />
+
+  <body class="fixed-sn white-skin">
+    <!-- navbar -->
+    <nav th:replace="/fragments/navbar :: navbar" />
+
+    <main class="px-0">
+      <div layout:fragment="content" class="container">
+        <!-- content here -->
+      </div>
+    </main>
+    <script th:replace="/fragments/script :: script" />
+  </body>
+</html>

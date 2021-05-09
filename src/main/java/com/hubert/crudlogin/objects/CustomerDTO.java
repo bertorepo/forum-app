@@ -15,7 +15,7 @@ public class CustomerDTO {
   @NotBlank(message = "Enter last name")
   private String lastName;
 
-  @NotBlank(message = "Enter email")
+  @NotBlank(message = "Enter email address")
   @Email(message = "Enter a valid Email address")
   private String email;
 

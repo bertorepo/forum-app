@@ -1,94 +1,214 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"  lang="en">
-<head th:replace="/fragments/header :: header"/>
-</head>
-<body>
-  
-  <div class="container">
-    <div class="row justify-content-center align-items-center mx-auto" style="min-height: 70vh;">
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  layout:decorate="~{/fragments/layout}"
+>
+  <body class="fixed-sn white-skin">
+    <div layout:fragment="content">
+      <div class="row justify-content-md-center">
+        <div class="col-md-6 col-lg-8 mb-4">
+          <!--Card -->
+          <div class="card p-3 z-depth-1-half">
+            <!--Card content -->
+            <div class="card-body">
+              <!-- Register form -->
+              <form
+                th:action="@{/register}"
+                th:object="${customerDTO}"
+                method="POST"
+              >
+                <div class="form-header green accent-3">
+                  <p class="h5 text-center text-dark my-2">
+                    Register to Forum Ninja
+                  </p>
+                </div>
+                <!-- input group 2 columns -->
+                <div class="row">
+                  <div class="col-md-6 col-lg-6 col-sm-12">
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"
+                          ><i
+                            class="fas fa-user-circle fa-2x prefix text-success"
+                          ></i
+                        ></span>
+                      </div>
+                      <input
+                        type="text"
+                        class="form-control p-4"
+                        placeholder="first name"
+                        aria-describedby="basic-addon1"
+                        autocomplete="off"
+                        name="firstName"
+                        th:value="*{firstName}"
+                        th:errorclass="error"
+                      />
+                    </div>
+                    <p
+                      th:if="${#fields.hasErrors('firstName')}"
+                      th:errors="*{firstName}"
+                      class="text-danger"
+                    ></p>
+                  </div>
 
-      <div class="col-md-5 col-sm-6 shadow p-5 bg-row">
-         <form method="POST" th:action="@{/register}"  th:object="${customerDTO}">
-          <h3 class="display-5 text-center my-4">Registration</h3>
+                  <div class="col-md-6 col-lg-6 col-sm-12">
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"
+                          ><i
+                            class="fas fa-user-circle fa-2x prefix text-success"
+                          ></i
+                        ></span>
+                      </div>
+                      <input
+                        type="text"
+                        class="form-control p-4"
+                        placeholder="last name"
+                        aria-label="Username"
+                        aria-describedby="basic-addon1"
+                        autocomplete="off"
+                        name="lastName"
+                        th:value="*{lastName}"
+                        th:errorclass="error"
+                      />
+                    </div>
+                    <p
+                      th:if="${#fields.hasErrors('lastName')}"
+                      th:errors="*{lastName}"
+                      class="text-danger"
+                    ></p>
+                  </div>
+                </div>
+                <!-- end input group 2 columns -->
 
-          <!-- Error -->
-          <!-- <div class="alert alert-danger text-center" th:if="${param.error}"  role="alert">
-            Invalid username and password
+                <!-- input group -->
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i
+                        class="fas fa-user-circle fa-2x prefix text-success"
+                      ></i
+                    ></span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control p-4"
+                    placeholder="enter username"
+                    aria-describedby="basic-addon1"
+                    autocomplete="off"
+                    name="username"
+                    th:value="*{username}"
+                    th:errorclass="error"
+                  />
+                </div>
+                <p
+                  th:if="${#fields.hasErrors('username')}"
+                  th:errors="*{username}"
+                  class="text-danger"
+                ></p>
+                <!-- end input group -->
+
+                <!-- input group -->
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i
+                        class="fas fa-envelope-open-text fa-2x prefix text-success"
+                      ></i
+                    ></span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control p-4"
+                    placeholder="email address"
+                    aria-describedby="basic-addon1"
+                    autocomplete="off"
+                    name="email"
+                    th:value="*{email}"
+                    th:errorclass="error"
+                  />
+                </div>
+                <p
+                  th:if="${#fields.hasErrors('email')}"
+                  th:errors="*{email}"
+                  class="text-danger"
+                ></p>
+                <!-- end input group -->
+
+                <!-- input group 2 columns -->
+                <div class="row">
+                  <div class="col-md-6 col-lg-6 col-sm-12">
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"
+                          ><i class="fas fa-lock fa-2x prefix text-success"></i
+                        ></span>
+                      </div>
+                      <input
+                        type="password"
+                        class="form-control p-4"
+                        placeholder="enter password"
+                        aria-describedby="basic-addon1"
+                        autocomplete="off"
+                        name="password"
+                        th:value="*{password}"
+                        th:errorclass="error"
+                      />
+                    </div>
+                    <p
+                      th:if="${#fields.hasErrors('password')}"
+                      th:errors="*{password}"
+                      class="text-danger"
+                    ></p>
+                  </div>
+
+                  <div class="col-md-6 col-lg-6 col-sm-12">
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"
+                          ><i class="fas fa-lock fa-2x prefix text-success"></i
+                        ></span>
+                      </div>
+                      <input
+                        type="password"
+                        class="form-control p-4"
+                        placeholder="re enter password"
+                        aria-describedby="basic-addon1"
+                        autocomplete="off"
+                        name="rPassword"
+                        th:value="*{rPassword}"
+                        th:errorclass="error"
+                      />
+                    </div>
+                    <p
+                      th:if="${#fields.hasErrors('rPassword')}"
+                      th:errors="*{rPassword}"
+                      class="text-danger"
+                    ></p>
+                  </div>
+                </div>
+                <!-- end input group 2 columns -->
+
+                <div class="text-center mt-4">
+                  <button
+                    type="submit"
+                    class="btn btn-success waves-effect waves-light"
+                  >
+                    Register
+                  </button>
+                </div>
+              </form>
+              <!-- login form -->
+              <p class="text-center mt-2">
+                Already have account?
+                <a class="text-success" th:href="@{/login}">Log in here!</a>
+              </p>
+            </div>
           </div>
-
-          <div class="alert alert-success" th:if="${param.logout}"  role="alert">
-            Logged out successfully
-          </div> -->
-
-        <div class="input-group flex-nowrap mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <i class="bi bi-person-bounding-box text-success"></i>
-            </span>
-          </div>
-          <input type="text" class="form-control" name="firstName" placeholder="enter firstName" autocomplete="off"  th:value="*{firstName}" th:errorclass="error">
+          <!--Card -->
         </div>
-        <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
-        class="text-danger mt-1"></p>
-        
-
-        <div class="input-group flex-nowrap mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <i class="bi bi-person-bounding-box text-success"></i>
-            </span>
-          </div>
-          <input type="text" class="form-control" name="lastName" placeholder="enter lastName" autocomplete="off" th:value="*{lastName}" th:errorclass="error">
-        </div>
-        <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"  class="text-danger mt-1"></p>
-
-        <div class="input-group flex-nowrap mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <i class="bi bi-envelope-fill text-success"></i>
-            </span>
-          </div>
-          <input type="text" class="form-control" name="email" placeholder="enter email" autocomplete="off" th:value="*{email}" th:errorclass="error">
-        </div>
-        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"  class="text-danger mt-1"></p>
-
-        <div class="input-group flex-nowrap mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <i class="bi bi-person-bounding-box text-success"></i>
-            </span>
-          </div>
-          <input type="text" class="form-control" name="username" placeholder="enter username" autocomplete="off" th:value="*{username}" th:errorclass="error">        
-        </div>
-        <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"  class="text-danger mt-1"></p>
-
-        <div class="input-group flex-nowrap mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <i class="bi bi-shield-lock-fill text-success"></i>
-            </span>
-          </div>
-          <input type="password" class="form-control" name="password" placeholder="enter password" autocomplete="off" th:value="*{password}" th:errorclass="error">
-        </div>
-        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger mt-1"></p>
-
-
-        <div class="input-group flex-nowrap mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <i class="bi bi-shield-lock-fill text-success"></i>
-            </span>
-          </div>
-          <input type="password" class="form-control" name="rPassword" placeholder="re-enter password" autocomplete="off" th:value="*{rPassword}" th:errorclass="error">      
-        </div> 
-        <p th:if="${#fields.hasErrors('rPassword')}" th:errors="*{rPassword}"  class="text-danger mt-1"></p> 
-
-        <button type="submit" class="btn btn-success btn-block">Register</button>
-    </form>
-    <p class="text-center mt-2">Already have account? <a class="text-success" href="/login">Login here!</a></p>
       </div>
     </div>
-   
-  </div>
-</body>
+  </body>
 </html>
