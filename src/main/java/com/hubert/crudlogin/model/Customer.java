@@ -22,6 +22,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+
 @Entity
 @Table(name = "customer")
 public class Customer implements UserDetails {
@@ -47,6 +48,15 @@ public class Customer implements UserDetails {
 
   private boolean enabled;
 
+  
+  //Posts
+
+  @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Post> posts  = new ArrayList<>();
+
+
+  //authority
+
   @OneToMany(
     fetch = FetchType.EAGER,
     cascade = {
@@ -67,7 +77,7 @@ public class Customer implements UserDetails {
       referencedColumnName = "id"
     )
   )
-  private List<Authority> authorities = new ArrayList<>();
+  private List<Authority> authorities;
 
   public Customer() {}
 
@@ -82,37 +92,33 @@ public class Customer implements UserDetails {
 
   @Override
   public String getPassword() {
-    // TODO Auto-generated method stub
     return password;
   }
 
   @Override
   public String getUsername() {
-    // TODO Auto-generated method stub
     return username;
   }
 
   @Override
   public boolean isAccountNonExpired() {
-    // TODO Auto-generated method stub
     return true;
   }
 
   @Override
   public boolean isAccountNonLocked() {
-    // TODO Auto-generated method stub
+
     return true;
   }
 
   @Override
   public boolean isCredentialsNonExpired() {
-    // TODO Auto-generated method stub
+
     return true;
   }
 
   @Override
   public boolean isEnabled() {
-    // TODO Auto-generated method stub
     return enabled;
   }
 
@@ -129,6 +135,7 @@ public class Customer implements UserDetails {
   }
 
   public String getFirstName() {
+
     return firstName;
   }
 
@@ -171,5 +178,22 @@ public class Customer implements UserDetails {
   public void setAuthorities(List<Authority> authorities) {
     this.authorities = authorities;
   }
+  
 
+  public List<Post> getPosts() {
+    return posts;
+  }
+
+  public void setPosts(List<Post> posts) {
+    this.posts = posts;
+  }
+
+  @Override
+  public String toString() {
+    return "Customer [authorities=" + authorities + ", createdAt=" + createdAt + ", email=" + email + ", enabled="
+        + enabled + ", firstName=" + firstName + ", id=" + id + ", lastName=" + lastName + ", password=" + password
+        + ", username=" + username + "]";
+  }
+
+  
 }

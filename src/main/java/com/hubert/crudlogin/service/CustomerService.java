@@ -1,18 +1,18 @@
 package com.hubert.crudlogin.service;
 
-import com.hubert.crudlogin.model.Authority;
+
 import com.hubert.crudlogin.model.Customer;
 import com.hubert.crudlogin.objects.CustomerDTO;
 import com.hubert.crudlogin.repository.CustomerRepository;
 
-import java.util.Arrays;
-import java.util.List;
+
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class CustomerService {
@@ -60,15 +60,11 @@ public class CustomerService {
     //encrypt password
     String password = passwordEncoder.encode(customerDTO.getPassword());
     customerDTO.setPassword(password);
+    customerDTO.setFirstName(capitalize(customerDTO.getFirstName()));
+    customerDTO.setLastName(capitalize(customerDTO.getLastName()));
 
     //1.instaciate a new customer object
     Customer customer = new Customer();
-    
-    //get CUSTOMER authority in the DB and assign automatically to every member who register
-    List<Authority> authorities = Arrays.asList(authorityService.findAuthorityById(2));
-    customer.setAuthorities(authorities);
-   
-
     //set enable to true
     customer.setEnabled(true);
 
@@ -76,4 +72,10 @@ public class CustomerService {
     modelMapper.map(customerDTO, customer);
     return save(customer);
   }
+
+    // capitalize First Letter String 
+  private String capitalize(String name){
+    return StringUtils.capitalize(name.toLowerCase());
+  }
+
 }

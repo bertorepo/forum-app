@@ -13,15 +13,17 @@
             <!--Card content -->
             <div class="card-body">
               <!-- Register form -->
-              <form th:action="@{/login}" method="POST">
+              <form
+                th:action="@{/create-post}"
+                th:object="${postDto}"
+                method="POST"
+              >
                 <div class="form-header green accent-3">
-                  <p class="h5 text-center text-dark my-2">
-                    Login to Forum Ninja
-                  </p>
+                  <p class="h5 text-center text-dark my-2">Create a post</p>
                 </div>
 
                 <!-- Error -->
-                <div
+                <!-- <div
                   class="alert alert-danger text-center"
                   th:if="${param.error}"
                   role="alert"
@@ -34,7 +36,7 @@
                   role="alert"
                 >
                   [[${success_register}]]
-                </div>
+                </div> -->
                 <div class="input-group mb-4">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1"
@@ -46,11 +48,10 @@
                   <input
                     type="text"
                     class="form-control p-4"
-                    placeholder="Username"
-                    aria-label="Username"
+                    placeholder="Post Title"
                     aria-describedby="basic-addon1"
                     autocomplete="off"
-                    name="username"
+                    name="title"
                   />
                 </div>
 
@@ -61,13 +62,12 @@
                     ></span>
                   </div>
                   <input
-                    type="password"
+                    type="text"
                     class="form-control p-4"
-                    placeholder="password"
-                    aria-label="Password"
+                    placeholder="Post content"
                     aria-describedby="basic-addon1"
                     autocomplete="off"
-                    name="password"
+                    name="content"
                   />
                 </div>
 
@@ -76,17 +76,10 @@
                     type="submit"
                     class="btn btn-success waves-effect waves-light"
                   >
-                    Login
+                    Create
                   </button>
                 </div>
               </form>
-              <!-- login form -->
-              <p class="text-center mt-2">
-                Not yet registered?
-                <a class="text-success" th:href="@{/register}"
-                  >Create account here!</a
-                >
-              </p>
             </div>
           </div>
           <!--Card -->
