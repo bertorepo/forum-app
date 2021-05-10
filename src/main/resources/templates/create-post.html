@@ -1,90 +1,118 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  xmlns:th="http://www.thymeleaf.org"
-  layout:decorate="~{/fragments/layout}"
->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Create Post</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"
+    />
+    <link rel="stylesheet" th:href="@{/mdb/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/mdb/css/mdb.min.css}" />
+    <link th:href="@{/summernote/summernote-bs4.min.css}" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{/mdb/css/style.css}" />
+  </head>
   <body class="fixed-sn white-skin">
-    <div layout:fragment="content">
-      <div class="row justify-content-md-center">
-        <div class="col-md-6 col-lg-6 mb-4">
-          <!--Card -->
-          <div class="card p-3 z-depth-1-half">
-            <!--Card content -->
-            <div class="card-body">
-              <!-- Register form -->
-              <form
-                th:action="@{/create-post}"
-                th:object="${postDto}"
-                method="POST"
-              >
-                <div class="form-header green accent-3">
-                  <p class="h5 text-center text-dark my-2">Create a post</p>
-                </div>
-
-                <!-- Error -->
-                <!-- <div
-                  class="alert alert-danger text-center"
-                  th:if="${param.error}"
-                  role="alert"
+    <nav th:replace="/fragments/navbar :: navbar" />
+    <main class="px-0">
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col-md-10 col-lg-12 mb-4">
+            <!--Card -->
+            <div class="card p-3 z-depth-1-half">
+              <!--Card content -->
+              <div class="card-body">
+                <!-- Register form -->
+                <form
+                  th:action="@{/create-post}"
+                  th:object="${postDto}"
+                  method="POST"
                 >
-                  Invalid username and password
-                </div>
-                <div
-                  class="alert alert-success text-center"
-                  th:if="${success_register}"
-                  role="alert"
-                >
-                  [[${success_register}]]
-                </div> -->
-                <div class="input-group mb-4">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1"
-                      ><i
-                        class="fas fa-user-circle fa-2x prefix text-success"
-                      ></i
-                    ></span>
+                  <div class="form-header green accent-3">
+                    <p class="h5 text-center text-dark my-2">Create a post</p>
                   </div>
-                  <input
-                    type="text"
-                    class="form-control p-4"
-                    placeholder="Post Title"
-                    aria-describedby="basic-addon1"
-                    autocomplete="off"
-                    name="title"
-                  />
-                </div>
-
-                <div class="input-group mb-4">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1"
-                      ><i class="fas fa-lock fa-2x prefix text-success"></i
-                    ></span>
+                  <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1"
+                        ><i
+                          class="fas fa-user-circle fa-2x prefix text-success"
+                        ></i
+                      ></span>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control p-4"
+                      placeholder="Post Title"
+                      aria-describedby="basic-addon1"
+                      autocomplete="off"
+                      name="title"
+                      th:field="*{title}"
+                      th:errorclass="error"
+                    />
                   </div>
-                  <input
-                    type="text"
-                    class="form-control p-4"
-                    placeholder="Post content"
-                    aria-describedby="basic-addon1"
-                    autocomplete="off"
-                    name="content"
-                  />
-                </div>
+                  <p
+                    th:if="${#fields.hasErrors('title')}"
+                    th:errors="*{title}"
+                    class="text-danger"
+                  ></p>
+                  <div class="form-group">
+                    <textarea
+                      class="form-control"
+                      th:errorclass="error"
+                      id="summernote"
+                      name="content"
+                      th:field="*{content}"
+                      autocomplete="off"
+                    ></textarea>
+                  </div>
+                  <p
+                    th:if="${#fields.hasErrors('content')}"
+                    th:errors="*{content}"
+                    class="text-danger"
+                  ></p>
 
-                <div class="text-center mt-4">
-                  <button
-                    type="submit"
-                    class="btn btn-success waves-effect waves-light"
-                  >
-                    Create
-                  </button>
-                </div>
-              </form>
+                  <div class="text-center mt-4">
+                    <button
+                      type="submit"
+                      class="btn btn-success waves-effect waves-light"
+                    >
+                      Create Post
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
+            <!--Card -->
           </div>
-          <!--Card -->
         </div>
       </div>
-    </div>
+    </main>
+    <script
+      th:fragment="script"
+      th:src="@{/mdb/js/jquery-3.4.1.min.js}"
+    ></script>
+    <script th:fragment="script" th:src="@{/mdb/js/popper.min.js}"></script>
+    <script th:fragment="script" th:src="@{/mdb/js/bootstrap.min.js}"></script>
+
+    <script th:src="@{/summernote/summernote-bs4.min.js}"></script>
+
+    <script>
+      $(document).ready(function () {
+        $('#summernote').summernote({
+          height: 500,
+          placeholder: 'Enter your content here!',
+          tabsize: 2,
+          toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture']],
+            ['view', ['fullscreen', 'codeview', 'help']],
+          ],
+        });
+      });
+    </script>
   </body>
 </html>

@@ -69,7 +69,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         "/js/**",
         "/img/**",
         "/webjars/**",
-        "/register"
+        "/register",
+        "/summernote/**"
       )
       .permitAll()
       .anyRequest()

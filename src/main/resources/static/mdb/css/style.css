@@ -7,3 +7,13 @@
 .error {
   border: 1px solid red;
 }
+.white-skin .form-header,
+.white-skin .card-header {
+  background-color: #00e676;
+  box-shadow: 0 5px 11px 0 rgb(0 0 0 / 18%), 0 4px 15px 0 rgb(0 0 0 / 15%) !important;
+  margin-bottom: 2rem;
+  padding: 0.5rem;
+}
+.note-editor {
+  box-shadow: none;
+}
