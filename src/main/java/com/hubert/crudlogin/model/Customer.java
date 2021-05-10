@@ -1,6 +1,7 @@
 package com.hubert.crudlogin.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -66,7 +67,7 @@ public class Customer implements UserDetails {
       referencedColumnName = "id"
     )
   )
-  private List<Authority> authorities;
+  private List<Authority> authorities = new ArrayList<>();
 
   public Customer() {}
 
@@ -170,8 +171,5 @@ public class Customer implements UserDetails {
   public void setAuthorities(List<Authority> authorities) {
     this.authorities = authorities;
   }
-
-
-  
 
 }

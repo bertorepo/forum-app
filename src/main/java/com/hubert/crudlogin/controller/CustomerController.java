@@ -1,5 +1,6 @@
 package com.hubert.crudlogin.controller;
 
+import com.hubert.crudlogin.model.Authority;
 import com.hubert.crudlogin.objects.CustomerDTO;
 import com.hubert.crudlogin.service.CustomerService;
 import javax.validation.Valid;

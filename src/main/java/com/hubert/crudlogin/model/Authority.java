@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,7 +18,16 @@ public class Authority {
 
   private String authority;
 
+
   public Authority() {}
+
+  
+
+  public Authority(String authority) {
+    this.authority = authority;
+  }
+
+
 
   public Long getId() {
     return id;
@@ -33,4 +44,5 @@ public class Authority {
   public void setAuthority(String authority) {
     this.authority = authority;
   }
+  
 }
