@@ -26,3 +26,6 @@
   box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.5);
   background: #fff;
 }
+.card-wrapper {
+  border-left: 2px solid #00e676;
+}

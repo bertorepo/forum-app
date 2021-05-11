@@ -37,7 +37,7 @@ public class HomeController {
 
     List<Post> allPosts = postService.allPost();
 
-  //  log.info("Post>>" + allPosts.toString());
+   log.info("Post>>" + allPosts.toString());
    
     model.addAttribute("allPosts", allPosts);
     return "home";

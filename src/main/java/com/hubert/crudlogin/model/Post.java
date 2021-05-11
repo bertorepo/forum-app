@@ -1,5 +1,7 @@
 package com.hubert.crudlogin.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Post {
+public class Post extends AuditableBase {
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -78,11 +80,6 @@ public class Post {
     this.category = category;
   }
 
-  @Override
-  public String toString() {
-    return "Post [content=" + content + ", customer=" + customer + ", id=" + id + ", title=" + title + "]";
-  }
+  
 
-  
-  
 }

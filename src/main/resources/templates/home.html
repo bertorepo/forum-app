@@ -12,7 +12,7 @@
         <div class="col-lg-12 col-md-12">
           <div
             th:each="post: ${allPosts}"
-            class="card"
+            class="card card-wrapper"
             style="margin-top: 20px"
           >
             <!-- Card content -->
@@ -26,10 +26,11 @@
                 <span class="mx-2 text-black-50">
                   <i class="fas fa-photo-video mr-2 fa-lg text-success"></i>
                   [[${post.category.name}]]
-                  <i class="fas fa-calendar-alt mx-2 pink-text fa-lg"></i> May
-                  09, 2021
+                  <i class="fas fa-calendar-alt mx-2 pink-text fa-lg"></i>
+                  [[${#dates.format(new java.util.Date(post.createdDate),
+                  'MMM-dd-yyy')}]]
                   <i class="fas fa-user-circle mx-2 fa-lg pink-text"></i>
-                  [[${post.customer.firstName} + ' ' +
+                  [['Posted by ' + ${post.customer.firstName} + ' ' +
                   ${post.customer.lastName}]]
                 </span>
               </div>
