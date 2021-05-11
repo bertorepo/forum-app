@@ -3,6 +3,7 @@ package com.hubert.crudlogin.controller;
 import javax.validation.Valid;
 
 import com.hubert.crudlogin.objects.PostDto;
+import com.hubert.crudlogin.service.CategoryService;
 import com.hubert.crudlogin.service.PostService;
 
 import org.slf4j.Logger;
@@ -24,11 +25,13 @@ public class PostController {
 
 
   private final PostService postService;
+  private final CategoryService categoryService;
   private static final Logger log = LoggerFactory.getLogger(PostController.class);
   
   @Autowired
-  public PostController(PostService postService) {
+  public PostController(PostService postService, CategoryService categoryService) {
     this.postService = postService;
+    this.categoryService = categoryService;
   }
 
   @InitBinder
@@ -47,18 +50,21 @@ public class PostController {
   Authentication authentication, Model model){
 
     model.addAttribute("postDto", postDto);
+    model.addAttribute("categoryList", categoryService.allCategories());
     return authentication == null ? "redirect:/authenticated" : "create-post";
   }
 
   @PostMapping("/create-post")
-  public String savePost(@Valid PostDto postDto, BindingResult bindingResult){
+  public String savePost(@Valid @ModelAttribute PostDto postDto, BindingResult bindingResult, Model model){
 
+    model.addAttribute("categoryList", categoryService.allCategories());
     if(bindingResult.hasErrors()){
       return "create-post";
     }
 
-    // postService.createPost(postDto);
     log.info("post dto >> " + postDto.toString());
+    
+    postService.createPost(postDto);
     return "redirect:/home";
 
   }

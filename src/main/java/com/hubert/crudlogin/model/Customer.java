@@ -51,8 +51,8 @@ public class Customer implements UserDetails {
   
   //Posts
 
-  @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<Post> posts  = new ArrayList<>();
+  // @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+  // private List<Post> posts  = new ArrayList<>();
 
 
   //authority
@@ -179,14 +179,6 @@ public class Customer implements UserDetails {
     this.authorities = authorities;
   }
   
-
-  public List<Post> getPosts() {
-    return posts;
-  }
-
-  public void setPosts(List<Post> posts) {
-    this.posts = posts;
-  }
 
   @Override
   public String toString() {

@@ -19,7 +19,7 @@
         <div class="row justify-content-md-center">
           <div class="col-md-10 col-lg-12 mb-4">
             <!--Card -->
-            <div class="card p-3 z-depth-1-half">
+            <div class="card p-3">
               <!--Card content -->
               <div class="card-body">
                 <!-- Register form -->
@@ -31,30 +31,78 @@
                   <div class="form-header green accent-3">
                     <p class="h5 text-center text-dark my-2">Create a post</p>
                   </div>
-                  <div class="input-group mb-4">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1"
-                        ><i
-                          class="fas fa-user-circle fa-2x prefix text-success"
-                        ></i
-                      ></span>
+
+                  <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                      <!-- input group -->
+                      <label for="basic-addon1">Post Title</label>
+                      <div class="input-group input-group-lg mb-4">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i
+                              class="
+                                fas
+                                fa-clipboard-list fa-lg
+                                prefix
+                                text-success
+                              "
+                            ></i
+                          ></span>
+                        </div>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Post Title"
+                          aria-describedby="basic-addon1"
+                          autocomplete="off"
+                          name="title"
+                          th:field="*{title}"
+                          th:errorclass="error"
+                        />
+                      </div>
+                      <p
+                        th:if="${#fields.hasErrors('title')}"
+                        th:errors="*{title}"
+                        class="text-danger"
+                      ></p>
+
+                      <!-- end input group -->
                     </div>
-                    <input
-                      type="text"
-                      class="form-control p-4"
-                      placeholder="Post Title"
-                      aria-describedby="basic-addon1"
-                      autocomplete="off"
-                      name="title"
-                      th:field="*{title}"
-                      th:errorclass="error"
-                    />
+
+                    <div class="col-md-6 col-sm-12">
+                      <!-- input group -->
+                      <label for="basic-addon1">Select category</label>
+                      <div class="input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i
+                              class="
+                                fas
+                                fa-plus-circle fa-lg
+                                prefix
+                                text-success
+                              "
+                            ></i
+                          ></span>
+                        </div>
+
+                        <select
+                          class="browser-default custom-select"
+                          name="category"
+                          th:field="*{category}"
+                        >
+                          <option
+                            th:each="category: ${categoryList}"
+                            th:text="${category.name}"
+                            th:value="${category.id}"
+                          ></option>
+                        </select>
+                      </div>
+                      <!-- end input group -->
+                    </div>
                   </div>
-                  <p
-                    th:if="${#fields.hasErrors('title')}"
-                    th:errors="*{title}"
-                    class="text-danger"
-                  ></p>
+
+                  <!-- summernot editor -->
                   <div class="form-group">
                     <textarea
                       class="form-control"
@@ -94,7 +142,7 @@
     <script th:fragment="script" th:src="@{/mdb/js/popper.min.js}"></script>
     <script th:fragment="script" th:src="@{/mdb/js/bootstrap.min.js}"></script>
 
-    <script th:src="@{/summernote/summernote-bs4.min.js}"></script>
+    <script th:src="@{/summernote/summernote-bs4.js}"></script>
 
     <script>
       $(document).ready(function () {
@@ -102,12 +150,19 @@
           height: 500,
           placeholder: 'Enter your content here!',
           tabsize: 2,
+          fontNames: [
+            'Arial',
+            'Arial Black',
+            'Comic Sans MS',
+            'Courier New',
+            'Poppins',
+          ],
           toolbar: [
             ['style', ['style']],
             ['font', ['bold', 'underline', 'clear']],
-            ['color', ['color']],
+            ['fontname', ['fontname']],
+
             ['para', ['ul', 'ol', 'paragraph']],
-            ['table', ['table']],
             ['insert', ['link', 'picture']],
             ['view', ['fullscreen', 'codeview', 'help']],
           ],

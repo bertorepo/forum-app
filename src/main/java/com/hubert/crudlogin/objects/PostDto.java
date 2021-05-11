@@ -3,11 +3,13 @@ package com.hubert.crudlogin.objects;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
+import com.hubert.crudlogin.model.Category;
 import com.hubert.crudlogin.model.Customer;
 
 public class PostDto {
   
   private Customer customer;
+  private Category category;
 
   @NotBlank(message = "Please enter post title")
   private String title;
@@ -47,11 +49,23 @@ public class PostDto {
     this.customer = customer;
   }
 
-  @Override
-  public String toString() {
-    return "PostDto [content=" + content + ", customer=" + customer + ", title=" + title + "]";
+  
+
+  public Category getCategory() {
+    return category;
   }
 
+  public void setCategory(Category category) {
+    this.category = category;
+  }
+
+  @Override
+  public String toString() {
+    return "PostDto [category=" + category + ", content=" + content + ", customer=" + customer + ", title=" + title
+        + "]";
+  }
+
+ 
   
   
 }

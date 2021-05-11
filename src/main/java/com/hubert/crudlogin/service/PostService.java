@@ -1,6 +1,9 @@
 package com.hubert.crudlogin.service;
+import java.util.List;
+
 import javax.transaction.Transactional;
 
+import com.hubert.crudlogin.model.Category;
 import com.hubert.crudlogin.model.Customer;
 import com.hubert.crudlogin.model.Post;
 import com.hubert.crudlogin.objects.PostDto;
@@ -48,11 +51,21 @@ public class PostService {
     return postRepository.save(post);
   }
 
+  @Transactional
+  public List<Post> allPost(){
+    return postRepository.findAll();
+  }
+
 
   public Post createPost(PostDto postDto){
+    
     Customer customer = getPrincipal();
+    Category category = postDto.getCategory();
     Post post  = new Post();
+
     postDto.setCustomer(customer);
+    postDto.setCategory(category);
+
     modelMapper.map(postDto, post);
 
     return save(post);

@@ -25,6 +25,10 @@ public class Post {
   @JoinColumn(name ="customer_id")
   private Customer customer;
 
+  @ManyToOne
+  @JoinColumn(name ="category_id")
+  private Category category;
+
   public Post() {
   }
 
@@ -63,6 +67,20 @@ public class Post {
 
   public void setCustomer(Customer customer) {
     this.customer = customer;
+  }
+
+
+  public Category getCategory() {
+    return category;
+  }
+
+  public void setCategory(Category category) {
+    this.category = category;
+  }
+
+  @Override
+  public String toString() {
+    return "Post [content=" + content + ", customer=" + customer + ", id=" + id + ", title=" + title + "]";
   }
 
   
