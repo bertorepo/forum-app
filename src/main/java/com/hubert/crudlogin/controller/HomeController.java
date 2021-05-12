@@ -35,8 +35,8 @@ public class HomeController {
   @GetMapping(value = "/home")
   public String home(Model model){
 
-   log.info("Post>>" + categoryService.allCategories().toString());
-   
+
+   log.info("Post>>" + postService.allPost().toString());
     model.addAttribute("categoryList", categoryService.allCategories());
     model.addAttribute("allPosts", postService.allPost());
     return "pages/home";

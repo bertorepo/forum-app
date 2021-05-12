@@ -9,6 +9,7 @@ import com.hubert.crudlogin.model.Category;
 import com.hubert.crudlogin.model.Customer;
 import com.hubert.crudlogin.model.Post;
 import com.hubert.crudlogin.objects.PostDto;
+import com.hubert.crudlogin.repository.CategoryRepository;
 import com.hubert.crudlogin.repository.PostRepository;
 
 import org.modelmapper.ModelMapper;
@@ -20,14 +21,16 @@ import org.springframework.stereotype.Service;
 public class PostService {
   
   private PostRepository postRepository;
+  private CategoryService categoryService;
   private ModelMapper modelMapper;
 
 
   
   @Autowired
-  public PostService(PostRepository postRepository, ModelMapper modelMapper) {
+  public PostService(PostRepository postRepository,CategoryService categoryService, ModelMapper modelMapper) {
     this.postRepository = postRepository;
     this.modelMapper = modelMapper;
+    this.categoryService = categoryService;
   }
 
   private Customer getPrincipal() {
@@ -61,10 +64,19 @@ public class PostService {
   @Transactional
   public Post showPost(long id){
     Optional<Post> findPost = postRepository.findById(id);
-    if(findPost.isPresent()){
+    if(!findPost.isPresent()){
       throw new IllegalStateException("No Post found in this " + id);
     }
     return findPost.orElseThrow();
+  }
+
+  @Transactional
+  public List<Post> findPostByCategory(String name){
+
+    Category category = categoryService.findCategory(name);
+    List<Post> postList = postRepository.findByCategory(category);
+
+    return postList;
   }
 
   public Post createPost(PostDto postDto){

@@ -1,5 +1,7 @@
 package com.hubert.crudlogin.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import com.hubert.crudlogin.model.Post;
@@ -95,5 +97,25 @@ public class PostController implements ErrorController {
     model.addAttribute("myPost", post);
 
     return "pages/post/view-post";
+  }
+
+  @RequestMapping("/category/{category_name}")
+  public String showByCategory(@PathVariable("category_name") String name, Model model){
+
+    List<Post> categoryPosts = postService.findPostByCategory(name);
+
+    //make button active
+    for(Post getPost : categoryPosts){
+      if(getPost.getCategory().getName().equals(name)){
+        model.addAttribute("activeCategory", getPost.getCategory().getName());
+      }
+    }
+
+    model.addAttribute("categoryList", categoryService.allCategories());
+    model.addAttribute("categoryPosts", categoryPosts);
+
+    
+    
+    return "pages/category/category";
   }
 }

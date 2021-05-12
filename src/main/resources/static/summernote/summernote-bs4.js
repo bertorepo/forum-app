@@ -2283,7 +2283,7 @@
           blank: blankHTML,
 
           /** @property {String} emptyPara */
-          emptyPara: '<p>'.concat(blankHTML, '</p>'),
+          emptyPara: '<div class="p-2">'.concat(blankHTML, '</div>'),
           makePredByNodeName: makePredByNodeName,
           isEditable: isEditable,
           isControlSizing: isControlSizing,
@@ -7072,7 +7072,7 @@
                       }
 
                       $image.css('width', '100%');
-                      $image.addClass('image-fluid z-depth-2 rounded m-2');
+                      $image.addClass('image-fluid z-depth-1 rounded');
                     }
 
                     $image.show();

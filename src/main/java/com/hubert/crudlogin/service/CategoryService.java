@@ -24,5 +24,10 @@ public class CategoryService {
   public List<Category> allCategories(){
     return categoryRepository.findAll();
   }
+
+  @Transactional
+  public Category findCategory(String name){
+    return categoryRepository.findByName(name);
+  }
   
 }

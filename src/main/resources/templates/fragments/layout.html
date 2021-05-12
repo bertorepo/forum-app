@@ -10,11 +10,22 @@
     <!-- navbar -->
     <nav th:replace="/fragments/navbar :: navbar" />
 
-    <main class="px-0">
+    <main class="px-0" style="min-height: 100vh">
       <div layout:fragment="content" class="container">
         <!-- content here -->
       </div>
     </main>
-    <script th:replace="/fragments/script :: script" />
+
+    <footer class="green accent-3 p-0">
+      <div class="container">
+        <!-- Copyright -->
+        <div class="text-center text-dark py-3">
+          © 2021 Copyright:
+          <a class="text-center text-dark" href="#"> Develop By Hubert B</a>
+        </div>
+        <!-- Copyright -->
+      </div>
+    </footer>
+    <script th:replace="/fragments/script :: script"></script>
   </body>
 </html>

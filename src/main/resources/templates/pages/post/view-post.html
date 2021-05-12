@@ -9,11 +9,13 @@
   <body class="fixed-sn white-skin">
     <div layout:fragment="content">
       <section class="text-justify mt-3">
-        <h1
-          th:text="${myPost.title}"
-          class="text-center py-2 black-text h1-responsive"
-        ></h1>
-        <div th:utext="${myPost.content}"></div>
+        <div class="p-lg-5 p-md-3 p-3 my-4 bg-white card">
+          <h1
+            th:text="${myPost.title}"
+            class="text-center py-3 black-text font-weight-bold h1-responsive"
+          ></h1>
+          <div th:utext="${myPost.content}"></div>
+        </div>
       </section>
 
       <section

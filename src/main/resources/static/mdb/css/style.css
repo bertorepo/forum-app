@@ -29,3 +29,18 @@
 .card-wrapper {
   border-left: 2px solid #00e676;
 }
+
+.fixed-sn main {
+  padding-top: 2rem;
+}
+
+.note-editor.note-airframe .note-editing-area .note-editable,
+.note-editor.note-frame .note-editing-area .note-editable {
+  padding: 2rem;
+}
+.note-editor.note-airframe .note-placeholder,
+.note-editor.note-frame .note-placeholder {
+  text-align: auto;
+
+  padding: 2rem;
+}

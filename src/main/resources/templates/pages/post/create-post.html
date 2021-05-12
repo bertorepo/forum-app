@@ -17,7 +17,7 @@
     <main class="px-0">
       <div class="container">
         <div class="row justify-content-md-center">
-          <div class="col-md-10 col-lg-12 mb-4">
+          <div class="col-md-10 col-lg-12 mb-4 mt-5">
             <!--Card -->
             <div class="card p-3">
               <!--Card content -->
@@ -29,7 +29,9 @@
                   method="POST"
                 >
                   <div class="form-header green accent-3">
-                    <p class="h5 text-center text-dark my-2">Create a post</p>
+                    <p class="h5 text-center text-dark my-2 text-uppercase">
+                      Create a post
+                    </p>
                   </div>
 
                   <div class="row">
@@ -161,12 +163,23 @@
             ['style', ['style']],
             ['font', ['bold', 'underline', 'clear']],
             ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
             ['para', ['ul', 'ol', 'paragraph']],
             ['insert', ['link', 'picture']],
-            ['view', ['fullscreen', 'codeview', 'help']],
+            ['view', ['help']],
           ],
         });
       });
     </script>
+    <footer class="green accent-3 p-0">
+      <div class="container">
+        <!-- Copyright -->
+        <div class="text-center text-dark py-3">
+          © 2021 Copyright:
+          <a class="text-center text-dark" href="#"> Develop By Hubert B</a>
+        </div>
+        <!-- Copyright -->
+      </div>
+    </footer>
   </body>
 </html>
