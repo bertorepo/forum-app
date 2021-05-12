@@ -1,5 +1,7 @@
 package com.hubert.crudlogin.service;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -56,6 +58,14 @@ public class PostService {
     return postRepository.findAll();
   }
 
+  @Transactional
+  public Post showPost(long id){
+    Optional<Post> findPost = postRepository.findById(id);
+    if(findPost.isPresent()){
+      throw new IllegalStateException("No Post found in this " + id);
+    }
+    return findPost.orElseThrow();
+  }
 
   public Post createPost(PostDto postDto){
     

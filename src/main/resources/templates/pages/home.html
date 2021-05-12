@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+  layout:decorate="~{/fragments/layout}"
+>
+  <body class="fixed-sn white-skin">
+    <div layout:fragment="content">
+      <!-- top -->
+      <section class="dark-grey-text text-center">
+        <!--First row-->
+        <div class="row">
+          <!--Grid column-->
+          <div class="col-md-3 mb-4">
+            <!-- Card -->
+            <a href="#!" class="card">
+              <!-- Card content -->
+              <div class="card-body my-2">
+                <p><i class="fas fa-tablet-alt fa-2x text-danger"></i></p>
+                <h5 class="black-text mb-0">Movies</h5>
+              </div>
+            </a>
+            <!-- Card -->
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-md-3 mb-4">
+            <!-- Card -->
+            <a href="#!" class="card">
+              <!-- Card content -->
+              <div class="card-body my-2">
+                <p><i class="fas fa-cogs fa-2x text-danger"></i></p>
+                <h5 class="black-text mb-0">Tutorials</h5>
+              </div>
+            </a>
+            <!-- Card -->
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-md-3 mb-4">
+            <!-- Card -->
+            <a href="#!" class="card">
+              <!-- Card content -->
+              <div class="card-body my-2">
+                <p><i class="fas fa-pencil-ruler fa-2x text-danger"></i></p>
+                <h5 class="black-text mb-0">Programming</h5>
+              </div>
+            </a>
+            <!-- Card -->
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-md-3 mb-4">
+            <!-- Card -->
+            <a href="#!" class="card">
+              <!-- Card content -->
+              <div class="card-body my-2">
+                <p><i class="fas fa-recycle fa-2x text-danger"></i></p>
+                <h5 class="black-text mb-0">Development</h5>
+              </div>
+            </a>
+            <!-- Card -->
+          </div>
+          <!--Grid column-->
+        </div>
+        <!--First row-->
+      </section>
+      <!-- end top -->
+
+      <section>
+        <!-- Filter Area -->
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <ul class="nav md-pills pills-danger">
+              <li class="nav-item">
+                <a class="nav-link active" href="#">New Post</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  data-toggle="dropdown"
+                  href="#"
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  >Category</a
+                >
+                <div class="dropdown-menu dropdown-danger">
+                  <th:block th:each="category: ${categoryList}">
+                    <a
+                      class="dropdown-item"
+                      th:text="${category.name}"
+                      href="#"
+                    ></a>
+                  </th:block>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="col-8 col-md-6 text-right">
+            <a
+              sec:authorize="isAuthenticated()"
+              class="btn btn-success btn-md darken-3"
+              th:href="@{/create-post}"
+            >
+              <i class="fas fa-plus-square fa-lg mr-2" aria-hidden="true"></i>
+              Create Post
+            </a>
+            <!-- View Switcher -->
+          </div>
+        </div>
+        <!-- Filter Area -->
+      </section>
+
+      <div class="row">
+        <!-- card -->
+        <div class="col-lg-12 col-md-12">
+          <a
+           
+            th:each="post: ${allPosts}"
+            class="card card-wrapper"
+            style="margin-top: 20px"
+            th:href="@{/post/}  + ${post.id}"
+          >
+            <!-- Card content -->
+
+            <div class="card-body card-body-cascade">
+              <!-- Title -->
+              <h5 th:text="${post.title}" class="card-title black-text"></h5>
+              <!-- Text -->
+              <div class="card-text">
+                <span class="mx-2 text-black-50">
+                  <i class="fas fa-photo-video mr-2 fa-lg text-success"></i>
+                  [[${post.category.name}]]
+                  <i class="fas fa-calendar-alt mx-2 pink-text fa-lg"></i>
+                  [[${#dates.format(post.createdDate, 'MMM-dd-yyy')}]]
+                  <i class="fas fa-user-circle mx-2 fa-lg pink-text"></i>
+                  [['Posted by ' + ${post.customer.firstName} + ' ' +
+                  ${post.customer.lastName}]]
+                </span>
+              </div>
+              
+            </div>
+          </div>
+          <!-- Card content -->
+        </a>
+      </div>
+      <!-- end card -->
+    </div>
+    <script th:replace="/fragments/script :: script"></script>
+  </body>
+</html>

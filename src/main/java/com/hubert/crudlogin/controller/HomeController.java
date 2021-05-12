@@ -1,9 +1,6 @@
 package com.hubert.crudlogin.controller;
 
-import java.util.List;
-
-import com.hubert.crudlogin.model.Customer;
-import com.hubert.crudlogin.model.Post;
+import com.hubert.crudlogin.service.CategoryService;
 import com.hubert.crudlogin.service.PostService;
 
 import org.slf4j.Logger;
@@ -20,11 +17,14 @@ public class HomeController {
   private Logger log = LoggerFactory.getLogger(HomeController.class);
 
   private final PostService postService;
+  private final CategoryService categoryService;
 
   
   @Autowired
-  public HomeController(PostService postService) {
+  public HomeController(PostService postService, CategoryService categoryService) {
     this.postService = postService;
+    this.categoryService = categoryService;
+
   }
 
   @GetMapping("/")
@@ -32,18 +32,17 @@ public class HomeController {
     return authentication != null ? "redirect:/home" : "index";
   }
 
-  @GetMapping("/home")
+  @GetMapping(value = "/home")
   public String home(Model model){
 
-    List<Post> allPosts = postService.allPost();
-
-   log.info("Post>>" + allPosts.toString());
+   log.info("Post>>" + categoryService.allCategories().toString());
    
-    model.addAttribute("allPosts", allPosts);
-    return "home";
+    model.addAttribute("categoryList", categoryService.allCategories());
+    model.addAttribute("allPosts", postService.allPost());
+    return "pages/home";
   }
 
-  @GetMapping("/login")
+  @GetMapping(value = "/login")
   public String login(Authentication authentication) {
     return authentication != null ? "redirect:/home" : "login";
   }

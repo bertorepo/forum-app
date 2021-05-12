@@ -18,7 +18,6 @@ import org.springframework.util.StringUtils;
 public class CustomerService {
 
   private final CustomerRepository customerRepository;
-  private final AuthorityService authorityService;
   private final ModelMapper modelMapper;
   private final BCryptPasswordEncoder passwordEncoder;
 
@@ -32,7 +31,6 @@ public class CustomerService {
     this.customerRepository = customerRepository;
     this.modelMapper = modelMapper;
     this.passwordEncoder = passwordEncoder;
-    this.authorityService = authorityService;
   }
 
   @Transactional

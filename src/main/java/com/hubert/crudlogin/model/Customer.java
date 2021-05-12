@@ -1,7 +1,6 @@
 package com.hubert.crudlogin.model;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
