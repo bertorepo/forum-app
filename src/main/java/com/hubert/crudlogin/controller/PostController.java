@@ -9,6 +9,7 @@ import com.hubert.crudlogin.objects.PostDto;
 import com.hubert.crudlogin.service.CategoryService;
 import com.hubert.crudlogin.service.PostService;
 
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class PostController implements ErrorController {
@@ -32,14 +34,16 @@ public class PostController implements ErrorController {
 
   private final PostService postService;
   private final CategoryService categoryService;
+  private ModelMapper modelMapper;
   private static final Logger log = LoggerFactory.getLogger(PostController.class);
 
   private static final String PATH = "/error";
   
   @Autowired
-  public PostController(PostService postService, CategoryService categoryService) {
+  public PostController(PostService postService, CategoryService categoryService, ModelMapper modelMapper) {
     this.postService = postService;
     this.categoryService = categoryService;
+    this.modelMapper = modelMapper;
   }
 
   @RequestMapping(value = PATH)
@@ -62,16 +66,16 @@ public class PostController implements ErrorController {
   }
 
   @GetMapping("/create-post")
-  public String showCreatePost(@ModelAttribute PostDto postDto, 
+  public String showCreatePost(@ModelAttribute("postDto") PostDto postDto, 
   Authentication authentication, Model model){
 
     model.addAttribute("postDto", postDto);
     model.addAttribute("categoryList", categoryService.allCategories());
-    return authentication == null ? "redirect:/home" : "pages/post/create-post";
+    return "pages/post/create-post";
   }
 
-  @PostMapping("/create-post")
-  public String savePost(@Valid @ModelAttribute PostDto postDto, BindingResult bindingResult, Model model){
+  @PostMapping("/save-post")
+  public String savePost(@Valid @ModelAttribute("postDto") PostDto postDto, BindingResult bindingResult, Model model){
 
     model.addAttribute("categoryList", categoryService.allCategories());
     if(bindingResult.hasErrors()){
@@ -84,6 +88,27 @@ public class PostController implements ErrorController {
     return "redirect:/home";
 
   }
+
+  //edit post
+  @RequestMapping("/edit-post/{id}")
+  public ModelAndView editPost(@PathVariable(name = "id") int id, Model model, @ModelAttribute("postDto") PostDto postDto){
+    ModelAndView mav = new ModelAndView("pages/post/create-post");
+    
+    Post post = postService.showPost(id);
+    modelMapper.map(post, postDto);
+
+    postDto.setId(post.getId());
+
+    model.addAttribute("categoryList", categoryService.allCategories());
+    model.addAttribute("postDto", postDto);
+    mav.addObject(postDto);
+
+    // log.info("postDTO >>" + postDto.toString());
+    
+  
+    return mav;
+  }
+
 
   //view individual post
   @RequestMapping("/post/{id}")
@@ -99,6 +124,7 @@ public class PostController implements ErrorController {
     return "pages/post/view-post";
   }
 
+
   @RequestMapping("/category/{category_name}")
   public String showByCategory(@PathVariable("category_name") String name, Model model){
 
@@ -113,9 +139,15 @@ public class PostController implements ErrorController {
 
     model.addAttribute("categoryList", categoryService.allCategories());
     model.addAttribute("categoryPosts", categoryPosts);
-
-    
-    
     return "pages/category/category";
+  }
+
+  //delete post
+
+  @RequestMapping("/delete-post/{id}")
+  public String deletePost(@PathVariable("id") int id, Authentication authentication){
+
+    postService.deletePost(id);
+    return authentication == null ? "redirect:/" : "redirect:/home";
   }
 }

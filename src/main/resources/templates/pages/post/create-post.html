@@ -24,7 +24,7 @@
               <div class="card-body">
                 <!-- Register form -->
                 <form
-                  th:action="@{/create-post}"
+                  th:action="@{/save-post}"
                   th:object="${postDto}"
                   method="POST"
                 >
@@ -51,6 +51,12 @@
                             ></i
                           ></span>
                         </div>
+                        <input
+                          type="hidden"
+                          class="form-control"
+                          name="id"
+                          th:field="*{id}"
+                        />
                         <input
                           type="text"
                           class="form-control"

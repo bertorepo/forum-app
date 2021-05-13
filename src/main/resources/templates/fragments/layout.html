@@ -11,8 +11,45 @@
     <nav th:replace="/fragments/navbar :: navbar" />
 
     <main class="px-0" style="min-height: 100vh">
-      <div layout:fragment="content" class="container">
-        <!-- content here -->
+      <div class="fluid-container">
+        <div class="row justify-content-between">
+          <div
+            sec:authorize="isAuthenticated"
+            class="col-lg-3 col-md-3 d-none d-xl-block"
+          >
+            <!-- Card -->
+            <div class="card testimonial-card">
+              <!-- Background color -->
+              <div class="card-up green accent-3 lighten-1"></div>
+
+              <!-- Avatar -->
+              <div class="avatar mx-auto white">
+                <img
+                  src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg"
+                  class="rounded-circle"
+                  alt="woman avatar"
+                />
+              </div>
+
+              <!-- Content -->
+              <div class="card-body">
+                <!-- Name -->
+                <h4 class="card-title">
+                  [[${customer.firstName} + ' ' + ${customer.lastName}]]
+                </h4>
+                <hr />
+                <!-- Quotation -->
+                <p>
+                  <i class="fas fa-quote-left"></i> Lorem ipsum dolor sit amet,
+                  consectetur adipisicing elit. Eos, adipisci
+                </p>
+              </div>
+            </div>
+            <!-- Card -->
+          </div>
+          <!-- content here -->
+          <div layout:fragment="content" class="col"></div>
+        </div>
       </div>
     </main>
 

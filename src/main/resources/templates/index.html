@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html
-  layout:decorate="~{fragments/layout}"
   lang="en"
   xmlns:th="http://www.thymeleaf.org"
   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 >
   <head th:replace="/fragments/header :: header" />
   <body class="fixed-sn white-skin">
-    <div layout:fragment="content">
-      <section class="dark-grey-text text-center">
+    <nav th:replace="/fragments/navbar :: navbar" />
+    <div class="container">
+      <section class="dark-grey-text text-center my-5">
         <h6 class="font-weight-normal text-uppercase font-small grey-text mb-4">
           | bert0
         </h6>
@@ -83,7 +83,5 @@
         <!--First row-->
       </section>
     </div>
-
-    <script th:replace="/fragments/script :: script" />
   </body>
 </html>

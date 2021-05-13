@@ -79,17 +79,26 @@ public class PostService {
     return postList;
   }
 
+  public void deletePost(long id){
+    Optional<Post> findPost = postRepository.findById(id);
+    if(!findPost.isPresent()){
+      throw new IllegalStateException("No Post found in this " + id);
+    }
+
+    postRepository.deleteById(id);
+  }
+
+
   public Post createPost(PostDto postDto){
     
     Customer customer = getPrincipal();
     Category category = postDto.getCategory();
-    Post post  = new Post();
-
-    postDto.setCustomer(customer);
-    postDto.setCategory(category);
-
-    modelMapper.map(postDto, post);
-
-    return save(post);
-  }
+    
+    
+      Post post  = new Post();
+      postDto.setCustomer(customer);
+      postDto.setCategory(category);
+      modelMapper.map(postDto, post);
+      return save(post);
+ }
 }

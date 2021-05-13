@@ -11,6 +11,8 @@ public class PostDto {
   private Customer customer;
   private Category category;
 
+  private long id;
+
   @NotBlank(message = "Please enter post title")
   private String title;
 
@@ -20,7 +22,8 @@ public class PostDto {
   public PostDto() {
   }
 
-  public PostDto(String title, String content) {
+  public PostDto(Long id, String title, String content) {
+    this.id = id;
     this.title = title;
     this.content = content;
   }
@@ -58,12 +61,22 @@ public class PostDto {
   public void setCategory(Category category) {
     this.category = category;
   }
+  
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
 
   @Override
   public String toString() {
-    return "PostDto [category=" + category + ", content=" + content + ", customer=" + customer + ", title=" + title
-        + "]";
+    return "PostDto [category=" + category + ", content=" + content + ", customer=" + customer + ", id=" + id
+        + ", title=" + title + "]";
   }
+
 
  
   
