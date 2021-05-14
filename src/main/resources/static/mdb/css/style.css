@@ -42,7 +42,16 @@
 }
 .note-editor.note-airframe .note-placeholder,
 .note-editor.note-frame .note-placeholder {
-  text-align: auto;
+  text-align: center;
 
-  padding: 2rem;
+  padding: 2.5rem;
+}
+.navbar {
+  box-shadow: 0 8px 17px 0 rgb(150 170 180 / 15%),
+    0 6px 20px 0 rgb(150 170 180 / 19%);
+  /* background-color: #f7fffb; */
+}
+
+.aqua-gradient {
+  background: linear-gradient(40deg, #00e676, #0cebeb) !important;
 }

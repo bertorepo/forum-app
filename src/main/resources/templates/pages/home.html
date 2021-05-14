@@ -131,6 +131,15 @@
       <hr class="hr" />
       <section class="my-3"></section>
       <div class="row">
+        <div
+          th:if="${#lists.isEmpty(allPosts)}"
+          class="text-center mx-auto text-black-50 h2-responsive"
+        >
+          <i
+            class="fas fa-exclamation-triangle my-lg-5 fa-5x text-black-50"
+          ></i>
+          <h4 class="h4-responsive">No available post!</h4>
+        </div>
         <!-- card -->
         <div th:each="post: ${allPosts}" class="col-lg-12 col-md-12">
           <div class="card card-wrapper">
@@ -138,30 +147,33 @@
 
             <div class="card-body">
               <div class="row">
-                <div class="col-md-6 col-sm-6">
+                <div class="col-md-8 col-sm-6">
                   <a th:href="@{/post/}  + ${post.id}">
                     <h5
-                      th:text="${post.title}"
+                      th:text="*{post.title}"
                       class="card-title black-text float-md-left"
                     ></h5
                   ></a>
                 </div>
 
-                <div class="col-md-6 col-sm-6 d-none d-sm-block text-center">
+                <div class="col-md-4 col-sm-6 d-none d-sm-block text-center">
                   <span
                     class="float-md-right"
                     sec:authorize="isAuthenticated()"
                   >
                     <a th:href="@{/edit-post/} + ${post.id}"
                       ><i
-                        th:if="${customer.username} == ${post.customer.username}"
-                        class="fas fa-pen mx-2 text-success fa-lg"
+                        th:if="${customer.username} == *{post.customer.username}"
+                        class="fas fa-edit mx-2 text-success fa-lg"
                       >
                       </i
                     ></a>
-                    <a data-toggle="modal" data-target="#delete-post">
+                    <a
+                      data-toggle="modal"
+                      th:attr="data-target='#delete-post'+ *{post.id}"
+                    >
                       <i
-                        th:if="${customer.username} == ${post.customer.username}"
+                        th:if="${customer.username} == *{post.customer.username}"
                         class="fas fa-trash mx-2 pink-text fa-lg"
                       ></i>
                     </a>
@@ -173,23 +185,22 @@
               <div class="card-text justify-content-md-center">
                 <span class="mx-2 text-black-50">
                   <i class="fas fa-star-of-david mr-2 fa-lg text-danger"></i>
-                  [[${post.category.name}]]
+                  [[*{post.category.name}]]
                   <i class="fas fa-calendar-alt mx-2 pink-text fa-lg"></i>
-                  [[${#dates.format(post.createdDate, 'MMM-dd-yyy')}]]
+                  [[*{#dates.format(post.createdDate, 'MMM-dd-yyy')}]]
                   <i class="fas fa-user-circle mx-2 fa-lg pink-text"></i>
-                  [[${post.customer.firstName} + ' ' +
-                  ${post.customer.lastName}]]
+                  [[*{post.customer.firstName} + ' ' +
+                  *{post.customer.lastName}]]
                 </span>
               </div>
             </div>
             <!-- Card content -->
           </div>
           <!-- end card -->
-
           <!-- Modal -->
           <div
             class="modal fade"
-            id="delete-post"
+            th:id="*{'delete-post' + {post.id}}"
             tabindex="-1"
             role="dialog"
             aria-labelledby="exampleModalCenterTitle"

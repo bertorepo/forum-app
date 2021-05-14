@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html
-  layout:decorate="~{fragments/layout}"
   lang="en"
   xmlns:th="http://www.thymeleaf.org"
   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 >
   <head th:replace="/fragments/header :: header" />
   <body class="fixed-sn white-skin">
-    <div layout:fragment="content">
-       <!--Section: Content-->
+    <nav th:replace="/fragments/navbar :: navbar" />
+    <div class="container">
   <section class="dark-grey-text">
 
     <div class="row pr-lg-5">

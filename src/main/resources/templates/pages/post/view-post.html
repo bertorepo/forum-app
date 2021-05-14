@@ -9,13 +9,24 @@
   <body class="fixed-sn white-skin">
     <div layout:fragment="content">
       <section class="text-justify">
-        <div class="p-lg-5 p-md-3 p-3 bg-white card">
-          <h1
-            th:text="${myPost.title}"
-            class="text-center py-3 black-text font-weight-bold h1-responsive"
-          ></h1>
-          <div th:utext="${myPost.content}"></div>
+        <!-- Card -->
+        <div class="card card-cascade narrower px-4 mb-5">
+          <!-- Card image -->
+          <div class="view view-cascade gradient-card-header aqua-gradient">
+            <!-- Title -->
+            <h2
+              th:text="${myPost.title}"
+              class="card-header-title h2-responsive black-text"
+            ></h2>
+          </div>
+
+          <!-- Card content -->
+          <div
+            th:utext="${myPost.content}"
+            class="card-body card-body-cascade"
+          ></div>
         </div>
+        <!-- Card -->
       </section>
     </div>
 

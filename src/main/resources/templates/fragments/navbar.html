@@ -7,7 +7,15 @@
   <!--Navbar -->
   <nav
     th:fragment="navbar"
-    class="mb-1 navbar navbar-expand-lg navbar-light green accent-3"
+    class="
+      mb-1
+      mt-4
+      navbar navbar-expand-lg
+      green
+      accent-3
+      mx-xl-5
+      navbar-light
+    "
   >
     <div class="container">
       <a class="navbar-brand" href="/">Forum Ninja</a>
@@ -44,8 +52,8 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <i class="fas fa-user mr-2"></i>[[${customer.firstName} + ' ' +
-              ${customer.lastName}]]
+              <i class="fas fa-user mr-2"></i>
+              [[${customer.firstName} + ' ' + ${customer.lastName}]]
             </a>
             <div
               class="dropdown-menu dropdown-menu-right dropdown-success"
