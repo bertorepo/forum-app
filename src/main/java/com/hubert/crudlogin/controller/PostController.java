@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.hubert.crudlogin.model.Customer;
 import com.hubert.crudlogin.model.Post;
 import com.hubert.crudlogin.objects.PostDto;
 import com.hubert.crudlogin.service.CategoryService;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -51,10 +53,28 @@ public class PostController implements ErrorController {
     return PATH;
   }
 
+  //return error page for any error occurence
   @Override
   public String getErrorPath() {
-  
     return PATH;
+  }
+
+  private Customer getPrincipal() {
+    Customer customer = null;
+
+    if (
+      SecurityContextHolder
+        .getContext()
+        .getAuthentication()
+        .getPrincipal() instanceof Customer
+    ) {
+      customer =
+        (Customer) SecurityContextHolder
+          .getContext()
+          .getAuthentication()
+          .getPrincipal();
+    }
+    return customer;
   }
 
 
@@ -87,6 +107,15 @@ public class PostController implements ErrorController {
     postService.createPost(postDto);
     return "redirect:/home";
 
+  }
+
+  //get customer login post
+  @GetMapping("/my-post")
+  public String getMyPost(Model  model, Authentication authentication){
+
+    model.addAttribute("categoryList", categoryService.allCategories());
+    model.addAttribute("myPostList", postService.findMyPost());
+    return "pages/post/my-post";
   }
 
   //edit post

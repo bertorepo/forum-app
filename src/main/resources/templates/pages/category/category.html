@@ -97,6 +97,7 @@
                   <th:block th:each="category: ${categoryList}">
                     <a
                       class="dropdown-item"
+                      th:classappend="${category.name} == ${activeCategory} ? 'active' : ''"
                       th:text="${category.name}"
                       th:href="@{/category/} + ${category.name}"
                     ></a>
@@ -104,7 +105,7 @@
                 </div>
               </li>
               <li class="nav-item d-md-none d-lg-block">
-                <a class="nav-link" href="#">
+                <a class="nav-link" th:href="@{/my-post}">
                   <i
                     class="fas fa-user-circle fa-lg mr-2"
                     aria-hidden="true"
@@ -158,26 +159,35 @@
                   ></a>
                 </div>
 
-                <div class="col-md-4 col-sm-6 d-none d-sm-block text-center">
+                <div
+                  th:if="${customer.username} == ${categoryPost.customer.username}"
+                  class="col-md-4 col-sm-6 d-none d-sm-block text-center"
+                >
                   <span
                     class="float-md-right"
                     sec:authorize="isAuthenticated()"
                   >
-                    <a th:href="@{/edit-post/} + ${categoryPost.id}"
-                      ><i
-                        th:if="${customer.username} == ${categoryPost.customer.username}"
-                        class="fas fa-edit mx-2 text-success fa-lg"
-                      >
-                      </i
+                    <a
+                      class="
+                        btn
+                        btn-outline-success
+                        btn-outline-no-padding
+                        btn-floating
+                      "
+                      th:href="@{/edit-post/} + ${categoryPost.id}"
+                      ><i class="fas fa-edit text-success"> </i
                     ></a>
                     <a
+                      class="
+                        btn
+                        btn-floating
+                        btn-outline-danger
+                        btn-outline-no-padding
+                      "
                       data-toggle="modal"
                       th:attr="data-target='#delete-post'+ *{categoryPost.id}"
                     >
-                      <i
-                        th:if="${customer.username} == ${categoryPost.customer.username}"
-                        class="fas fa-trash mx-2 pink-text fa-lg"
-                      ></i>
+                      <i class="fas fa-trash pink-text"></i>
                     </a>
                   </span>
                 </div>

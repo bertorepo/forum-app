@@ -28,8 +28,8 @@
 }
 .card-wrapper {
   border-left: 2px solid #00e676;
-  margin-top: 20px;
-  padding: 5px;
+  margin: 20px 10px 0px 10px;
+  /* padding: 5px; */
 }
 
 .fixed-sn main {
@@ -54,4 +54,26 @@
 
 .aqua-gradient {
   background: linear-gradient(40deg, #00e676, #0cebeb) !important;
+}
+
+.btn-floating {
+  width: 35px;
+  height: 35px;
+  margin: 0 0 0 5px;
+}
+
+.btn-floating i {
+  font-size: 1rem;
+  line-height: 35px;
+  box-shadow: 0 3px 10px -4px rgba(150, 170, 180, 0.5);
+  width: auto;
+}
+
+.btn-floating i:hover {
+  box-shadow: 0 5px 20px -5px rgba(150, 170, 180, 0.5);
+}
+
+.btn[class*='btn-outline-no-padding'] {
+  padding: 0;
+  margin: 0;
 }

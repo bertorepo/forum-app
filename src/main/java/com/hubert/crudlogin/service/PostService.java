@@ -14,6 +14,7 @@ import com.hubert.crudlogin.repository.PostRepository;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -58,7 +59,7 @@ public class PostService {
 
   @Transactional
   public List<Post> allPost(){
-    return postRepository.findAll();
+    return postRepository.findAllPostSortedByCreatedDate(Sort.by(Sort.Direction.DESC, "createdDate"));
   }
 
   @Transactional
@@ -74,11 +75,12 @@ public class PostService {
   public List<Post> findPostByCategory(String name){
 
     Category category = categoryService.findCategory(name);
-    List<Post> postList = postRepository.findByCategory(category);
+    List<Post> postList = postRepository.findByCategorySortedByDate(category.getId(), Sort.by(Sort.Direction.DESC, "createdDate"));
 
     return postList;
   }
 
+  @Transactional
   public void deletePost(long id){
     Optional<Post> findPost = postRepository.findById(id);
     if(!findPost.isPresent()){
@@ -86,6 +88,11 @@ public class PostService {
     }
 
     postRepository.deleteById(id);
+  }
+
+  @Transactional
+  public List<Post> findMyPost(){
+    return postRepository.findMyPost(getPrincipal().getId(), Sort.by(Sort.Direction.DESC, "createdDate"));
   }
 
 
