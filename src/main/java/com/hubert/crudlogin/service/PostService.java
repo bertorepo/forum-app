@@ -1,6 +1,5 @@
 package com.hubert.crudlogin.service;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -9,11 +8,15 @@ import com.hubert.crudlogin.model.Category;
 import com.hubert.crudlogin.model.Customer;
 import com.hubert.crudlogin.model.Post;
 import com.hubert.crudlogin.objects.PostDto;
-import com.hubert.crudlogin.repository.CategoryRepository;
+
 import com.hubert.crudlogin.repository.PostRepository;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -59,7 +62,7 @@ public class PostService {
 
   @Transactional
   public List<Post> allPost(){
-    return postRepository.findAllPostSortedByCreatedDate(Sort.by(Sort.Direction.DESC, "createdDate"));
+    return postRepository.findAll();
   }
 
   @Transactional
@@ -107,5 +110,15 @@ public class PostService {
       postDto.setCategory(category);
       modelMapper.map(postDto, post);
       return save(post);
+ }
+
+ //pagination
+
+ public Page<Post> paginateList(int pageNumber, int pageSize){
+
+   Sort sort = Sort.by(Sort.Direction.DESC, "createdDate");
+    Pageable pageable = PageRequest.of(pageNumber -1, pageSize, sort);
+
+    return postRepository.findAll(pageable);
  }
 }

@@ -1,6 +1,5 @@
 package com.hubert.crudlogin.repository;
 
-import java.util.List;
 
 import com.hubert.crudlogin.model.Category;
 
