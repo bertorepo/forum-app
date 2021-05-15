@@ -1,13 +1,17 @@
 package com.hubert.crudlogin.controller;
 
+import com.hubert.crudlogin.model.Customer;
 import com.hubert.crudlogin.objects.CustomerDTO;
 import com.hubert.crudlogin.service.CustomerService;
 import javax.validation.Valid;
+
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,13 +27,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class CustomerController {
 
   private final CustomerService customerService;
+  private final ModelMapper modelMapper;
   private static final Logger log = LoggerFactory.getLogger(
     CustomerController.class
   );
 
   @Autowired
-  public CustomerController(CustomerService customerService) {
+  public CustomerController(CustomerService customerService, ModelMapper modelMapper) {
     this.customerService = customerService;
+    this.modelMapper =  modelMapper;
   }
 
   @InitBinder
@@ -45,14 +51,15 @@ public class CustomerController {
     Model model
   ) {
     model.addAttribute("customerDTO", customerDTO);
-    return authentication != null ? "redirect:/authenticated" : "register";
+    return authentication != null ? "redirect:/home" : "register";
   }
 
   @PostMapping("/register")
   public String save(
     @Valid CustomerDTO customerDTO,
     BindingResult bindingResult,
-    RedirectAttributes redirectAttributes
+    RedirectAttributes redirectAttributes,
+    Authentication authentication
   ) {
     //check if email exist
     if (customerService.customerExists(customerDTO.getEmail())) {
@@ -109,9 +116,30 @@ public class CustomerController {
   //profile area
 
   @GetMapping("/profile")
-  public String showProfile(Model model){
+  public String showProfile(Model model, Authentication authentication, CustomerDTO customerDTO){
+
+    Customer customer = customerService.findOwnerDetails();
+    modelMapper.map(customer, customerDTO);
+    model.addAttribute("customerDTO", customerDTO);
 
     return "pages/profile";
   }
 
+  @PostMapping("/update-profile")
+  public String updateProfile(@Valid CustomerDTO customerDTO, BindingResult bindingResult, @AuthenticationPrincipal Customer loggedCustomer){
+
+
+    // if(bindingResult.hasErrors()){
+    //   return "pages/profile";
+    // }
+
+    customerService.updateCustomer(customerDTO);
+
+    loggedCustomer.setFirstName(customerDTO.getFirstName());
+    loggedCustomer.setLastName(customerDTO.getLastName());
+
+    return "redirect:/home";
+  }
+
+  
 }

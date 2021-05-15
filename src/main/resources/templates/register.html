@@ -32,6 +32,7 @@
                           ></i
                         ></span>
                       </div>
+                      <input type="hidden" name="id" th:field="*{id}" />
                       <input
                         type="text"
                         class="form-control p-4"
@@ -40,6 +41,7 @@
                         autocomplete="off"
                         name="firstName"
                         th:value="*{firstName}"
+                        th:field="*{firstName}"
                         th:errorclass="error"
                       />
                     </div>
@@ -62,7 +64,7 @@
                       <input
                         type="text"
                         class="form-control p-4"
-                        placeholder="last name"
+                        placeholder="lastName"
                         aria-label="Username"
                         aria-describedby="basic-addon1"
                         autocomplete="off"
@@ -155,7 +157,7 @@
                         aria-describedby="basic-addon1"
                         autocomplete="off"
                         name="password"
-                        th:value="*{password}"
+                        th:field="*{password}"
                         th:errorclass="error"
                       />
                     </div>

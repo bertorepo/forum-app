@@ -17,11 +17,13 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
+@DynamicUpdate
 @Table(name = "customer")
 public class Customer implements UserDetails {
 
@@ -163,6 +165,10 @@ public class Customer implements UserDetails {
 
   public void setAuthorities(List<Authority> authorities) {
     this.authorities = authorities;
+  }
+
+  public String getFullName(){
+    return this.firstName + " " + this.lastName;
   }
 
   @Override

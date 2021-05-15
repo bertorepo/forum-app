@@ -22,7 +22,12 @@
               <!--Card content -->
               <div class="card-body">
                 <!-- Register form -->
-                <form method="POST">
+
+                <form
+                  th:action="@{/update-profile}"
+                  th:object="${customerDTO}"
+                  method="POST"
+                >
                   <div class="form-header aqua-gradient p-3">
                     <p class="h5 text-center text-dark my-2 text-uppercase">
                       Account Area
@@ -99,7 +104,11 @@
                                 ></i
                               ></span>
                             </div>
-                            <input type="hidden" class="form-control" />
+                            <input
+                              th:field="*{id}"
+                              type="hidden"
+                              class="form-control"
+                            />
                             <input
                               type="text"
                               class="form-control"
@@ -107,8 +116,15 @@
                               aria-describedby="basic-addon1"
                               autocomplete="off"
                               name="firstName"
+                              th:value="*{firstName}"
+                              th:errorclass="error"
                             />
                           </div>
+                          <p
+                            th:if="${#fields.hasErrors('firstName')}"
+                            th:errors="*{firstName}"
+                            class="text-danger"
+                          ></p>
 
                           <!-- end input group -->
                         </div>
@@ -136,8 +152,15 @@
                               aria-describedby="basic-addon1"
                               autocomplete="off"
                               name="lastName"
+                              th:value="*{lastName}"
+                              th:errorclass="error"
                             />
                           </div>
+                          <p
+                            th:if="${#fields.hasErrors('lastName')}"
+                            th:errors="*{lastName}"
+                            class="text-danger"
+                          ></p>
 
                           <!-- end input group -->
                         </div>
@@ -165,14 +188,26 @@
                               aria-describedby="basic-addon1"
                               autocomplete="off"
                               name="username"
+                              th:value="*{username}"
+                              th:errorclass="error"
                             />
                           </div>
+                          <p
+                            th:if="${#fields.hasErrors('username')}"
+                            th:errors="*{username}"
+                            class="text-danger"
+                          ></p>
 
                           <!-- end input group -->
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">
                           <!-- input group -->
-                          <label for="basic-addon1">Email</label>
+                          <label for="basic-addon1"
+                            >Email
+                            <small class="ml-2 text-danger"
+                              >(*Cannot be updated)</small
+                            ></label
+                          >
                           <div class="input-group input-group-lg mb-4">
                             <div class="input-group-prepend">
                               <span class="input-group-text" id="basic-addon1"
@@ -194,66 +229,17 @@
                               aria-describedby="basic-addon1"
                               autocomplete="off"
                               name="email"
+                              th:value="*{email}"
+                              th:errorclass="error"
+                              disabled
                             />
                           </div>
+                          <p
+                            th:if="${#fields.hasErrors('email')}"
+                            th:errors="*{email}"
+                            class="text-danger"
+                          ></p>
 
-                          <!-- end input group -->
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                          <!-- input group -->
-                          <label for="basic-addon1">Password</label>
-                          <div class="input-group input-group-lg mb-4">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text" id="basic-addon1"
-                                ><i
-                                  class="
-                                    fas
-                                    fa-clipboard-list fa-lg
-                                    prefix
-                                    text-success
-                                  "
-                                ></i
-                              ></span>
-                            </div>
-                            <input type="hidden" class="form-control" />
-                            <input
-                              type="password"
-                              class="form-control"
-                              placeholder="Enter your Password"
-                              aria-describedby="basic-addon1"
-                              autocomplete="off"
-                              name="password"
-                            />
-                          </div>
-
-                          <!-- end input group -->
-                        </div>
-
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                          <!-- input group -->
-                          <label for="basic-addon1">Re Enter Password</label>
-                          <div class="input-group input-group-lg mb-3">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text" id="basic-addon1"
-                                ><i
-                                  class="
-                                    fas
-                                    fa-plus-circle fa-lg
-                                    prefix
-                                    text-success
-                                  "
-                                ></i
-                              ></span>
-                            </div>
-                            <input
-                              type="password"
-                              class="form-control"
-                              placeholder="Re Enter your Password"
-                              aria-describedby="basic-addon1"
-                              autocomplete="off"
-                              name="rPassword"
-                            />
-                          </div>
                           <!-- end input group -->
                         </div>
                       </div>

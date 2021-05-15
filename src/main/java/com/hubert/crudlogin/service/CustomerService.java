@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -30,6 +31,24 @@ public class CustomerService {
     this.passwordEncoder = passwordEncoder;
   }
 
+  private Customer getPrincipal() {
+    Customer customer = null;
+
+    if (
+      SecurityContextHolder
+        .getContext()
+        .getAuthentication()
+        .getPrincipal() instanceof Customer
+    ) {
+      customer =
+        (Customer) SecurityContextHolder
+          .getContext()
+          .getAuthentication()
+          .getPrincipal();
+    }
+    return customer;
+  }
+
   @Transactional
   public Optional<Customer> findCustomerByUsername(String username) {
     return customerRepository.findCustomerByUsername(username);
@@ -40,8 +59,20 @@ public class CustomerService {
     return customerRepository.findCustomerByEmail(email);
   }
 
+  @Transactional
   public boolean customerExists(String email) {
     return findCustomerByEmail(email).isPresent();
+  }
+
+  @Transactional
+  public Customer findOwnerDetails(){
+    Optional<Customer> customer = findCustomerByUsername(getPrincipal().getUsername());
+
+    if(!customer.isPresent()){
+      throw new IllegalStateException("Customer is not found");
+    }
+    
+    return customer.get();
   }
 
   @Transactional
@@ -71,5 +102,25 @@ public class CustomerService {
   // capitalize First Letter String
   private String capitalize(String name) {
     return StringUtils.capitalize(name.toLowerCase());
+  }
+
+  public Customer updateCustomer(CustomerDTO customerDTO){
+
+    Customer customer = findOwnerDetails();
+
+    if(customerDTO.getFirstName() !=null){
+      customer.setFirstName(customerDTO.getFirstName());
+    }
+
+    if(customerDTO.getLastName() !=null){
+      customer.setLastName(customerDTO.getLastName());
+    }
+    
+    if(customerDTO.getUsername() != null){
+      customer.setUsername(customerDTO.getUsername());
+    }
+
+    return save(customer);
+    
   }
 }

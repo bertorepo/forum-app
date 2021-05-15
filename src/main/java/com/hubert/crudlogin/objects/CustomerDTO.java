@@ -6,6 +6,8 @@ import org.hibernate.validator.constraints.Length;
 
 public class CustomerDTO {
 
+  private Long id;
+
   @NotBlank(message = "Enter username")
   private String username;
 
@@ -77,20 +79,19 @@ public class CustomerDTO {
     this.username = username;
   }
 
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
   @Override
   public String toString() {
-    return (
-      "CustomerDTO [email=" +
-      email +
-      ", firstName=" +
-      firstName +
-      ", lastName=" +
-      lastName +
-      ", password=" +
-      password +
-      ", rPassword=" +
-      rPassword +
-      "]"
-    );
+    return "CustomerDTO [email=" + email + ", firstName=" + firstName + ", id=" + id + ", lastName=" + lastName
+        + ", password=" + password + ", rPassword=" + rPassword + ", username=" + username + "]";
   }
+
+ 
 }

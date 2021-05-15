@@ -32,6 +32,8 @@ public class HomeController {
   @GetMapping("/")
   public String index(Authentication authentication) {
     return authentication != null ? "redirect:/home" : "index";
+
+    
   }
 
   @GetMapping(value = "/home")
