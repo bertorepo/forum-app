@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "post_category")
 public class Category {
-  
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -18,8 +18,7 @@ public class Category {
   @Column(name = "category_name", nullable = false, unique = true)
   private String name;
 
-  public Category() {
-  }
+  public Category() {}
 
   public Category(String name) {
     this.name = name;
@@ -45,6 +44,4 @@ public class Category {
   public String toString() {
     return "Category [id=" + id + ", name=" + name + "]";
   }
-  
-
 }

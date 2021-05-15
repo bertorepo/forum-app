@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Post extends AuditableBase {
-  
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -22,15 +22,14 @@ public class Post extends AuditableBase {
   private String content;
 
   @ManyToOne
-  @JoinColumn(name ="customer_id")
+  @JoinColumn(name = "customer_id")
   private Customer customer;
 
   @ManyToOne
-  @JoinColumn(name ="category_id")
+  @JoinColumn(name = "category_id")
   private Category category;
 
-  public Post() {
-  }
+  public Post() {}
 
   public Post(String title, String content) {
     this.title = title;
@@ -69,7 +68,6 @@ public class Post extends AuditableBase {
     this.customer = customer;
   }
 
-
   public Category getCategory() {
     return category;
   }
@@ -77,7 +75,4 @@ public class Post extends AuditableBase {
   public void setCategory(Category category) {
     this.category = category;
   }
-
-  
-
 }

@@ -7,128 +7,16 @@
 >
   <body class="fixed-sn white-skin">
     <div layout:fragment="content">
-      <!-- top -->
-      <section class="dark-grey-text text-center d-none d-xl-block">
-        <!--First row-->
-        <div class="row">
-          <!--Grid column-->
-          <div class="col-md-3 mb-4">
-            <!-- Card -->
-            <a href="#!" class="card">
-              <!-- Card content -->
-              <div class="card-body my-2">
-                <p><i class="fas fa-tablet-alt fa-2x text-danger"></i></p>
-                <h5 class="black-text mb-0">Movies</h5>
-              </div>
-            </a>
-            <!-- Card -->
-          </div>
-          <!--Grid column-->
+      <!-- stats -->
+      <section th:replace="fragments/stats :: stats"></section>
+      <!-- stats -->
 
-          <!--Grid column-->
-          <div class="col-md-3 mb-4">
-            <!-- Card -->
-            <a href="#!" class="card">
-              <!-- Card content -->
-              <div class="card-body my-2">
-                <p><i class="fas fa-cogs fa-2x text-danger"></i></p>
-                <h5 class="black-text mb-0">Tutorials</h5>
-              </div>
-            </a>
-            <!-- Card -->
-          </div>
-          <!--Grid column-->
+      <!-- tab_header -->
+      <section th:replace="fragments/stats :: tab_header('home')"></section>
+      <!-- tab_header -->
 
-          <!--Grid column-->
-          <div class="col-md-3 mb-4">
-            <!-- Card -->
-            <a href="#!" class="card">
-              <!-- Card content -->
-              <div class="card-body my-2">
-                <p><i class="fas fa-pencil-ruler fa-2x text-danger"></i></p>
-                <h5 class="black-text mb-0">Programming</h5>
-              </div>
-            </a>
-            <!-- Card -->
-          </div>
-          <!--Grid column-->
-
-          <!--Grid column-->
-          <div class="col-md-3 mb-4">
-            <!-- Card -->
-            <a href="#!" class="card">
-              <!-- Card content -->
-              <div class="card-body my-2">
-                <p><i class="fas fa-recycle fa-2x text-danger"></i></p>
-                <h5 class="black-text mb-0">Development</h5>
-              </div>
-            </a>
-            <!-- Card -->
-          </div>
-          <!--Grid column-->
-        </div>
-        <!--First row-->
-      </section>
-      <!-- end top -->
-
-      <section>
-        <!-- Filter Area -->
-        <div class="row align-items-center">
-          <div class="col-md-6">
-            <ul class="nav md-pills pills-danger nav-justified">
-              <li class="nav-item">
-                <a class="nav-link active" th:href="@{/home}">
-                  <i class="fab fa-hotjar fa-lg mr-2" aria-hidden="true"></i
-                  >Popular</a
-                >
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  data-toggle="dropdown"
-                  role="button"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <i class="fas fa-list fa-lg mr-2" aria-hidden="true"></i
-                  >Category</a
-                >
-                <div class="dropdown-menu dropdown-danger">
-                  <th:block th:each="category: ${categoryList}">
-                    <a
-                      class="dropdown-item"
-                      th:text="${category.name}"
-                      th:href="@{/category/} + ${category.name}"
-                    ></a>
-                  </th:block>
-                </div>
-              </li>
-              <li class="nav-item d-md-none d-lg-block">
-                <a class="nav-link" th:href="@{/my-post}">
-                  <i
-                    class="fas fa-user-circle fa-lg mr-2"
-                    aria-hidden="true"
-                  ></i
-                  >My Post</a
-                >
-              </li>
-            </ul>
-          </div>
-          <div class="col-8 col-md-6 d-none d-md-block d-lg-block text-right">
-            <a
-              sec:authorize="isAuthenticated()"
-              class="btn btn-danger btn-md text-capitalize"
-              th:href="@{/create-post}"
-            >
-              <i class="fas fa-plus-square fa-lg mr-2" aria-hidden="true"></i>
-              Create Post
-            </a>
-            <!-- View Switcher -->
-          </div>
-        </div>
-        <!-- Filter Area -->
-      </section>
       <hr class="hr" />
+
       <section class="my-3"></section>
       <div class="row">
         <div
@@ -184,7 +72,7 @@
                       data-toggle="modal"
                       th:attr="data-target='#delete-post'+ *{post.id}"
                     >
-                      <i class="fas fa-trash pink-text"></i>
+                      <i class="fas fa-trash text-danger"></i>
                     </a>
                   </span>
                 </div>
@@ -193,13 +81,24 @@
               <!-- Text -->
               <div class="card-text justify-content-md-center">
                 <span class="mx-2 text-black-50">
-                  <i class="fas fa-star-of-david mr-2 fa-lg text-danger"></i>
-                  [[*{post.category.name}]]
-                  <i class="fas fa-calendar-alt mx-2 pink-text fa-lg"></i>
-                  [[*{#dates.format(post.createdDate, 'MMM-dd-yyy')}]]
-                  <i class="fas fa-user-circle mx-2 fa-lg pink-text"></i>
-                  [[*{post.customer.firstName} + ' ' +
-                  *{post.customer.lastName}]]
+                  <a class="badge badge-danger p-1 mr-2">
+                    <i
+                      class="fas fa-star-of-david mr-2 text-black-50"
+                      aria-hidden="true"
+                    ></i
+                    >[[*{post.category.name}]]</a
+                  >
+
+                  <a href="#" class="badge badge-success p-1 mr-2"
+                    ><i class="fas fa-calendar-alt mx-1"></i>
+                    [[*{#dates.format(post.createdDate, 'MMM-dd-yyy')}]]</a
+                  >
+
+                  <a href="#" class="badge aqua-gradient p-1 mr-2">
+                    <i class="fas fa-user-circle mx-1"></i>
+                    [[*{post.customer.firstName} + ' ' +
+                    *{post.customer.lastName}]]</a
+                  >
                 </span>
               </div>
             </div>
@@ -270,7 +169,7 @@
       <!-- end column -->
 
       <!-- pagination here -->
-      <div th:replace="fragments/pagination::pagination(path='/page/')" />
+      <div th:replace="fragments/pagination_post::pagination(path='/page/')" />
       <!-- end pagination here -->
     </div>
     <!-- end row -->

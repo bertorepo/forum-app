@@ -9,7 +9,7 @@
 }
 .white-skin .form-header,
 .white-skin .card-header {
-  background-color: #00e676;
+  background: linear-gradient(40deg, #00e676, #0cebeb) !important;
   box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.5);
   margin-bottom: 2rem;
   padding: 0.5rem;
@@ -52,8 +52,19 @@
   /* background-color: #f7fffb; */
 }
 
+@media (min-width: 992px) {
+  .navbar {
+    padding-left: 7rem !important;
+    padding-right: 7rem !important;
+  }
+}
+
 .aqua-gradient {
   background: linear-gradient(40deg, #00e676, #0cebeb) !important;
+}
+
+.aqua-gradient-border {
+  border-color: 1px solid linear-gradient(40deg, #00e676, #0cebeb) !important;
 }
 
 .btn-floating {
@@ -76,4 +87,12 @@
 .btn[class*='btn-outline-no-padding'] {
   padding: 0;
   margin: 0;
+}
+
+.pagination.pg-red .page-item.active .page-link {
+  background: linear-gradient(40deg, #00e676, #0cebeb) !important;
+}
+
+.badge {
+  font-weight: 400;
 }

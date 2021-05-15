@@ -22,6 +22,4 @@ public class CrudLoginApplication {
   public BCryptPasswordEncoder bCryptPasswordEncoder() {
     return new BCryptPasswordEncoder();
   }
-
-
 }

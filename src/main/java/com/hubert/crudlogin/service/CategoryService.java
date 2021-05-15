@@ -1,12 +1,9 @@
 package com.hubert.crudlogin.service;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
 import com.hubert.crudlogin.model.Category;
 import com.hubert.crudlogin.repository.CategoryRepository;
-
+import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +18,12 @@ public class CategoryService {
   }
 
   @Transactional
-  public List<Category> allCategories(){
+  public List<Category> allCategories() {
     return categoryRepository.findAll();
   }
 
   @Transactional
-  public Category findCategory(String name){
+  public Category findCategory(String name) {
     return categoryRepository.findByName(name);
   }
-  
 }

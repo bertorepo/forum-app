@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <body>
+    <!-- top -->
+    <section th:fragment="stats" class="dark-grey-text d-none d-xl-block">
+      <!--First row-->
+      <div class="row">
+        <!--Grid column-->
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-12 mb-4">
+          <!-- Admin card -->
+          <div class="card mt-3">
+            <div class="">
+              <i
+                class="
+                  far
+                  fa-money-bill-alt fa-lg
+                  aqua-gradient
+                  z-depth-2
+                  p-4
+                  ml-3
+                  mt-n3
+                  rounded
+                  text-white
+                "
+              ></i>
+              <div class="float-right text-right p-3">
+                <p class="text-uppercase text-muted mb-1">
+                  <small>Members</small>
+                </p>
+                <h4 class="font-weight-bold mb-0">23 000</h4>
+              </div>
+            </div>
+
+            <div class="card-body pt-0">
+              <div class="progress md-progress">
+                <div
+                  class="progress-bar aqua-gradient"
+                  role="progressbar"
+                  style="width: 75%"
+                  aria-valuenow="75"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+              </div>
+              <p class="card-text">Members who support this forums</p>
+            </div>
+          </div>
+          <!-- Admin card -->
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6 mb-4">
+          <!-- Admin card -->
+          <div class="card mt-3">
+            <div class="">
+              <i
+                class="
+                  fas
+                  fa-chart-line fa-lg
+                  aqua-gradient
+                  z-depth-2
+                  p-4
+                  ml-3
+                  mt-n3
+                  rounded
+                  text-white
+                "
+              ></i>
+              <div class="float-right text-right p-3">
+                <p class="text-uppercase text-muted mb-1">
+                  <small>Posts</small>
+                </p>
+                <h4 class="font-weight-bold mb-0">3534</h4>
+              </div>
+            </div>
+
+            <div class="card-body pt-0">
+              <div class="progress md-progress">
+                <div
+                  class="progress-bar aqua-gradient"
+                  role="progressbar"
+                  style="width: 46%"
+                  aria-valuenow="46"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+              </div>
+              <p class="card-text">Posts created since from the start</p>
+            </div>
+          </div>
+          <!-- Admin card -->
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6 mb-4">
+          <!-- Admin card -->
+          <div class="card mt-3">
+            <div class="">
+              <i
+                class="
+                  fas
+                  fa-chart-pie fa-lg
+                  aqua-gradient
+                  z-depth-2
+                  p-4
+                  ml-3
+                  mt-n3
+                  rounded
+                  text-white
+                "
+              ></i>
+              <div class="float-right text-right p-3">
+                <p class="text-uppercase text-muted mb-1">
+                  <small>Contributors</small>
+                </p>
+                <h4 class="font-weight-bold mb-0">2000</h4>
+              </div>
+            </div>
+
+            <div class="card-body pt-0">
+              <div class="progress md-progress">
+                <div
+                  class="progress-bar aqua-gradient"
+                  role="progressbar"
+                  style="width: 31%"
+                  aria-valuenow="31"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+              </div>
+              <p class="card-text">Who continues monitoring the forum</p>
+            </div>
+          </div>
+          <!-- Admin card -->
+        </div>
+      </div>
+      <!--First row-->
+    </section>
+    <!-- end top -->
+
+    <section th:fragment="tab_header(activeNav)" class="mx-3">
+      <!-- Filter Area -->
+      <div class="row align-items-center aqua-gradient">
+        <div class="col-md-6">
+          <ul class="nav md-pills pills-danger nav-justified">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                th:classappend="${activeNav == 'home' ? 'active' : ''}"
+                th:href="@{/home}"
+              >
+                <i class="fab fa-hotjar fa-lg mr-2" aria-hidden="true"></i
+                >Popular</a
+              >
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="fas fa-list fa-lg mr-2" aria-hidden="true"></i
+                >Category</a
+              >
+              <div class="dropdown-menu dropdown-danger">
+                <th:block th:each="category: ${categoryList}">
+                  <a
+                    class="dropdown-item"
+                    th:text="${category.name}"
+                    th:href="@{/category/} + ${category.name}"
+                  ></a>
+                </th:block>
+              </div>
+            </li>
+            <li class="nav-item d-md-none d-lg-block">
+              <a
+                class="nav-link"
+                th:classappend="${activeNav == 'my-post' ? 'active' : ''}"
+                th:href="@{/my-post}"
+              >
+                <i class="fas fa-user-circle fa-lg mr-2" aria-hidden="true"></i
+                >My Post</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="col-8 col-md-6 d-none d-md-block d-lg-block text-right">
+          <a
+            sec:authorize="isAuthenticated()"
+            class="btn btn-danger btn-md text-capitalize"
+            th:href="@{/create-post}"
+          >
+            <i class="fas fa-plus-square fa-lg mr-2" aria-hidden="true"></i>
+            Create Post
+          </a>
+          <!-- View Switcher -->
+        </div>
+      </div>
+      <!-- Filter Area -->
+    </section>
+
+    <!-- category -->
+
+    <section th:fragment="tab_header_category" class="mx-3">
+      <!-- Filter Area -->
+      <div class="row align-items-center aqua-gradient">
+        <div class="col-md-6">
+          <ul class="nav md-pills pills-danger nav-justified">
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/home}">
+                <i class="fab fa-hotjar fa-lg mr-2" aria-hidden="true"></i
+                >Popular</a
+              >
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle active"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="fas fa-list fa-lg mr-2" aria-hidden="true"></i
+                >Category</a
+              >
+              <div class="dropdown-menu dropdown-danger">
+                <th:block th:each="category: ${categoryList}">
+                  <a
+                    class="dropdown-item"
+                    th:classappend="${category.name} == ${activeCategory} ? 'active' : ''"
+                    th:text="${category.name}"
+                    th:href="@{/category/} + ${category.name}"
+                  ></a>
+                </th:block>
+              </div>
+            </li>
+            <li class="nav-item d-md-none d-lg-block">
+              <a class="nav-link" th:href="@{/my-post}">
+                <i class="fas fa-user-circle fa-lg mr-2" aria-hidden="true"></i
+                >My Post</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="col-8 col-md-6 d-none d-md-block d-lg-block text-right">
+          <a
+            sec:authorize="isAuthenticated()"
+            class="btn btn-danger btn-md text-capitalize"
+            th:href="@{/create-post}"
+          >
+            <i class="fas fa-plus-square fa-lg mr-2" aria-hidden="true"></i>
+            Create Post
+          </a>
+          <!-- View Switcher -->
+        </div>
+      </div>
+      <!-- Filter Area -->
+    </section>
+  </body>
+</html>

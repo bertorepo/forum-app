@@ -21,7 +21,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-
 @Entity
 @Table(name = "customer")
 public class Customer implements UserDetails {
@@ -46,15 +45,6 @@ public class Customer implements UserDetails {
   private Timestamp createdAt;
 
   private boolean enabled;
-
-  
-  //Posts
-
-  // @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-  // private List<Post> posts  = new ArrayList<>();
-
-
-  //authority
 
   @OneToMany(
     fetch = FetchType.EAGER,
@@ -106,13 +96,11 @@ public class Customer implements UserDetails {
 
   @Override
   public boolean isAccountNonLocked() {
-
     return true;
   }
 
   @Override
   public boolean isCredentialsNonExpired() {
-
     return true;
   }
 
@@ -134,7 +122,6 @@ public class Customer implements UserDetails {
   }
 
   public String getFirstName() {
-
     return firstName;
   }
 
@@ -177,14 +164,29 @@ public class Customer implements UserDetails {
   public void setAuthorities(List<Authority> authorities) {
     this.authorities = authorities;
   }
-  
 
   @Override
   public String toString() {
-    return "Customer [authorities=" + authorities + ", createdAt=" + createdAt + ", email=" + email + ", enabled="
-        + enabled + ", firstName=" + firstName + ", id=" + id + ", lastName=" + lastName + ", password=" + password
-        + ", username=" + username + "]";
+    return (
+      "Customer [authorities=" +
+      authorities +
+      ", createdAt=" +
+      createdAt +
+      ", email=" +
+      email +
+      ", enabled=" +
+      enabled +
+      ", firstName=" +
+      firstName +
+      ", id=" +
+      id +
+      ", lastName=" +
+      lastName +
+      ", password=" +
+      password +
+      ", username=" +
+      username +
+      "]"
+    );
   }
-
-  
 }

@@ -1,19 +1,15 @@
 package com.hubert.crudlogin.service;
-import java.util.List;
-import java.util.Optional;
-
-import javax.transaction.Transactional;
 
 import com.hubert.crudlogin.model.Category;
 import com.hubert.crudlogin.model.Customer;
 import com.hubert.crudlogin.model.Post;
 import com.hubert.crudlogin.objects.PostDto;
-
 import com.hubert.crudlogin.repository.PostRepository;
-
+import java.util.List;
+import java.util.Optional;
+import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,15 +19,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PostService {
-  
+
   private PostRepository postRepository;
   private CategoryService categoryService;
   private ModelMapper modelMapper;
 
-
-  
   @Autowired
-  public PostService(PostRepository postRepository,CategoryService categoryService, ModelMapper modelMapper) {
+  public PostService(
+    PostRepository postRepository,
+    CategoryService categoryService,
+    ModelMapper modelMapper
+  ) {
     this.postRepository = postRepository;
     this.modelMapper = modelMapper;
     this.categoryService = categoryService;
@@ -56,37 +54,39 @@ public class PostService {
   }
 
   @Transactional
-  public Post save(Post post){
+  public Post save(Post post) {
     return postRepository.save(post);
   }
 
   @Transactional
-  public List<Post> allPost(){
+  public List<Post> allPost() {
     return postRepository.findAll();
   }
 
   @Transactional
-  public Post showPost(long id){
+  public Post showPost(long id) {
     Optional<Post> findPost = postRepository.findById(id);
-    if(!findPost.isPresent()){
+    if (!findPost.isPresent()) {
       throw new IllegalStateException("No Post found in this " + id);
     }
     return findPost.orElseThrow();
   }
 
   @Transactional
-  public List<Post> findPostByCategory(String name){
-
+  public List<Post> findPostByCategory(String name) {
     Category category = categoryService.findCategory(name);
-    List<Post> postList = postRepository.findByCategorySortedByDate(category.getId(), Sort.by(Sort.Direction.DESC, "createdDate"));
+    List<Post> postList = postRepository.findByCategorySortedByDate(
+      category.getId(),
+      Sort.by(Sort.Direction.DESC, "createdDate")
+    );
 
     return postList;
   }
 
   @Transactional
-  public void deletePost(long id){
+  public void deletePost(long id) {
     Optional<Post> findPost = postRepository.findById(id);
-    if(!findPost.isPresent()){
+    if (!findPost.isPresent()) {
       throw new IllegalStateException("No Post found in this " + id);
     }
 
@@ -94,31 +94,31 @@ public class PostService {
   }
 
   @Transactional
-  public List<Post> findMyPost(){
-    return postRepository.findMyPost(getPrincipal().getId(), Sort.by(Sort.Direction.DESC, "createdDate"));
+  public List<Post> findMyPost() {
+    return postRepository.findMyPost(
+      getPrincipal().getId(),
+      Sort.by(Sort.Direction.DESC, "createdDate")
+    );
   }
 
-
-  public Post createPost(PostDto postDto){
-    
+  public Post createPost(PostDto postDto) {
     Customer customer = getPrincipal();
     Category category = postDto.getCategory();
-    
-    
-      Post post  = new Post();
-      postDto.setCustomer(customer);
-      postDto.setCategory(category);
-      modelMapper.map(postDto, post);
-      return save(post);
- }
 
- //pagination
+    Post post = new Post();
+    postDto.setCustomer(customer);
+    postDto.setCategory(category);
+    modelMapper.map(postDto, post);
+    return save(post);
+  }
 
- public Page<Post> paginateList(int pageNumber, int pageSize){
+  //pagination for all post
 
-   Sort sort = Sort.by(Sort.Direction.DESC, "createdDate");
-    Pageable pageable = PageRequest.of(pageNumber -1, pageSize, sort);
+  @Transactional
+  public Page<Post> paginateList(int pageNumber, int pageSize) {
+    Sort sort = Sort.by(Sort.Direction.DESC, "createdDate");
+    Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
 
     return postRepository.findAll(pageable);
- }
+  }
 }

@@ -1,11 +1,8 @@
 package com.hubert.crudlogin.service;
 
-
 import com.hubert.crudlogin.model.Customer;
 import com.hubert.crudlogin.objects.CustomerDTO;
 import com.hubert.crudlogin.repository.CustomerRepository;
-
-
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -71,9 +68,8 @@ public class CustomerService {
     return save(customer);
   }
 
-    // capitalize First Letter String 
-  private String capitalize(String name){
+  // capitalize First Letter String
+  private String capitalize(String name) {
     return StringUtils.capitalize(name.toLowerCase());
   }
-
 }

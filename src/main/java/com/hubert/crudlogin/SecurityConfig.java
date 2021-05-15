@@ -1,9 +1,8 @@
 package com.hubert.crudlogin;
-import java.util.Optional;
 
 import com.hubert.crudlogin.model.Customer;
 import com.hubert.crudlogin.service.CustomerService;
-
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +22,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private final CustomerService customerService;
   private final BCryptPasswordEncoder passwordEncoder;
 
-
   @Autowired
   public SecurityConfig(
     BCryptPasswordEncoder passwordEncoder,
@@ -41,11 +39,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         username
       );
       if (customer.isEmpty()) {
-       throw new UsernameNotFoundException("Username not fount " + username);
-    }
-    return customer.get();
+        throw new UsernameNotFoundException("Username not fount " + username);
+      }
+      return customer.get();
     };
-   
   }
 
   @Override
@@ -59,7 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http
       .authorizeRequests()
-      .antMatchers("/admin").hasAuthority("ADMIN")
+      .antMatchers("/admin")
+      .hasAuthority("ADMIN")
       .antMatchers(
         "/",
         "/css/**",

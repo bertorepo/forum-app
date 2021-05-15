@@ -4,7 +4,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 
-
 public class CustomerDTO {
 
   @NotBlank(message = "Enter username")
@@ -34,7 +33,6 @@ public class CustomerDTO {
   }
 
   public void setFirstName(String firstName) {
-   
     this.firstName = firstName;
   }
 
@@ -96,4 +94,3 @@ public class CustomerDTO {
     );
   }
 }
-

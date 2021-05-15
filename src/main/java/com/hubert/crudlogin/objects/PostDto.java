@@ -1,13 +1,12 @@
 package com.hubert.crudlogin.objects;
 
+import com.hubert.crudlogin.model.Category;
+import com.hubert.crudlogin.model.Customer;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
-import com.hubert.crudlogin.model.Category;
-import com.hubert.crudlogin.model.Customer;
-
 public class PostDto {
-  
+
   private Customer customer;
   private Category category;
 
@@ -19,8 +18,7 @@ public class PostDto {
   @NotEmpty(message = "Please enter content post")
   private String content;
 
-  public PostDto() {
-  }
+  public PostDto() {}
 
   public PostDto(Long id, String title, String content) {
     this.id = id;
@@ -52,8 +50,6 @@ public class PostDto {
     this.customer = customer;
   }
 
-  
-
   public Category getCategory() {
     return category;
   }
@@ -61,7 +57,6 @@ public class PostDto {
   public void setCategory(Category category) {
     this.category = category;
   }
-  
 
   public long getId() {
     return id;
@@ -73,12 +68,18 @@ public class PostDto {
 
   @Override
   public String toString() {
-    return "PostDto [category=" + category + ", content=" + content + ", customer=" + customer + ", id=" + id
-        + ", title=" + title + "]";
+    return (
+      "PostDto [category=" +
+      category +
+      ", content=" +
+      content +
+      ", customer=" +
+      customer +
+      ", id=" +
+      id +
+      ", title=" +
+      title +
+      "]"
+    );
   }
-
-
- 
-  
-  
 }

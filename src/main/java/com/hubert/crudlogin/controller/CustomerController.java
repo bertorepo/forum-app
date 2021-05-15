@@ -1,4 +1,5 @@
 package com.hubert.crudlogin.controller;
+
 import com.hubert.crudlogin.objects.CustomerDTO;
 import com.hubert.crudlogin.service.CustomerService;
 import javax.validation.Valid;
@@ -104,4 +105,13 @@ public class CustomerController {
     customerService.register(customerDTO);
     return "redirect:/login";
   }
+
+  //profile area
+
+  @GetMapping("/profile")
+  public String showProfile(Model model){
+
+    return "pages/profile";
+  }
+
 }

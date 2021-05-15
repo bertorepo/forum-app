@@ -1,9 +1,7 @@
 package com.hubert.crudlogin.util;
 
-import java.util.Optional;
-
 import com.hubert.crudlogin.model.Customer;
-
+import java.util.Optional;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -14,7 +12,6 @@ public class AuditorAwareImpl implements AuditorAware<String> {
     return Optional.of(getPrincipal().getUsername());
   }
 
-  
   private Customer getPrincipal() {
     Customer customer = null;
 
@@ -32,5 +29,4 @@ public class AuditorAwareImpl implements AuditorAware<String> {
     }
     return customer;
   }
-  
 }
