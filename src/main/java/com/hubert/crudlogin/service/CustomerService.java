@@ -66,7 +66,7 @@ public class CustomerService {
 
   @Transactional
   public Customer findOwnerDetails(){
-    Optional<Customer> customer = findCustomerByUsername(getPrincipal().getUsername());
+    Optional<Customer> customer = findCustomerByEmail(getPrincipal().getEmail());
 
     if(!customer.isPresent()){
       throw new IllegalStateException("Customer is not found");
@@ -108,6 +108,14 @@ public class CustomerService {
 
     Customer customer = findOwnerDetails();
 
+    if(customerDTO.getProfileImage() !=null){
+      customer.setProfileImage(customerDTO.getProfileImage());
+    }
+
+    if(customerDTO.getDescription() !=null){
+      customer.setDescription(customerDTO.getDescription());
+    }
+
     if(customerDTO.getFirstName() !=null){
       customer.setFirstName(customerDTO.getFirstName());
     }
@@ -115,7 +123,7 @@ public class CustomerService {
     if(customerDTO.getLastName() !=null){
       customer.setLastName(customerDTO.getLastName());
     }
-    
+
     if(customerDTO.getUsername() != null){
       customer.setUsername(customerDTO.getUsername());
     }

@@ -96,3 +96,8 @@
 .badge {
   font-weight: 400;
 }
+
+.testimonial-card .avatar {
+  width: 150px !important;
+  height: 150px !important;
+}

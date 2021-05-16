@@ -3,6 +3,14 @@ package com.hubert.crudlogin.controller;
 import com.hubert.crudlogin.model.Customer;
 import com.hubert.crudlogin.objects.CustomerDTO;
 import com.hubert.crudlogin.service.CustomerService;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
@@ -14,6 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
@@ -21,6 +30,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -126,17 +137,82 @@ public class CustomerController {
   }
 
   @PostMapping("/update-profile")
-  public String updateProfile(@Valid CustomerDTO customerDTO, BindingResult bindingResult, @AuthenticationPrincipal Customer loggedCustomer){
+  public String updateProfile(@Valid CustomerDTO customerDTO, BindingResult bindingResult,
+   @AuthenticationPrincipal Customer loggedCustomer,
+    @RequestParam("profileImage") MultipartFile multipartFile, Model model
+    ) throws IOException {
 
 
     // if(bindingResult.hasErrors()){
     //   return "pages/profile";
     // }
 
-    customerService.updateCustomer(customerDTO);
 
+
+    String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+
+    if(fileName.isEmpty()){
+      customerService.updateCustomer(customerDTO);
+    }else {
+
+      if(multipartFile.getContentType().equalsIgnoreCase("image/jpg") || 
+      multipartFile.getContentType().equalsIgnoreCase("image/jpeg") || multipartFile.getContentType().equalsIgnoreCase("image/png")){
+
+        double fileSize = multipartFile.getSize();
+
+        double kl = (fileSize/1024);
+        double mb = (kl/1024);
+        if(mb < 5){
+        
+      
+         
+  
+        Customer existingCustomer = customerService.findOwnerDetails();
+         
+         String uploadDir = "./uploads/" + existingCustomer.getEmail();
+         Path uploadPath = Paths.get(uploadDir);
+
+         String oldFileLocation = uploadDir + "/" + existingCustomer.getProfileImage();
+         Path getImage = Paths.get(oldFileLocation);
+         
+         if(Files.exists(getImage)){
+           Files.delete(getImage);
+           System.out.println("Files deleted");  
+         }
+
+           
+         if(!Files.exists(uploadPath)){
+          Files.createDirectories(uploadPath); 
+        }
+           try(InputStream inputStream = multipartFile.getInputStream()) { 
+            String newFileName = System.currentTimeMillis() + "_" + fileName;
+            customerDTO.setProfileImage(newFileName);
+            
+            customerService.updateCustomer(customerDTO);
+            
+            loggedCustomer.setProfileImage(customerDTO.getProfileImage());
+
+             Path filePath = uploadPath.resolve(newFileName).normalize();
+             Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+           } catch (IOException e) {
+             throw new IOException("Error in uploading File!");
+           }
+         }else {
+           model.addAttribute("errorProfile", "file is too large");
+           return "pages/profile";
+         }
+
+      }else {
+        model.addAttribute("errorProfile", "Please enter a valid image file");
+         return "pages/profile";
+      }
+     }
+    
     loggedCustomer.setFirstName(customerDTO.getFirstName());
     loggedCustomer.setLastName(customerDTO.getLastName());
+    loggedCustomer.setDescription(customerDTO.getDescription());
+   
+    
 
     return "redirect:/home";
   }

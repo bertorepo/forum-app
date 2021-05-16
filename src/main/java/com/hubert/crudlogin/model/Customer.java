@@ -16,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
@@ -47,6 +49,12 @@ public class Customer implements UserDetails {
   private Timestamp createdAt;
 
   private boolean enabled;
+
+  @Column(name = "profile_img", nullable = true)
+  private String profileImage;
+
+  @Column(name = "customer_description", nullable = true)
+  private String description;
 
   @OneToMany(
     fetch = FetchType.EAGER,
@@ -171,28 +179,34 @@ public class Customer implements UserDetails {
     return this.firstName + " " + this.lastName;
   }
 
+  public String getProfileImage() {
+    return profileImage;
+  }
+
+  public void setProfileImage(String profileImage) {
+    this.profileImage = profileImage;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  @Transient
+  public String getProfileImagePath(){
+    if(profileImage == null || id == null) return null;
+    return "/uploads/" + getEmail() + "/" + getProfileImage();
+  }
+
   @Override
   public String toString() {
-    return (
-      "Customer [authorities=" +
-      authorities +
-      ", createdAt=" +
-      createdAt +
-      ", email=" +
-      email +
-      ", enabled=" +
-      enabled +
-      ", firstName=" +
-      firstName +
-      ", id=" +
-      id +
-      ", lastName=" +
-      lastName +
-      ", password=" +
-      password +
-      ", username=" +
-      username +
-      "]"
-    );
+    return "Customer [authorities=" + authorities + ", createdAt=" + createdAt + ", description=" + description
+        + ", email=" + email + ", enabled=" + enabled + ", firstName=" + firstName + ", id=" + id + ", lastName="
+        + lastName + ", password=" + password + ", profileImage=" + profileImage + ", username=" + username + "]";
   }
+
+  
 }

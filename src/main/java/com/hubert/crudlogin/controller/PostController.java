@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -93,11 +95,30 @@ public class PostController implements ErrorController {
     return "redirect:/home";
   }
 
+   //get customer login post
+   @RequestMapping("/my-post")
+   public String getMyPost(Model model) {
+ 
+     return getMyPost(1, model);
+   }
+ 
+
   //get customer login post
-  @GetMapping("/my-post")
-  public String getMyPost(Model model, Authentication authentication) {
+  @GetMapping("/my-post/{pageNumber}")
+  public String getMyPost(@PathVariable(value = "pageNumber") int pageNumber, Model model) {
+
+    int pageSize = 5;
+
+    Page<Post> page = postService.findMyPost(pageNumber, pageSize);
+
+      //passing pagination attribute
+    model.addAttribute("pageNumber", pageNumber);
+    model.addAttribute("totalPages", page.getTotalPages());
+    model.addAttribute("totalItems", page.getTotalElements());
+
     model.addAttribute("categoryList", categoryService.allCategories());
-    model.addAttribute("myPostList", postService.findMyPost());
+    model.addAttribute("myPostList", page.getContent());
+
     return "pages/post/my-post";
   }
 
@@ -141,7 +162,12 @@ public class PostController implements ErrorController {
     @PathVariable("category_name") String name,
     Model model
   ) {
-    List<Post> categoryPosts = postService.findPostByCategory(name);
+
+    int pageSize = 9;
+
+    Page<Post> page = postService.findPostByCategory(name, 1, pageSize);
+
+    List<Post> categoryPosts = page.getContent();
 
     //make button active
     for (Post getPost : categoryPosts) {
@@ -150,8 +176,13 @@ public class PostController implements ErrorController {
       }
     }
 
+    //passing pagination attribute
+    model.addAttribute("totalPages", page.getTotalPages());
+    model.addAttribute("totalItems", page.getTotalElements());
+
     model.addAttribute("categoryList", categoryService.allCategories());
     model.addAttribute("categoryPosts", categoryPosts);
+
     return "pages/category/category";
   }
 

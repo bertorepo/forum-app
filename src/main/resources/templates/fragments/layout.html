@@ -25,9 +25,10 @@
               <!-- Avatar -->
               <div class="avatar mx-auto white">
                 <img
-                  src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg"
-                  class="rounded-circle"
-                  alt="woman avatar"
+                  th:src="@{${customer.ProfileImagePath}}"
+                  class="mx-auto rounded-circle"
+                  width="150px"
+                  height="150px"
                 />
               </div>
 
@@ -40,8 +41,7 @@
                 <hr />
                 <!-- Quotation -->
                 <p>
-                  <i class="fas fa-quote-left"></i> Lorem ipsum dolor sit amet,
-                  consectetur adipisicing elit. Eos, adipisci
+                  <i class="fas fa-quote-left"></i> [[${customer.description}]]
                 </p>
               </div>
             </div>

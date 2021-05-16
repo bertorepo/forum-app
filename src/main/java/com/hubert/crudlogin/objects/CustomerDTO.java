@@ -3,6 +3,7 @@ package com.hubert.crudlogin.objects;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.lang.Nullable;
 
 public class CustomerDTO {
 
@@ -27,6 +28,12 @@ public class CustomerDTO {
 
   @NotBlank(message = "Re Enter password")
   private String rPassword;
+
+  @Nullable
+  private String profileImage;
+  
+  @Nullable
+  private String description;
 
   public CustomerDTO() {}
 
@@ -87,11 +94,29 @@ public class CustomerDTO {
     this.id = id;
   }
 
-  @Override
-  public String toString() {
-    return "CustomerDTO [email=" + email + ", firstName=" + firstName + ", id=" + id + ", lastName=" + lastName
-        + ", password=" + password + ", rPassword=" + rPassword + ", username=" + username + "]";
+  public String getProfileImage() {
+    return profileImage;
   }
 
+  public void setProfileImage(String profileImage) {
+    this.profileImage = profileImage;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  @Override
+  public String toString() {
+    return "CustomerDTO [description=" + description + ", email=" + email + ", firstName=" + firstName + ", id=" + id
+        + ", lastName=" + lastName + ", password=" + password + ", profileImage=" + profileImage + ", rPassword="
+        + rPassword + ", username=" + username + "]";
+  }
+
+ 
  
 }

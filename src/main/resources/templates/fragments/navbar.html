@@ -43,7 +43,16 @@
             aria-haspopup="true"
             aria-expanded="false"
           >
-            <i class="fas fa-user mr-2"></i>
+            <span class="avatar">
+              <img
+                th:src="@{${customer.ProfileImagePath}}"
+                class="rounded-circle z-depth-0 mr-2"
+                width="35px"
+                height="35px"
+                alt="avatar image"
+              />
+            </span>
+
             [[${customer.fullName}]]
           </a>
           <div

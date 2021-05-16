@@ -73,14 +73,12 @@ public class PostService {
   }
 
   @Transactional
-  public List<Post> findPostByCategory(String name) {
-    Category category = categoryService.findCategory(name);
-    List<Post> postList = postRepository.findByCategorySortedByDate(
-      category.getId(),
-      Sort.by(Sort.Direction.DESC, "createdDate")
-    );
+  public Page<Post> findPostByCategory(String name, int pageNumber, int pageSize) {
 
-    return postList;
+    Category category = categoryService.findCategory(name);
+    Pageable page = PageRequest.of(pageNumber -1, pageSize, Sort.by(Sort.Direction.DESC, "createdDate"));
+    return postRepository.findByCategorySortedByDate(category.getId(), page);
+   
   }
 
   @Transactional
@@ -94,11 +92,10 @@ public class PostService {
   }
 
   @Transactional
-  public List<Post> findMyPost() {
+  public Page<Post> findMyPost(int pageNumber, int pageSize) {
+    Pageable page = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.DESC, "createdDate"));
     return postRepository.findMyPost(
-      getPrincipal().getId(),
-      Sort.by(Sort.Direction.DESC, "createdDate")
-    );
+      getPrincipal().getId(), page);
   }
 
   public Post createPost(PostDto postDto) {
