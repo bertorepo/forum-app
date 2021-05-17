@@ -17,8 +17,8 @@
             <div class="">
               <i
                 class="
-                  far
-                  fa-money-bill-alt fa-lg
+                  fas
+                  fa-users fa-lg
                   aqua-gradient
                   z-depth-2
                   p-4
@@ -32,7 +32,10 @@
                 <p class="text-uppercase text-muted mb-1">
                   <small>Members</small>
                 </p>
-                <h4 class="font-weight-bold mb-0">23 000</h4>
+                <h4
+                  th:text="${totalCustomerCount}"
+                  class="font-weight-bold mb-0"
+                ></h4>
               </div>
             </div>
 
@@ -41,8 +44,8 @@
                 <div
                   class="progress-bar aqua-gradient"
                   role="progressbar"
-                  style="width: 75%"
-                  aria-valuenow="75"
+                  th:style="'width:' + ${totalCustomerCount} + '%;'"
+                  th:attr="aria-valuenow=${totalCustomerCount}"
                   aria-valuemin="0"
                   aria-valuemax="100"
                 ></div>
@@ -62,7 +65,7 @@
               <i
                 class="
                   fas
-                  fa-chart-line fa-lg
+                  fa-fire fa-lg
                   aqua-gradient
                   z-depth-2
                   p-4
@@ -76,7 +79,10 @@
                 <p class="text-uppercase text-muted mb-1">
                   <small>Posts</small>
                 </p>
-                <h4 class="font-weight-bold mb-0">3534</h4>
+                <h4
+                  th:text="${totalPostCount}"
+                  class="font-weight-bold mb-0"
+                ></h4>
               </div>
             </div>
 
@@ -85,8 +91,8 @@
                 <div
                   class="progress-bar aqua-gradient"
                   role="progressbar"
-                  style="width: 46%"
-                  aria-valuenow="46"
+                  th:style="'width:' + ${totalPostCount} + '%;'"
+                  th:attr="aria-valuenow=${totalPostCount}"
                   aria-valuemin="0"
                   aria-valuemax="100"
                 ></div>

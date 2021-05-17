@@ -197,7 +197,7 @@ public class Customer implements UserDetails {
 
   @Transient
   public String getProfileImagePath(){
-    if(profileImage == null || id == null) return null;
+    if(email.isEmpty()){ return null;}
     return "/uploads/" + getEmail() + "/" + getProfileImage();
   }
 

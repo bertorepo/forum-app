@@ -2,7 +2,10 @@ package com.hubert.crudlogin.controller;
 
 import com.hubert.crudlogin.model.Post;
 import com.hubert.crudlogin.service.CategoryService;
+import com.hubert.crudlogin.service.CustomerService;
 import com.hubert.crudlogin.service.PostService;
+
+import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,14 +22,17 @@ public class HomeController {
 
   private final PostService postService;
   private final CategoryService categoryService;
+  private final CustomerService customerService;
 
   @Autowired
   public HomeController(
     PostService postService,
-    CategoryService categoryService
+    CategoryService categoryService,
+    CustomerService customerService
   ) {
     this.postService = postService;
     this.categoryService = categoryService;
+    this.customerService = customerService;
   }
 
   @GetMapping("/")
@@ -59,10 +65,18 @@ public class HomeController {
     Page<Post> page = postService.paginateList(pageNumber, pageSize);
     List<Post> allPosts = page.getContent();
 
+    String nav = "home";
+    //link activer
+    model.addAttribute("navActive", nav);
+    
     //passing pagination attribute
     model.addAttribute("pageNumber", pageNumber);
     model.addAttribute("totalPages", page.getTotalPages());
     model.addAttribute("totalItems", page.getTotalElements());
+    model.addAttribute("totalPostCount", postService.totalPostCount());
+    model.addAttribute("totalCustomerCount", customerService.countAllCustomer());
+
+  
 
     //passing paginated post
     model.addAttribute("categoryList", categoryService.allCategories());

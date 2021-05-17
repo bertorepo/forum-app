@@ -3,6 +3,7 @@ package com.hubert.crudlogin.controller;
 import com.hubert.crudlogin.model.Post;
 import com.hubert.crudlogin.objects.PostDto;
 import com.hubert.crudlogin.service.CategoryService;
+import com.hubert.crudlogin.service.CustomerService;
 import com.hubert.crudlogin.service.PostService;
 import java.util.List;
 import javax.validation.Valid;
@@ -33,6 +34,7 @@ public class PostController implements ErrorController {
   private final PostService postService;
   private final CategoryService categoryService;
   private ModelMapper modelMapper;
+  private final CustomerService customerService;
   private static final Logger log = LoggerFactory.getLogger(
     PostController.class
   );
@@ -43,11 +45,13 @@ public class PostController implements ErrorController {
   public PostController(
     PostService postService,
     CategoryService categoryService,
-    ModelMapper modelMapper
+    ModelMapper modelMapper,
+    CustomerService customerService
   ) {
     this.postService = postService;
     this.categoryService = categoryService;
     this.modelMapper = modelMapper;
+    this.customerService = customerService;
   }
 
   @RequestMapping(value = PATH)
@@ -73,6 +77,9 @@ public class PostController implements ErrorController {
     Authentication authentication,
     Model model
   ) {
+    String nav = "create-post";
+    //link activer
+    model.addAttribute("navActive", nav);
     model.addAttribute("postDto", postDto);
     model.addAttribute("categoryList", categoryService.allCategories());
     return "pages/post/create-post";
@@ -98,7 +105,7 @@ public class PostController implements ErrorController {
    //get customer login post
    @RequestMapping("/my-post")
    public String getMyPost(Model model) {
- 
+    
      return getMyPost(1, model);
    }
  
@@ -110,6 +117,9 @@ public class PostController implements ErrorController {
     int pageSize = 5;
 
     Page<Post> page = postService.findMyPost(pageNumber, pageSize);
+    String nav = "my-post";
+    //link activer
+    model.addAttribute("navActive", nav);
 
       //passing pagination attribute
     model.addAttribute("pageNumber", pageNumber);
@@ -118,6 +128,9 @@ public class PostController implements ErrorController {
 
     model.addAttribute("categoryList", categoryService.allCategories());
     model.addAttribute("myPostList", page.getContent());
+    model.addAttribute("totalPostCount", postService.totalPostCount());
+    model.addAttribute("totalCustomerCount", customerService.countAllCustomer());
+
 
     return "pages/post/my-post";
   }
@@ -182,6 +195,8 @@ public class PostController implements ErrorController {
 
     model.addAttribute("categoryList", categoryService.allCategories());
     model.addAttribute("categoryPosts", categoryPosts);
+    model.addAttribute("totalPostCount", postService.totalPostCount());
+    model.addAttribute("totalCustomerCount", customerService.countAllCustomer());
 
     return "pages/category/category";
   }

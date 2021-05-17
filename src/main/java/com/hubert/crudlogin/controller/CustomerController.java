@@ -143,10 +143,10 @@ public class CustomerController {
     ) throws IOException {
 
 
-    // if(bindingResult.hasErrors()){
+    // if(customerDTO.getUsername() == null){
+    //   bindingResult.addError(new FieldError("customerDTO", "username", "Username is empty"));
     //   return "pages/profile";
     // }
-
 
 
     String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
@@ -164,9 +164,7 @@ public class CustomerController {
         double mb = (kl/1024);
         if(mb < 5){
         
-      
-         
-  
+
         Customer existingCustomer = customerService.findOwnerDetails();
          
          String uploadDir = "./uploads/" + existingCustomer.getEmail();

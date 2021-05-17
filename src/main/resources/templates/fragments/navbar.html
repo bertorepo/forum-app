@@ -7,9 +7,19 @@
   <!--Navbar -->
   <nav
     th:fragment="navbar"
-    class="mb-1 navbar px-lg-5 navbar-expand-lg aqua-gradient navbar-light"
+    class="navbar px-lg-5 navbar-expand-lg aqua-gradient navbar-light"
   >
-    <a class="navbar-brand" href="/">Forum Ninja</a>
+    <a
+      class="navbar-brand"
+      style="
+        font-family: 'Zhi Mang Xing', cursive;
+        font-size: 30px;
+        letter-spacing: 5px;
+      "
+      href="/"
+    >
+      < Mobilarian />
+    </a>
     <button
       class="navbar-toggler"
       type="button"
@@ -22,19 +32,58 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-      <ul class="navbar-nav">
-        <li sec:authorize="isAuthenticated()" class="nav-item">
+      <ul class="navbar-nav mr-auto">
+        <li
+          sec:authorize="isAuthenticated()"
+          class="nav-item ml-2"
+          th:classappend="${navActive} == 'home' ? 'active active-border' : ''"
+        >
           <a class="nav-link" th:href="@{/home}">
             <i class="fas fa-home mr-2"></i>Home</a
           >
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <li sec:authorize="isAnonymous()" class="nav-item active">
+        <li sec:authorize="isAnonymous()" class="nav-item active mr-2">
           <a class="nav-link" href="/login">
-            <i class="fa fa-user-circle mr-2"></i>Login</a
+            <i class="far fa-user"></i> Login
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+
+        <li
+          sec:authorize="isAuthenticated()"
+          class="nav-item mr-2"
+          th:classappend="${navActive} == 'create-post' ? 'active active-border' : ''"
+        >
+          <a class="nav-link" th:href="@{/create-post}">
+            <i class="far fa-plus-square"></i> Create Post
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li
+          sec:authorize="isAuthenticated()"
+          class="nav-item mr-2"
+          th:classappend="${navActive} == 'my-post' ? 'active active-border' : ''"
+        >
+          <a class="nav-link" th:href="@{/my-post}">
+            <i class="far fa-user"></i> My Post</a
           >
         </li>
+        <th:block sec:authorize="hasAuthority('ADMIN')">
+          <li
+            sec:authorize="isAuthenticated()"
+            class="nav-item mr-2 ml-2 bg-danger z-depth-1"
+            style="border-radius: 50px"
+          >
+            <a
+              class="nav-link text-light text-white mb-0 mx-2"
+              th:href="@{/admin}"
+            >
+              <i class="far fa-star"></i> Admin Area</a
+            >
+          </li>
+        </th:block>
         <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -43,15 +92,13 @@
             aria-haspopup="true"
             aria-expanded="false"
           >
-            <span class="avatar">
-              <img
-                th:src="@{${customer.ProfileImagePath}}"
-                class="rounded-circle z-depth-0 mr-2"
-                width="35px"
-                height="35px"
-                alt="avatar image"
-              />
-            </span>
+            <img
+              th:src="@{${customer.profileImage != ''}  ? ${customer.ProfileImagePath} : '/uploads/default/default.jpg'}"
+              class="rounded-circle z-depth-1-half mr-2"
+              width="30px"
+              height="30px"
+              alt="avatar image"
+            />
 
             [[${customer.fullName}]]
           </a>

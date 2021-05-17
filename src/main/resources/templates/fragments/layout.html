@@ -25,10 +25,10 @@
               <!-- Avatar -->
               <div class="avatar mx-auto white">
                 <img
-                  th:src="@{${customer.ProfileImagePath}}"
-                  class="mx-auto rounded-circle"
-                  width="150px"
-                  height="150px"
+                  th:src="@{${customer.profileImage != ''}  ? ${customer.ProfileImagePath} : '/uploads/default/default.jpg'}"
+                  class="mx-auto rounded-circl"
+                  width="150"
+                  height="150"
                 />
               </div>
 
@@ -40,8 +40,10 @@
                 </h4>
                 <hr />
                 <!-- Quotation -->
-                <p>
-                  <i class="fas fa-quote-left"></i> [[${customer.description}]]
+                <p class="text-black-50">
+                  <i class="fas fa-quote-left text-black-50 fa-sm"></i>
+                  [[${customer.description}]]
+                  <i class="fas fa-quote-right text-black-50 fa-sm"></i>
                 </p>
               </div>
             </div>
@@ -63,7 +65,7 @@
                 >
                   <img
                     src="https://mdbootstrap.com/img/Photos/Avatars/img%20(31).jpg"
-                    class="rounded-circle z-depth-0"
+                    class="rounded-circle z-depth-1"
                     width="50"
                     alt="avatar image"
                   />
@@ -130,7 +132,7 @@
         <!-- Copyright -->
         <div class="text-center text-dark py-3">
           © 2021 Copyright:
-          <a class="text-center text-dark" href="#"> Develop By Hubert B</a>
+          <a class="text-center text-dark" href="#"> Developed By Hubert B</a>
         </div>
         <!-- Copyright -->
       </div>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head th:replace="/fragments/header :: header" />
+  <body class="fixed-sn white-skin">
+    <nav th:replace="/fragments/navbar :: navbar" />
+    <div class="container">
+      <section class="text-center my-5">
+        <h2 class="font-weight-normal text-uppercase mb-4">ADMIN AREA</h2>
+        <p class="lead text-muted mx-auto mt-4 pt-2 mb-5">
+          Only administrator can can have access to this page.
+        </p>
+
+        <!--First row-->
+        <div class="row">
+          <!--Grid column-->
+          <div class="col-md-4 mb-4">
+            <!-- Card -->
+            <a
+              th:href="@{/admin/manage-post}"
+              class="card hoverable border-bottom-aqua"
+            >
+              <!-- Card content -->
+              <div class="card-body my-4">
+                <p><i class="fas fa-tablet-alt fa-2x text-danger"></i></p>
+                <h5 class="black-text mb-0">Manage Post</h5>
+              </div>
+            </a>
+            <!-- Card -->
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-md-4 mb-4">
+            <!-- Card -->
+            <a href="#!" class="card hoverable border-bottom-aqua">
+              <!-- Card content -->
+              <div class="card-body my-4">
+                <p><i class="fas fa-cogs fa-2x text-danger"></i></p>
+                <h5 class="black-text mb-0">Manage Members</h5>
+              </div>
+            </a>
+            <!-- Card -->
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-md-4 mb-4">
+            <!-- Card -->
+            <a href="#!" class="card hoverable border-bottom-aqua">
+              <!-- Card content -->
+              <div class="card-body my-4">
+                <p><i class="fas fa-pencil-ruler fa-2x text-danger"></i></p>
+                <h5 class="black-text mb-0">Category</h5>
+              </div>
+            </a>
+            <!-- Card -->
+          </div>
+          <!--Grid column-->
+        </div>
+        <!--First row-->
+      </section>
+    </div>
+  </body>
+</html>

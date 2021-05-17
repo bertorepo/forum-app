@@ -80,6 +80,11 @@ public class CustomerService {
     return customerRepository.save(customer);
   }
 
+  @Transactional
+  public long countAllCustomer(){
+    return customerRepository.count();
+  }
+
   public Customer register(CustomerDTO customerDTO) {
     //steps to map DTO to entity
 
@@ -116,7 +121,7 @@ public class CustomerService {
       customer.setDescription(customerDTO.getDescription());
     }
 
-    if(customerDTO.getFirstName() !=null){
+    if(customerDTO.getFirstName() != null){
       customer.setFirstName(customerDTO.getFirstName());
     }
 

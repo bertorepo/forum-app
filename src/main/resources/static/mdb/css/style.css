@@ -5,7 +5,7 @@
   font-family: 'Poppins', sans-serif;
 }
 .error {
-  border: 1px solid red;
+  outline: 1px solid red;
 }
 .white-skin .form-header,
 .white-skin .card-header {
@@ -100,4 +100,24 @@
 .testimonial-card .avatar {
   width: 150px !important;
   height: 150px !important;
+}
+
+.error-cursor:hover {
+  cursor: not-allowed;
+}
+.active-border {
+  border-bottom: 1px solid orangered;
+  margin-bottom: 0;
+}
+
+.border-bottom-aqua {
+  box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.5) !important;
+  border-bottom: 3px solid rgb(0, 230, 118) !important;
+}
+.card[class*='border'] {
+  border: 0;
+}
+
+.border-bottom-aqua:hover {
+  box-shadow: 0 10px 30px -20px rgba(0, 230, 118, 0.5) !important;
 }

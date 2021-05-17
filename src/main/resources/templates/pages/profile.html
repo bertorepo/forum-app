@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <title>Create Post</title>
     <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&display=swap"
+      rel="stylesheet"
+    />
+    <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"
     />
@@ -24,6 +32,7 @@
                 <!-- Register form -->
 
                 <form
+                  id="myForm"
                   th:action="@{/update-profile}"
                   th:object="${customerDTO}"
                   method="POST"
@@ -36,7 +45,7 @@
                   </div>
 
                   <div class="row mt-5">
-                    <div class="col-lg-4 col-md-6">
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
                       <div class="card card-cascade">
                         <!-- Card image -->
                         <div
@@ -56,7 +65,7 @@
                           <img
                             id="thumbnail"
                             alt="User Photo"
-                            th:src="@{${customer.ProfileImagePath}}"
+                            th:src="@{${customer.profileImage != ''}  ? ${customer.ProfileImagePath} : '/uploads/default/default.jpg'}"
                             class="z-depth-1 mb-3 mx-auto rounded-circle"
                             width="150px"
                             height="150px"
@@ -135,6 +144,7 @@
                               aria-describedby="basic-addon1"
                               autocomplete="off"
                               name="firstName"
+                              id="firstName"
                               th:value="*{firstName}"
                               th:errorclass="error"
                             />
@@ -170,6 +180,7 @@
                               placeholder="Last Name"
                               aria-describedby="basic-addon1"
                               autocomplete="off"
+                              id="lastName"
                               name="lastName"
                               th:value="*{lastName}"
                               th:errorclass="error"
@@ -206,6 +217,7 @@
                               placeholder="Username"
                               aria-describedby="basic-addon1"
                               autocomplete="off"
+                              id="username"
                               name="username"
                               th:value="*{username}"
                               th:errorclass="error"
@@ -284,6 +296,7 @@
                       Go Back
                     </a>
                     <button
+                      id="btn-submit"
                       type="submit"
                       class="btn btn-success waves-effect waves-light"
                     >
@@ -330,6 +343,16 @@
           };
           reader.readAsDataURL(file);
         }
+
+        $('#myForm input[type="text"]').blur(function () {
+          if (!$(this).val()) {
+            $('#btn-submit').addClass('disabled');
+            $(this).addClass('error');
+          } else {
+            $('#btn-submit').addClass('btn-success').removeClass('disabled');
+            $(this).removeClass('error');
+          }
+        });
       });
     </script>
   </body>

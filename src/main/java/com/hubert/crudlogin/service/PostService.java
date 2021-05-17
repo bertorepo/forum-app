@@ -92,6 +92,11 @@ public class PostService {
   }
 
   @Transactional
+  public long totalPostCount(){
+    return postRepository.count();
+  }
+
+  @Transactional
   public Page<Post> findMyPost(int pageNumber, int pageSize) {
     Pageable page = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.DESC, "createdDate"));
     return postRepository.findMyPost(
