@@ -344,13 +344,15 @@
           reader.readAsDataURL(file);
         }
 
-        $('#myForm input[type="text"]').blur(function () {
-          if (!$(this).val()) {
+        $('#firstName, #lastName, #username').change(function () {
+          if (
+            !$('#firstName').val() ||
+            !$('#lastName').val() ||
+            !$('#username').val()
+          ) {
             $('#btn-submit').addClass('disabled');
-            $(this).addClass('error');
           } else {
             $('#btn-submit').addClass('btn-success').removeClass('disabled');
-            $(this).removeClass('error');
           }
         });
       });

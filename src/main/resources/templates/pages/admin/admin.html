@@ -36,7 +36,10 @@
           <!--Grid column-->
           <div class="col-md-4 mb-4">
             <!-- Card -->
-            <a href="#!" class="card hoverable border-bottom-aqua">
+            <a
+              th:href="@{/admin/manage-customers}"
+              class="card hoverable border-bottom-aqua"
+            >
               <!-- Card content -->
               <div class="card-body my-4">
                 <p><i class="fas fa-cogs fa-2x text-danger"></i></p>
@@ -64,5 +67,6 @@
         <!--First row-->
       </section>
     </div>
+    <script th:replace="/fragments/script :: script"></script>
   </body>
 </html>

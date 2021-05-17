@@ -3,10 +3,16 @@ package com.hubert.crudlogin.service;
 import com.hubert.crudlogin.model.Customer;
 import com.hubert.crudlogin.objects.CustomerDTO;
 import com.hubert.crudlogin.repository.CustomerRepository;
+
+import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -47,6 +53,12 @@ public class CustomerService {
           .getPrincipal();
     }
     return customer;
+  }
+
+
+  @Transactional
+  public List<Customer> showAllCustomers(){
+    return customerRepository.findAll();
   }
 
   @Transactional
@@ -136,4 +148,13 @@ public class CustomerService {
     return save(customer);
     
   }
+
+  
+  @Transactional
+  public Page<Customer> paginateList(int pageNumber, int pageSize) {
+    Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
+    Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+    return customerRepository.findAll(pageable);
+  }
+
 }

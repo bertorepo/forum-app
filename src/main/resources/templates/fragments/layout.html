@@ -25,8 +25,8 @@
               <!-- Avatar -->
               <div class="avatar mx-auto white">
                 <img
-                  th:src="@{${customer.profileImage != ''}  ? ${customer.ProfileImagePath} : '/uploads/default/default.jpg'}"
-                  class="mx-auto rounded-circl"
+                  th:src="@{${customer.ProfileImagePath}}"
+                  class="mx-auto rounded-circle"
                   width="150"
                   height="150"
                 />
@@ -40,7 +40,7 @@
                 </h4>
                 <hr />
                 <!-- Quotation -->
-                <p class="text-black-50">
+                <p class="text-black-50 font-small">
                   <i class="fas fa-quote-left text-black-50 fa-sm"></i>
                   [[${customer.description}]]
                   <i class="fas fa-quote-right text-black-50 fa-sm"></i>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head th:replace="/fragments/header :: header" />
+  <body class="fixed-sn white-skin">
+    <nav th:replace="/fragments/navbar :: navbar" />
+
+    <main class="px-0" style="min-height: 100vh">
+      <div class="container my-5">
+        <h2 class="text-center font-weight-bold mb-4 pb-1">MEMBERS AREA</h2>
+        <p class="text-center lead mb-5 pb-2 text-muted">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt.
+        </p>
+
+        <form
+          action="
+        "
+        >
+          <div class="input-group input-group-lg mb-4">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search Members"
+              aria-describedby="basic-addon1"
+              autocomplete="off"
+              name="title"
+            />
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"
+                ><i class="fas fa-search fa-lg prefix text-danger"></i
+              ></span>
+            </div>
+          </div>
+        </form>
+
+        <hr class="hr" />
+
+        <section class="p-md-3 mx-md-5 text-lg-left">
+          <div class="row">
+            <div
+              th:if="${#lists.isEmpty(customersLists)}"
+              class="text-center mx-auto text-black-50 h2-responsive"
+            >
+              <i
+                class="fas fa-exclamation-triangle my-lg-5 fa-5x text-black-50"
+              ></i>
+              <h4 class="h4-responsive">No available Members!</h4>
+            </div>
+            <div
+              th:each="customerList : ${customersLists}"
+              class="col-lg-4 col-sm-6 mb-5"
+            >
+              <div class="row d-flex align-items-center">
+                <div
+                  class="
+                    col-4
+                    avatar
+                    w-100
+                    white
+                    d-flex
+                    justify-content-center
+                    align-items-center
+                  "
+                >
+                  <img
+                    th:src="@{${customerList.profileImage != ''}  ? ${customerList.ProfileImagePath} : '/uploads/default/default.jpg'}"
+                    class="rounded-circle z-depth-1"
+                    width="70"
+                    height="70"
+                  />
+                </div>
+                <div class="col-8">
+                  <h6
+                    th:text="${customerList.FullName}"
+                    class="font-weight-bold pt-2"
+                  >
+                    Alan Turing
+                  </h6>
+                  <p class="text-muted" style="font-size: 0.8rem">
+                    Members since [[*{#dates.format(customerList.createdAt, 'MMM
+                    dd yyy')}]]
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div
+          th:replace="fragments/pagination_post::pagination(path='/members-page/')"
+        />
+      </div>
+    </main>
+    <footer class="aqua-gradient p-0">
+      <div class="container">
+        <!-- Copyright -->
+        <div class="text-center text-dark py-3">
+          © 2021 Copyright:
+          <a class="text-center text-dark" href="#"> Develop By Hubert B</a>
+        </div>
+        <!-- Copyright -->
+      </div>
+    </footer>
+    <script th:replace="/fragments/script :: script"></script>
+  </body>
+</html>

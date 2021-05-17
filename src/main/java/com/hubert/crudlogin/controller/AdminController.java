@@ -2,7 +2,9 @@ package com.hubert.crudlogin.controller;
 
 import java.util.List;
 
+import com.hubert.crudlogin.model.Customer;
 import com.hubert.crudlogin.model.Post;
+import com.hubert.crudlogin.service.CustomerService;
 import com.hubert.crudlogin.service.PostService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
 
   private final PostService postService;
+  private final CustomerService customerService;
 
   
   @Autowired
-  public AdminController(PostService postService) {
+  public AdminController(PostService postService, CustomerService customerService) {
     this.postService = postService;
+    this.customerService = customerService;
   }
 
   @GetMapping("")
@@ -38,10 +42,16 @@ public class AdminController {
     
   }
 
+  @GetMapping("/manage-customers")
+  public String showAllCustomers(Model model){
+
+    return findPaginatedCustomers(1, model);
+  }
+
 
   //pagination for mambers admin area
 
-  @GetMapping("/page/{pageNumber}")
+  @GetMapping("/post-page/{pageNumber}")
   public String findPaginatedPost(
     @PathVariable(value = "pageNumber") int pageNumber,
     Model model
@@ -50,6 +60,7 @@ public class AdminController {
     int pageSize = 10;
 
     Page<Post> page = postService.paginateList(pageNumber, pageSize);
+   
     
     List<Post> membersPosts = page.getContent();
 
@@ -65,6 +76,29 @@ public class AdminController {
 
     return "pages/admin/manage_posts";
   }
+  @GetMapping("/members-page/{pageNumber}")
+  public String findPaginatedCustomers(
+    @PathVariable(value = "pageNumber") int pageNumber,
+    Model model
+  ) {
+    //initial page size
+    int pageSize = 24;
 
+    Page<Customer> page = customerService.paginateList(pageNumber, pageSize);
+   
+    
+    List<Customer> customersLists = page.getContent();
+
+    
+    //passing pagination attribute
+    model.addAttribute("pageNumber", pageNumber);
+    model.addAttribute("totalPages", page.getTotalPages());
+    model.addAttribute("totalItems", page.getTotalElements());
+   
+    model.addAttribute("customersLists", customersLists);
+
+    return "pages/admin/manage_customers";
+  }
+  
   
 }
