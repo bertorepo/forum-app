@@ -56,14 +56,13 @@ public class Customer implements UserDetails {
   @Column(name = "customer_description", nullable = true)
   private String description;
 
+  @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Post> posts;
+
   @OneToMany(
     fetch = FetchType.EAGER,
-    cascade = {
-      CascadeType.DETACH,
-      CascadeType.MERGE,
-      CascadeType.PERSIST,
-      CascadeType.REFRESH,
-    }
+    cascade =CascadeType.ALL,
+    orphanRemoval = true
   )
   @JoinTable(
     name = "customer_authority",
@@ -193,6 +192,15 @@ public class Customer implements UserDetails {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+  
+
+  public List<Post> getPosts() {
+    return posts;
+  }
+
+  public void setPosts(List<Post> posts) {
+    this.posts = posts;
   }
 
   @Transient

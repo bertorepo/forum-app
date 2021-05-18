@@ -110,7 +110,10 @@
             aria-hidden="true"
           >
             <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
-            <div class="modal-dialog modal-dialog-centered" role="dialog">
+            <div
+              class="modal-dialog modal-sm modal-notify modal-danger"
+              role="document"
+            >
               <div class="modal-content">
                 <div class="modal-header">
                   <button
@@ -123,37 +126,37 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <div class="text-center">
+                  <div class="text-center d-flex">
                     <i
                       class="
                         fas
                         fa-exclamation-triangle
                         mx-2
-                        fa-9x
-                        pink-text
+                        fa-3x
+                        text-danger
                         animated
                         rotateIn
                       "
                     ></i>
-                    <h4 class="h4-responsive my-3">
-                      Are you sure you want to delete?
-                    </h4>
+                    <p class="my-2">Are you sure you want to delete?</p>
                   </div>
                 </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-danger"
-                    data-dismiss="modal"
-                  >
-                    Close
-                  </button>
+                <div class="modal-footer flex-center">
                   <a
                     th:href="@{/delete-post/} + ${postList.id}"
-                    class="btn btn-success"
+                    class="btn btn-sm btn-danger"
                   >
+                    <i class="far fa-trash-alt animated"></i>
                     Delete Post
                   </a>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-danger"
+                    data-dismiss="modal"
+                  >
+                    <i class="far fa-times-circle"></i>
+                    Close
+                  </button>
                 </div>
               </div>
             </div>

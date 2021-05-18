@@ -55,6 +55,16 @@ public class CustomerService {
     return customer;
   }
 
+  @Transactional
+  public Customer getCustomer(long id){
+    return customerRepository.findById(id).get();
+  }
+
+  @Transactional
+  public void deleteCustomer(long id){
+    customerRepository.deleteById(id);
+  }
+
 
   @Transactional
   public List<Customer> showAllCustomers(){

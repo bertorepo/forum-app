@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/admin")
@@ -99,6 +100,29 @@ public class AdminController {
 
     return "pages/admin/manage_customers";
   }
-  
+
+  //set status for members
+
+  @GetMapping("/set-status/{customerId}")
+  public String setStatus(@PathVariable(value = "customerId") int customerId){
+
+    Customer customer = customerService.getCustomer(customerId);
+    customer.setEnabled(!customer.isEnabled());
+
+    customerService.save(customer);
+
+    return "redirect:/admin/manage-customers";
+
+  }
+  //delete members
+
+  @GetMapping("/delete-member/{customerId}")
+  public String deleteCustomer(@PathVariable(value = "customerId") int customerId){
+
+    customerService.deleteCustomer(customerId);
+    return "redirect:/admin/manage-customers";
+
+  }
+ 
   
 }
