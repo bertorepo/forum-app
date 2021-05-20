@@ -15,26 +15,6 @@
       <section th:replace="fragments/stats :: tab_header('home')"></section>
       <!-- tab_header -->
 
-      <div class="pt-4">
-        <form action="">
-          <div class="input-group input-group-lg mb-4">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Search post "
-              aria-describedby="basic-addon1"
-              autocomplete="off"
-              name="title"
-            />
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1"
-                ><i class="fas fa-search fa-lg prefix text-danger"></i
-              ></span>
-            </div>
-          </div>
-        </form>
-      </div>
-
       <hr class="hr" />
 
       <div class="row">
@@ -63,40 +43,6 @@
                     ></h5
                   ></a>
                 </div>
-
-                <!-- <div
-                  th:if="${customer.username} == *{post.customer.username}"
-                  class="col-md-4 col-sm-6 d-none d-sm-block text-center"
-                >
-                  <span
-                    class="float-md-right"
-                    sec:authorize="isAuthenticated()"
-                  >
-                    <a
-                      th:if="${customer.username} == *{post.customer.username}"
-                      class="
-                        btn
-                        btn-outline-success
-                        btn-outline-no-padding
-                        btn-floating
-                      "
-                      th:href="@{/edit-post/} + ${post.id}"
-                      ><i class="fas fa-edit text-success"> </i
-                    ></a>
-                    <a
-                      class="
-                        btn
-                        btn-floating
-                        btn-outline-danger
-                        btn-outline-no-padding
-                      "
-                      data-toggle="modal"
-                      th:attr="data-target='#delete-post'+ *{post.id}"
-                    >
-                      <i class="fas fa-trash text-danger"></i>
-                    </a>
-                  </span>
-                </div> -->
               </div>
 
               <!-- Text -->
@@ -126,6 +72,7 @@
             <!-- Card content -->
           </div>
           <!-- end card -->
+
           <!-- Modal -->
           <div
             class="modal fade"
@@ -188,6 +135,58 @@
             </div>
           </div>
         </div>
+
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+          data-backdrop="static"
+          data-keyboard="false"
+        >
+          <div class="modal-dialog cascading-modal modal-lg modal-notify">
+            <div class="modal-content">
+              <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Search Post</h4>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+                <div class="form-group mx-3">
+                  <input
+                    onkeyup="search()"
+                    type="text"
+                    class="form-control form-control-lg"
+                    placeholder="Search post "
+                    autocomplete="off"
+                    name="title"
+                    id="search-input"
+                  />
+                </div>
+                <div id="search-result" class="row inner"></div>
+              </div>
+              <!--Footer-->
+              <div class="modal-footer mr-3">
+                <a
+                  type="button"
+                  class="btn btn-outline-danger btn-sm waves-effect"
+                  data-dismiss="modal"
+                  >Close</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- end modal -->
       </div>
       <!-- end column -->
@@ -196,8 +195,7 @@
       <div th:replace="fragments/pagination_post::pagination(path='/page/')" />
       <!-- end pagination here -->
     </div>
-    <!-- end row -->
 
-    <script th:replace="/fragments/script :: script"></script>
+    <!-- end row -->
   </body>
 </html>

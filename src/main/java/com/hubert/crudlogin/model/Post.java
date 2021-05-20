@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Post extends AuditableBase {
 
@@ -23,6 +25,7 @@ public class Post extends AuditableBase {
 
   @ManyToOne
   @JoinColumn(name = "customer_id")
+  @JsonIgnore
   private Customer customer;
 
   @ManyToOne

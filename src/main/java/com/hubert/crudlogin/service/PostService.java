@@ -123,4 +123,10 @@ public class PostService {
 
     return postRepository.findAll(pageable);
   }
+
+  //search Post
+  @Transactional
+  public List<Post> searchPost(String query){
+    return postRepository.findTop2ByTitleOrderByCreatedDateDesc(query);
+  }
 }

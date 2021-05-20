@@ -135,6 +135,13 @@
         <!-- Copyright -->
       </div>
     </footer>
-    <script th:replace="/fragments/script :: script"></script>
+    <script
+      th:fragment="script"
+      th:src="@{/mdb/js/jquery-3.4.1.min.js}"
+    ></script>
+    <script th:fragment="script" th:src="@{/mdb/js/popper.min.js}"></script>
+    <script th:fragment="script" th:src="@{/mdb/js/bootstrap.min.js}"></script>
+    <script th:fragment="script" th:src="@{/mdb/js/mdb.min.js}"></script>
+    <script th:fragment="script" th:src="@{/mdb/js/script.js}"></script>
   </body>
 </html>

@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -26,4 +25,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
   @Query(value = "SELECT u from Post u WHERE u.customer.id = :customer_id")
   public Page<Post> findMyPost(
     @Param("customer_id") Long customer_id, Pageable pageable);
+
+  @Query(value = "SELECT u from Post u WHERE u.title LIKE %:query%")
+  public List<Post> findTop2ByTitleOrderByCreatedDateDesc(String query); 
 }
