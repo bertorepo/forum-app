@@ -161,10 +161,15 @@ public class CustomerService {
 
   
   @Transactional
-  public Page<Customer> paginateList(int pageNumber, int pageSize) {
+  public Page<Customer> paginateList(int pageNumber, int pageSize, String query) {
     Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
     Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+
+    if(query != null){
+      return customerRepository.findAll(query, pageable);
+    }
     return customerRepository.findAll(pageable);
   }
+
 
 }

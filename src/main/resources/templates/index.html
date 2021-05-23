@@ -4,84 +4,107 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 >
-  <head th:replace="/fragments/header :: header" />
-  <body class="fixed-sn bg-glass">
+  <head th:replace="/fragments/header :: header('Welcome')" />
+  <body class="fixed-sn white-skin">
     <nav th:replace="/fragments/navbar :: navbar" />
     <div class="container">
-      <section class="dark-grey-text text-center my-5">
-        <h6 class="font-weight-normal text-uppercase font-small grey-text mb-4">
+      <section class="dark-grey-text  my-5">
+        <h6 class="font-weight-normal text-uppercase font-small grey-text mb-4 text-center">
           | bert0
         </h6>
         <!-- Section heading -->
-        <h3 class="font-weight-bold black-text mb-4 pb-2">
-          Sharing of Ideas made Easy
+        <h3 class="font-weight-bold text-success mb-4 pb-2 text-center banner">
+          MOBILARIAN FORUM
         </h3>
 
-        <!-- Section description -->
-        <p class="lead text-muted mx-auto mt-4 pt-2 mb-5">
-          It's really easy to create a landing page for your awesome product.
-        </p>
-
-        <!--First row-->
+        <form class="mt-4 mx-4" id="form-search" th:action="@{/}">
+          <div class="d-flex justify-content-center h-100">
+            <div class="searchbar">
+            <input
+              id="query-home"
+              type="text"
+              class="search_input"
+              placeholder="Search Post"
+              aria-describedby="basic-addon1"
+              autocomplete="off"
+              name="query"
+              th:value="${query}"
+            />
+            <span class="search_icon"><i class="fas fa-search"></i></span>
+            </div>
+          </div>
+        </form>
         <div class="row">
-          <!--Grid column-->
-          <div class="col-md-3 mb-4">
-            <!-- Card -->
-            <a href="#!" class="card hoverable">
-              <!-- Card content -->
-              <div class="card-body my-4">
-                <p><i class="fas fa-tablet-alt fa-2x text-muted"></i></p>
-                <h5 class="black-text mb-0">Movies</h5>
-              </div>
-            </a>
-            <!-- Card -->
-          </div>
-          <!--Grid column-->
-
-          <!--Grid column-->
-          <div class="col-md-3 mb-4">
-            <!-- Card -->
-            <a href="#!" class="card hoverable">
-              <!-- Card content -->
-              <div class="card-body my-4">
-                <p><i class="fas fa-cogs fa-2x text-muted"></i></p>
-                <h5 class="black-text mb-0">Tutorials</h5>
-              </div>
-            </a>
-            <!-- Card -->
-          </div>
-          <!--Grid column-->
-
-          <!--Grid column-->
-          <div class="col-md-3 mb-4">
-            <!-- Card -->
-            <a href="#!" class="card hoverable">
-              <!-- Card content -->
-              <div class="card-body my-4">
-                <p><i class="fas fa-pencil-ruler fa-2x text-muted"></i></p>
-                <h5 class="black-text mb-0">Programming</h5>
-              </div>
-            </a>
-            <!-- Card -->
-          </div>
-          <!--Grid column-->
-
-          <!--Grid column-->
-          <div class="col-md-3 mb-4">
-            <!-- Card -->
-            <a href="#!" class="card hoverable">
-              <!-- Card content -->
-              <div class="card-body my-4">
-                <p><i class="fas fa-recycle fa-2x text-muted"></i></p>
-                <h5 class="black-text mb-0">Development</h5>
-              </div>
-            </a>
-            <!-- Card -->
-          </div>
-          <!--Grid column-->
+          <div
+          th:if="${#lists.isEmpty(viewPosts)}"
+          class="text-center mx-auto text-black-50 h2-responsive"
+        >
+          <i
+            class="fas fa-exclamation-triangle my-lg-5 fa-3x text-black-50"
+          ></i>
+          <h4 class="h4-responsive">No available post!</h4>
         </div>
-        <!--First row-->
+                <!-- card -->
+         <div th:each="post: ${viewPosts}" class="col-lg-12 col-md-12">
+          <div class="card card-wrapper">
+            <!-- Card content -->
+
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-8 col-sm-6">
+                  <a th:href="@{/view/}  + ${post.id}">
+                    <h5
+                      th:text="*{post.title}"
+                      class="card-title black-text font-small float-md-left"
+                    ></h5
+                  ></a>
+                </div>
+              </div>
+
+              <!-- Text -->
+              <div class="card-text justify-content-md-center">
+                <span class="mx-2 text-black-50">
+                  <a class="badge badge-danger mr-2">
+                    <i
+                      class="fab fa-slack-hash mr-2"
+                      aria-hidden="true"
+                    ></i
+                    >[[*{post.category.name}]]</a
+                  >
+
+                  <a href="#" class="text-danger mr-2" style="font-size: 75%"
+                    ><i class="fas fa-calendar-alt mx-1"></i>
+                    [[*{#dates.format(post.createdDate, 'MMM-dd-yyy')}]]</a
+                  >
+
+                  <a href="#" class="text-success t  mr-2" style="font-size: 75%">
+                    <i class="fas fa-user-circle mx-1"></i>
+                    [[*{post.customer.username}]]
+                   </a
+                  >
+                </span>
+              </div>
+            </div>
+            <!-- Card content -->
+          </div>
+          <!-- end card -->
+        </div>
+
+   
+      
+      
       </section>
+       <!-- pagination here -->
+       <div th:replace="fragments/pagination_post::pagination(path='/')" />
+       <!-- end pagination here -->
     </div>
+    <script
+    th:fragment="script"
+    th:src="@{/mdb/js/jquery-3.4.1.min.js}"
+  ></script>
+  <script th:fragment="script" th:src="@{/mdb/js/popper.min.js}"></script>
+  <script th:fragment="script" th:src="@{/mdb/js/bootstrap.min.js}"></script>
+  <script th:fragment="script" th:src="@{/mdb/js/mdb.min.js}"></script>
+  <script th:fragment="script" th:src="@{/mdb/js/script.js}"></script>
   </body>
 </html>

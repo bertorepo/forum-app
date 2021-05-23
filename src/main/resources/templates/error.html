@@ -4,7 +4,7 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 >
-  <head th:replace="/fragments/header :: header" />
+  <head th:replace="/fragments/header :: header('Error')" />
   <body class="fixed-sn white-skin">
     <nav th:replace="/fragments/navbar :: navbar" />
     <div class="container">
@@ -14,7 +14,7 @@
       <div class="col-md-7 mb-4">
 
         <div class="view">
-          <img src="https://mdbootstrap.com/img/illustrations/graphics(4).png" class="img-fluid" alt="smaple image">
+          <img src="https://mdbootstrap.com/img/illustrations/graphics(4).png" class="img-fluid" alt="error image">
         </div>
 
       </div>

@@ -4,7 +4,7 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 >
-  <head th:replace="/fragments/header :: header" />
+  <head th:replace="/fragments/header :: header('Home')" />
 
   <body class="fixed-sn white-skin">
     <!-- navbar -->
@@ -61,61 +61,28 @@
                     py-3
                   "
                 >
-                  <img
-                    src="https://mdbootstrap.com/img/Photos/Avatars/img%20(31).jpg"
-                    class="rounded-circle z-depth-1"
-                    width="50"
-                    alt="avatar image"
-                  />
                   <div class="d-flex flex-column pl-3">
-                    <p class="font-weight-normal mb-0">Rules and Guidelines</p>
-                    <p class="small mb-0">Administrator</p>
+                    <p class="font-weight-normal mb-0">List of Categories</p>
                   </div>
                 </div>
-                <a
-                  href="#!"
-                  class="
-                    list-group-item list-group-item-action
-                    d-flex
-                    justify-content-between
-                    align-items-center
-                  "
-                  >Projects
-                  <span class="badge badge-info badge-pill">26</span>
-                </a>
-                <a
-                  href="#!"
-                  class="
-                    list-group-item list-group-item-action
-                    d-flex
-                    justify-content-between
-                    align-items-center
-                  "
-                  >Tasks
-                  <span class="badge badge-warning badge-pill">5</span>
-                </a>
-                <a
-                  href="#!"
-                  class="
-                    list-group-item list-group-item-action
-                    d-flex
-                    justify-content-between
-                    align-items-center
-                  "
-                  >Completed projects
-                  <span class="badge badge-success badge-pill">10</span>
-                </a>
-                <a
-                  href="#!"
-                  class="
-                    list-group-item list-group-item-action
-                    d-flex
-                    justify-content-between
-                    align-items-center
-                  "
-                  >Followers
-                  <span class="badge badge-danger badge-pill">728</span>
-                </a>
+                <th:block th:each="listCat : ${categoryList}">
+                  <a
+                    th:href="@{/category/} + ${listCat.name}"
+                    class="
+                      list-group-item list-group-item-action
+                      d-flex
+                      justify-content-between
+                      align-items-center
+                    "
+                  >
+                    <div>
+                      <i class="fab fa-slack-hash text-danger mr-2"></i
+                      >[[${listCat.name}]]
+                    </div>
+
+                    <span class="badge badge-success badge-pill"> <i class="fas fa-arrow-right fa-sm"></i></span>
+                  </a>
+                </th:block>
               </div>
             </section>
           </div>
@@ -125,7 +92,7 @@
       </div>
     </main>
 
-    <footer class="aqua-gradient p-0">
+    <footer class="shadow p-0">
       <div class="container">
         <!-- Copyright -->
         <div class="text-center text-dark py-3">

@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SearchController {
 
-
   private final PostService postService;
-  
   @Autowired
     public SearchController(PostService postService) {
     this.postService = postService;

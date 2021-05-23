@@ -2283,7 +2283,7 @@
           blank: blankHTML,
 
           /** @property {String} emptyPara */
-          emptyPara: '<div class="p-2">'.concat(blankHTML, '</div>'),
+          emptyPara: '<div class="px-4" id="edit-wrapper">'.concat(blankHTML, '</div>'),
           makePredByNodeName: makePredByNodeName,
           isEditable: isEditable,
           isControlSizing: isControlSizing,
@@ -13277,7 +13277,7 @@
                         ? ' data-option="' + option + '"'
                         : '';
                     return (
-                      '<a class="dropdown-item" href="#" ' +
+                      '<a class="dropdown-item" id="add-item" href="#" ' +
                       (dataValue + dataOption) +
                       ' role="listitem" aria-label="' +
                       value +
@@ -13617,11 +13617,15 @@
             'h6',
           ];
 
+ 
         /***/
       },
 
       /******/
     }
   );
-});
+
+}
+
+);
 //# sourceMappingURL=summernote-bs4.js.map

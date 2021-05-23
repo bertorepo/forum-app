@@ -48,21 +48,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     };
   }
 
-  @Bean
-  public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
-    StrictHttpFirewall firewall = new StrictHttpFirewall();
-    firewall.setAllowUrlEncodedSlash(true);
-    firewall.setAllowSemicolon(true);
-    return firewall;
-  }
+  // @Bean
+  // public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
+  //   StrictHttpFirewall firewall = new StrictHttpFirewall();
+  //   firewall.setAllowUrlEncodedSlash(true);
+  //   firewall.setAllowSemicolon(true);
+  //   return firewall;
+  // }
 
 
-  @Override
-  public void configure(WebSecurity web) throws Exception {
-    super.configure(web);
+  // @Override
+  // public void configure(WebSecurity web) throws Exception {
+  //   super.configure(web);
 
-    web.httpFirewall(allowUrlEncodedSlashHttpFirewall());
-  }
+  //   web.httpFirewall(allowUrlEncodedSlashHttpFirewall());
+  // }
 
 
   @Override
@@ -87,6 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         "/img/**",
         "/webjars/**",
         "/register",
+        "/view/**",
         "/summernote/**"
       )
       .permitAll()
@@ -107,6 +108,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .permitAll()
       .and()
       .exceptionHandling()
-      .accessDeniedPage("/403");
+      .accessDeniedPage("/404");
   }
 }

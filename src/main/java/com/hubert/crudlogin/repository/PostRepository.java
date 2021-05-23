@@ -23,9 +23,12 @@ public interface PostRepository extends JpaRepository<Post, Long> {
   // public List<Post> findAllPostSortedByCreatedDate(Pageable pageable);
 
   @Query(value = "SELECT u from Post u WHERE u.customer.id = :customer_id")
-  public Page<Post> findMyPost(
+  Page<Post> findMyPost(
     @Param("customer_id") Long customer_id, Pageable pageable);
 
   @Query(value = "SELECT u from Post u WHERE u.title LIKE %:query%")
-  public List<Post> findTop2ByTitleOrderByCreatedDateDesc(String query); 
+   List<Post> findByTitleAnPosts(String query); 
+
+@Query(value = "SELECT u from Post u WHERE u.title LIKE %:query%")
+  Page<Post> findPostByTitle(@Param("query") String query, Pageable pageable);
 }

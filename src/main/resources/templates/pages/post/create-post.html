@@ -2,18 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
-    <title>Create Post</title>
+    <head th:replace="/fragments/header :: header('Create Post')" />
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&display=swap"
-      rel="stylesheet"
-    />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Raleway&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Reggae+One&display=swap"
       rel="stylesheet"
     />
 
@@ -38,19 +34,42 @@
                   th:object="${postDto}"
                   method="POST"
                 >
-                  <div class="form-header aqua-gradient p-3">
-                    <p
-                      th:if="*{id} > 0"
-                      class="h5 text-center text-dark my-2 text-uppercase"
-                    >
-                      Update post
-                    </p>
-                    <p
-                      th:unless="*{id} > 0"
-                      class="h5 text-center text-dark my-2 text-uppercase"
-                    >
-                      Create a post
-                    </p>
+                  <div
+                    class="
+                      form-header
+                      aqua-gradient
+                      p-3
+                      d-flex
+                      align-items-center
+                    "
+                  >
+                    <div class="float-left">
+                      <a class="black-text" th:href="@{/}">
+                        <i
+                          class="
+                            fas
+                            fa-chevron-circle-left fa-2x
+                            prefix
+                            text-black
+                            ml-3
+                          "
+                        ></i>
+                      </a>
+                    </div>
+                    <div class="mx-auto">
+                      <p
+                        th:if="*{id} > 0"
+                        class="h5 text-center text-dark my-2 text-uppercase"
+                      >
+                        Update post
+                      </p>
+                      <p
+                        th:unless="*{id} > 0"
+                        class="h5 text-center text-dark my-2 text-uppercase"
+                      >
+                        Create a post
+                      </p>
+                    </div>
                   </div>
 
                   <div class="row">
@@ -219,9 +238,13 @@
             ['para', ['ul', 'ol', 'paragraph']],
             ['insert', ['link', 'picture']],
             ['view', ['help']],
-          ],
-        });
+          ], 
+        },
+        );
+       
+
       });
-    </script>
+     
+      </script>
   </body>
 </html>

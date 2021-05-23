@@ -4,43 +4,58 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 >
-  <head th:replace="/fragments/header :: header" />
+  <head th:replace="/fragments/header :: header('Manage Members')" />
   <body class="fixed-sn white-skin">
     <nav th:replace="/fragments/navbar :: navbar" />
 
     <main class="px-0" style="min-height: 100vh">
       <div class="container my-5">
-        <h2 class="text-center font-weight-bold mb-4 pb-1">MEMBERS AREA</h2>
-        <p class="text-center lead mb-5 pb-2 text-muted">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt.
-        </p>
+        <div class="d-flex align-items-start">
+          <div class="float-left">
+            <a class="black-text" th:href="@{/admin}">
+              <i
+                class="fas fa-chevron-circle-left fa-2x prefix text-black ml-3"
+              ></i>
+            </a>
+          </div>
+          <div class="mx-auto">
+  
+            <h2 class="text-center font-weight-bold mb-4 pb-1">MEMBERS AREA</h2>
+            <p class="text-center lead mb-5 pb-2 text-muted">
+             As an Administrator, you are allowed to set status for Members and also for deletion.
+            </p>
+          </div>
+        </div>
 
         <form
-          action="
-        "
+       
+          id="form-search"
+          th:action="@{/admin/manage-customers}"
         >
-          <div class="input-group input-group-lg mb-4">
+
+        <div class="d-flex justify-content-center h-100">
+          <div class="searchbar">
             <input
+            id="query"
               type="text"
-              class="form-control"
+              class="search_input"
               placeholder="Search Members"
               aria-describedby="basic-addon1"
               autocomplete="off"
-              name="title"
+              name="query"
+              th:value="${query}"
             />
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1"
-                ><i class="fas fa-search fa-lg prefix text-danger"></i
-              ></span>
+            <span class="search_icon"><i class="fas fa-search"></i></span>
             </div>
-          </div>
+        </div>
+         
+          
         </form>
 
         <hr class="hr" />
 
         <section class="p-md-3 mx-md-5 text-lg-left">
-          <div class="row">
+          <div class="row justify-content-center">
             <div
               th:if="${#lists.isEmpty(customersLists)}"
               class="text-center mx-auto text-black-50 h2-responsive"
@@ -293,6 +308,13 @@
         $('.material-tooltip-smaller').tooltip({
            template: '<div class="tooltip md-tooltip "><div class="tooltip-arrow md-arrow "></div><div class="tooltip-inner md-inner"></div></div>'
          });
+
+         $("#form-search").submit(function(e){
+           if(!$("#query").val().trim()){
+              e.preventDefault()
+           }
+         })
+
       })
     </script>
   </body>

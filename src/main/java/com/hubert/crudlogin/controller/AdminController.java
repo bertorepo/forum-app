@@ -9,13 +9,16 @@ import com.hubert.crudlogin.service.PostService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+
+
+
 
 @Controller
 @RequestMapping("/admin")
@@ -31,38 +34,39 @@ public class AdminController {
     this.customerService = customerService;
   }
 
-  @GetMapping("")
-    public String showAdminPage(Authentication authentication){
+  @GetMapping()
+    public String showAdminPage(Authentication authentication, Model model){
+    
+    String nav = "admin";
+    //link active
+    model.addAttribute("navActive", nav);
    return authentication != null ? "pages/admin/admin" : "redirect:/login";
     }
 
   @GetMapping("/manage-post")
-  public String showAllPost(Model model){
+  public String showAllPost(Model model, @Param("query") String query){
 
-    return findPaginatedPost(1, model);
+    return findPaginatedPost(1, model, query);
     
   }
 
-  @GetMapping("/manage-customers")
-  public String showAllCustomers(Model model){
-
-    return findPaginatedCustomers(1, model);
+  @RequestMapping("/manage-customers")
+  public String showAllCustomers(Model model, @Param("query") String query){
+    return findPaginatedCustomers(1, model, query);
   }
-
+ 
 
   //pagination for mambers admin area
 
   @GetMapping("/post-page/{pageNumber}")
   public String findPaginatedPost(
     @PathVariable(value = "pageNumber") int pageNumber,
-    Model model
+    Model model, String query
   ) {
     //initial page size
     int pageSize = 10;
 
-    Page<Post> page = postService.paginateList(pageNumber, pageSize);
-   
-    
+    Page<Post> page = postService.paginateList(pageNumber, pageSize ,query);
     List<Post> membersPosts = page.getContent();
 
     
@@ -72,31 +76,39 @@ public class AdminController {
     model.addAttribute("totalItems", page.getTotalElements());
     model.addAttribute("totalPostCount", postService.totalPostCount());
 
-  
+    String nav = "admin";
+    //link active
+    
+    model.addAttribute("navActive", nav);
     model.addAttribute("membersPosts", membersPosts);
+    model.addAttribute("query", query);
 
     return "pages/admin/manage_posts";
   }
+  
+
   @GetMapping("/members-page/{pageNumber}")
   public String findPaginatedCustomers(
     @PathVariable(value = "pageNumber") int pageNumber,
-    Model model
+    Model model, String query
   ) {
     //initial page size
     int pageSize = 24;
 
-    Page<Customer> page = customerService.paginateList(pageNumber, pageSize);
-   
-    
+    Page<Customer> page = customerService.paginateList(pageNumber, pageSize, query);
     List<Customer> customersLists = page.getContent();
 
-    
     //passing pagination attribute
     model.addAttribute("pageNumber", pageNumber);
     model.addAttribute("totalPages", page.getTotalPages());
     model.addAttribute("totalItems", page.getTotalElements());
    
+    String nav = "admin";
+    //link active
+
+    model.addAttribute("navActive", nav);
     model.addAttribute("customersLists", customersLists);
+    model.addAttribute("query", query);
 
     return "pages/admin/manage_customers";
   }

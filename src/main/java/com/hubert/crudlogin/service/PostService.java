@@ -117,16 +117,19 @@ public class PostService {
   //pagination for all post
 
   @Transactional
-  public Page<Post> paginateList(int pageNumber, int pageSize) {
+  public Page<Post> paginateList(int pageNumber, int pageSize, String query) {
     Sort sort = Sort.by(Sort.Direction.DESC, "createdDate");
     Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
 
+    if(query != null){
+      return postRepository.findPostByTitle(query, pageable);
+    }
     return postRepository.findAll(pageable);
   }
 
   //search Post
   @Transactional
   public List<Post> searchPost(String query){
-    return postRepository.findTop2ByTitleOrderByCreatedDateDesc(query);
+    return postRepository.findByTitleAnPosts(query);
   }
 }

@@ -181,9 +181,11 @@
                 <th:block th:each="category: ${categoryList}">
                   <a
                     class="dropdown-item"
-                    th:text="${category.name}"
                     th:href="@{/category/} + ${category.name}"
-                  ></a>
+                  >
+                    <i class="fab fa-slack-hash text-danger mr-2"></i
+                    >[[${category.name}]]</a
+                  >
                 </th:block>
               </div>
             </li>
@@ -200,13 +202,6 @@
           </ul>
         </div>
         <div class="col-8 col-md-6 d-none d-md-block d-lg-block text-right">
-          <a
-          class="mr-2"
-             data-toggle="modal"
-            data-target="#exampleModal"
-          >
-          <i class="fas fa-search fa-lg mr-2" aria-hidden="true"></i>
-          </button>
           <a
             sec:authorize="isAuthenticated()"
             class="btn btn-danger btn-md text-capitalize"
@@ -250,9 +245,11 @@
                   <a
                     class="dropdown-item"
                     th:classappend="${category.name} == ${activeCategory} ? 'active' : ''"
-                    th:text="${category.name}"
                     th:href="@{/category/} + ${category.name}"
-                  ></a>
+                  >
+                    <i class="fab fa-slack-hash text-danger mr-2"></i
+                    >[[${category.name}]]</a
+                  >
                 </th:block>
               </div>
             </li>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
-    <title>Create Post</title>
+    <head th:replace="/fragments/header :: header('My Profile')" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
       rel="stylesheet"
@@ -38,10 +38,20 @@
                   method="POST"
                   enctype="multipart/form-data"
                 >
-                  <div class="form-header aqua-gradient p-3">
-                    <p class="h5 text-center text-dark my-2 text-uppercase">
+                  <div class="form-header aqua-gradient p-3 d-flex align-items-start">
+                    .<div class="float-left">
+                      <a class="black-text" th:href="@{/}">
+                        <i
+                          class="fas fa-chevron-circle-left fa-2x prefix text-black ml-3"
+                        ></i>
+                      </a>
+                    </div>
+                    <div class="mx-auto">
+                       <p class="h5 text-center text-dark my-2 text-uppercase">
                       Account Area
                     </p>
+                    </div>
+                   
                   </div>
 
                   <div class="row mt-5">

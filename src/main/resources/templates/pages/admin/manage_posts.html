@@ -4,36 +4,45 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 >
-  <head th:replace="/fragments/header :: header" />
+  <head th:replace="/fragments/header :: header('Manage Post')" />
   <body class="fixed-sn white-skin">
     <nav th:replace="/fragments/navbar :: navbar" />
 
     <main class="px-0 pb-4" style="min-height: 100vh">
       <div class="container my-5">
-        <h2 class="text-center font-weight-bold mb-4 pb-1">MANAGE POSTS</h2>
+        <div class="d-flex align-items-start">
+          <div class="float-left">
+            <a class="black-text" th:href="@{/admin}">
+              <i
+                class="fas fa-chevron-circle-left fa-2x prefix text-black ml-3"
+              ></i>
+            </a>
+          </div>
+          <div class="mx-auto">
+             <h2 class="text-center font-weight-bold mb-4 pb-1">MANAGE POSTS</h2>
         <p class="text-center lead mb-5 pb-2 text-muted">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt.
+          As an Administrator, you have the authority to delete post.
         </p>
+          </div>
+        </div>
 
-        <form
-          action="
-        "
-        >
-          <div class="input-group input-group-lg mb-4">
+       
+
+        <form id="form-search" th:action="@{/admin/manage-post}">
+          <div class="d-flex justify-content-center h-100">
+            <div class="searchbar">
             <input
+              id="query-post"
               type="text"
-              class="form-control"
-              placeholder="Search Posts"
+              class="search_input"
+              placeholder="Search Post"
               aria-describedby="basic-addon1"
               autocomplete="off"
-              name="title"
+              name="query"
+              th:value="${query}"
             />
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1"
-                ><i class="fas fa-search fa-lg prefix text-danger"></i
-              ></span>
-            </div>
+            <span class="search_icon"><i class="fas fa-search"></i></span>
+          </div>
           </div>
         </form>
 
@@ -63,7 +72,7 @@
                     <a th:href="@{/post/}  + ${memberPost.id}">
                       <h5
                         th:text="*{memberPost.title}"
-                        class="card-title black-text float-md-left"
+                        class="card-title black-text float-md-left font-small"
                       ></h5
                     ></a>
                   </div>
@@ -106,19 +115,19 @@
                   <span class="mx-2 text-black-50">
                     <a class="badge badge-danger p-1 mr-2">
                       <i
-                        class="fas fa-star-of-david mr-2 text-black-50"
+                        class="fab fa-slack-hash mr-2 "
                         aria-hidden="true"
                       ></i
                       >[[*{memberPost.category.name}]]</a
                     >
 
-                    <a href="#" class="badge badge-success p-1 mr-2"
+                    <a href="#" class="text-danger p-1 mr-2" style="font-size: 75%"
                       ><i class="fas fa-calendar-alt mx-1"></i>
                       [[*{#dates.format(memberPost.createdDate,
                       'MMM-dd-yyy')}]]</a
                     >
 
-                    <a href="#" class="badge aqua-gradient p-1 mr-2">
+                    <a href="#" class="text-success p-1 mr-2" style="font-size: 75%">
                       <i class="fas fa-user-circle mx-1"></i>
                       [[*{memberPost.customer.firstName} + ' ' +
                       *{memberPost.customer.lastName}]]</a
@@ -214,5 +223,14 @@
       </div>
     </footer>
     <script th:replace="/fragments/script :: script"></script>
+    <script>
+      $(document).ready(function () {
+        $('#form-search').submit(function (e) {
+          if (!$('#query-post').val().trim()) {
+            e.preventDefault();
+          }
+        });
+      });
+    </script>
   </body>
 </html>

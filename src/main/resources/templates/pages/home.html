@@ -15,6 +15,24 @@
       <section th:replace="fragments/stats :: tab_header('home')"></section>
       <!-- tab_header -->
 
+      <form class="mt-4" id="form-search" th:action="@{/home}">
+        <div class="d-flex justify-content-center h-100">
+          <div class="searchbar">
+          <input
+            id="query-home"
+            type="text"
+            class="search_input"
+            placeholder="Search Post"
+            aria-describedby="basic-addon1"
+            autocomplete="off"
+            name="query"
+            th:value="${query}"
+          />
+          <span class="search_icon"><i class="fas fa-search"></i></span>
+        </div>
+        </div>
+      </form>
+
       <hr class="hr" />
 
       <div class="row">
@@ -50,18 +68,18 @@
                 <span class="mx-2 text-black-50">
                   <a class="badge badge-danger p-1 mr-2">
                     <i
-                      class="fas fa-star-of-david mr-2 text-black-50"
+                      class="fab fa-slack-hash mr-2"
                       aria-hidden="true"
                     ></i
                     >[[*{post.category.name}]]</a
                   >
 
-                  <a href="#" class="badge badge-success p-1 mr-2"
+                  <a href="#" class="text-danger p-1 mr-2" style="font-size: 75%"
                     ><i class="fas fa-calendar-alt mx-1"></i>
                     [[*{#dates.format(post.createdDate, 'MMM-dd-yyy')}]]</a
                   >
 
-                  <a href="#" class="badge aqua-gradient p-1 mr-2">
+                  <a href="#" class="text-success p-1 mr-2" style="font-size: 75%">
                     <i class="fas fa-user-circle mx-1"></i>
                     [[*{post.customer.firstName} + ' ' +
                     *{post.customer.lastName}]]</a
@@ -135,59 +153,6 @@
             </div>
           </div>
         </div>
-
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="exampleModal"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-          data-backdrop="static"
-          data-keyboard="false"
-        >
-          <div class="modal-dialog cascading-modal modal-lg modal-notify">
-            <div class="modal-content">
-              <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Search Post</h4>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-
-              <div class="modal-body">
-                <div class="form-group mx-3">
-                  <input
-                    onkeyup="search()"
-                    type="text"
-                    class="form-control form-control-lg"
-                    placeholder="Search post "
-                    autocomplete="off"
-                    name="title"
-                    id="search-input"
-                  />
-                </div>
-                <div id="search-result" class="row inner"></div>
-              </div>
-              <!--Footer-->
-              <div class="modal-footer mr-3">
-                <a
-                  type="button"
-                  class="btn btn-outline-danger btn-sm waves-effect"
-                  data-dismiss="modal"
-                  >Close</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- end modal -->
       </div>
       <!-- end column -->
 
@@ -195,7 +160,5 @@
       <div th:replace="fragments/pagination_post::pagination(path='/page/')" />
       <!-- end pagination here -->
     </div>
-
-    <!-- end row -->
   </body>
 </html>
