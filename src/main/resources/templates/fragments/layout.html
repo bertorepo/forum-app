@@ -79,8 +79,10 @@
                       <i class="fab fa-slack-hash text-danger mr-2"></i
                       >[[${listCat.name}]]
                     </div>
-
-                    <span class="badge badge-success badge-pill"> <i class="fas fa-arrow-right fa-sm"></i></span>
+                    <th:block th:each="val : ${totalCounts}">
+                      <span class="badge badge-danger badge-pill">[[${listCat.name} == ${val.key} ? ${val.value} : '']]</span>
+                    </th:block>
+                    
                   </a>
                 </th:block>
               </div>

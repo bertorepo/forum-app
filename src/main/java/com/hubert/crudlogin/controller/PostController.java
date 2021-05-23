@@ -1,10 +1,13 @@
 package com.hubert.crudlogin.controller;
 
+import com.hubert.crudlogin.model.Category;
 import com.hubert.crudlogin.model.Post;
 import com.hubert.crudlogin.objects.PostDto;
 import com.hubert.crudlogin.service.CategoryService;
 import com.hubert.crudlogin.service.CustomerService;
 import com.hubert.crudlogin.service.PostService;
+
+import java.util.HashMap;
 import java.util.List;
 import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
@@ -120,12 +123,23 @@ public class PostController implements ErrorController {
     //link activer
     model.addAttribute("navActive", nav);
 
+    
+    List<Category> categoryLists = categoryService.allCategories();
+    HashMap<String, Long> totalCounts = new HashMap<String, Long>();
+
+    categoryLists.stream().forEach(cat -> {
+      Long count = postService.countPostByCategory(cat.getId());
+       totalCounts.put(cat.getName(), count);
+    });
+
+    model.addAttribute("totalCounts", totalCounts);
+
       //passing pagination attribute
     model.addAttribute("pageNumber", pageNumber);
     model.addAttribute("totalPages", page.getTotalPages());
     model.addAttribute("totalItems", page.getTotalElements());
 
-    model.addAttribute("categoryList", categoryService.allCategories());
+    model.addAttribute("categoryList", categoryLists);
     model.addAttribute("myPostList", page.getContent());
     model.addAttribute("totalPostCount", postService.totalPostCount());
     model.addAttribute("totalCustomerCount", customerService.countAllCustomer());
@@ -165,6 +179,19 @@ public class PostController implements ErrorController {
     if (post == null) {
       return "redirect:" + PATH;
     }
+
+       
+    List<Category> categoryLists = categoryService.allCategories();
+    HashMap<String, Long> totalCounts = new HashMap<String, Long>();
+
+    categoryLists.stream().forEach(cat -> {
+      Long count = postService.countPostByCategory(cat.getId());
+       totalCounts.put(cat.getName(), count);
+    });
+
+    model.addAttribute("totalCounts", totalCounts);
+    model.addAttribute("categoryList", categoryLists);
+    
     model.addAttribute("myPost", post);
     return "pages/post/view-post";
   }
@@ -188,11 +215,22 @@ public class PostController implements ErrorController {
       }
     }
 
+     
+    List<Category> categoryLists = categoryService.allCategories();
+    HashMap<String, Long> totalCounts = new HashMap<String, Long>();
+
+    categoryLists.stream().forEach(cat -> {
+      Long count = postService.countPostByCategory(cat.getId());
+       totalCounts.put(cat.getName(), count);
+    });
+
+    model.addAttribute("totalCounts", totalCounts);
+
     //passing pagination attribute
     model.addAttribute("totalPages", page.getTotalPages());
     model.addAttribute("totalItems", page.getTotalElements());
 
-    model.addAttribute("categoryList", categoryService.allCategories());
+    model.addAttribute("categoryList", categoryLists);
     model.addAttribute("categoryPosts", categoryPosts);
     model.addAttribute("totalPostCount", postService.totalPostCount());
     model.addAttribute("totalCustomerCount", customerService.countAllCustomer());

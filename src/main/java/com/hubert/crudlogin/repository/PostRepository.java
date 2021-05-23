@@ -31,4 +31,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
 @Query(value = "SELECT u from Post u WHERE u.title LIKE %:query%")
   Page<Post> findPostByTitle(@Param("query") String query, Pageable pageable);
+
+  @Query(value = "SELECT count(*) FROM Post u where u.category.id = :id ")
+  Long countPostByCategory(@Param("id") long id);
 }

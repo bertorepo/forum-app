@@ -8,6 +8,7 @@ import com.hubert.crudlogin.service.CustomerService;
 import com.hubert.crudlogin.service.PostService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
@@ -22,11 +23,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminController implements ErrorController {
 
   private final PostService postService;
   private final CustomerService customerService;
 
+  private static final String PATH = "/error";
+  
+  @RequestMapping(value = PATH)
+  public String error() {
+    return PATH;
+  }
+
+  //return error page for any error occurence
+  @Override
+  public String getErrorPath() {
+    return PATH;
+  }
   
   @Autowired
   public AdminController(PostService postService, CustomerService customerService) {
@@ -40,6 +53,7 @@ public class AdminController {
     String nav = "admin";
     //link active
     model.addAttribute("navActive", nav);
+
    return authentication != null ? "pages/admin/admin" : "redirect:/login";
     }
 
@@ -135,6 +149,7 @@ public class AdminController {
     return "redirect:/admin/manage-customers";
 
   }
+
  
   
 }

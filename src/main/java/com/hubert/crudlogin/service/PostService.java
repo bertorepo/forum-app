@@ -132,4 +132,15 @@ public class PostService {
   public List<Post> searchPost(String query){
     return postRepository.findByTitleAnPosts(query);
   }
+
+  @Transactional
+  public Long countPostByCategory(long id){
+    Long totalCount = postRepository.countPostByCategory(id);
+
+    if(totalCount == 0){
+      return 0L;
+    }
+
+    return totalCount;
+  }
 }

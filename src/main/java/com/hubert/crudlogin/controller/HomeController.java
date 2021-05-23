@@ -1,13 +1,15 @@
 package com.hubert.crudlogin.controller;
 
+import com.hubert.crudlogin.model.Category;
 import com.hubert.crudlogin.model.Post;
 import com.hubert.crudlogin.service.CategoryService;
 import com.hubert.crudlogin.service.CustomerService;
 import com.hubert.crudlogin.service.PostService;
 
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.error.ErrorController;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -27,7 +29,7 @@ public class HomeController{
   private final CategoryService categoryService;
   private final CustomerService customerService;
 
-  // private static final String PATH = "/error";
+
 
   @Autowired
   public HomeController(
@@ -41,16 +43,6 @@ public class HomeController{
   }
 
   
-  // @RequestMapping(value = PATH)
-  // public String error() {
-  //   return PATH;
-  // }
-
-  // //return error page for any error occurence
-  // @Override
-  // public String getErrorPath() {
-  //   return PATH;
-  // }
 
 @GetMapping("favicon.ico")
 @ResponseBody
@@ -100,10 +92,17 @@ public void disableFavicon() {
     model.addAttribute("totalCustomerCount", customerService.countAllCustomer());
 
   
+    List<Category> categoryLists = categoryService.allCategories();
+    HashMap<String, Long> totalCounts = new HashMap<String, Long>();
+   categoryLists.stream().forEach(cat -> {
+     Long count = postService.countPostByCategory(cat.getId());
+      totalCounts.put(cat.getName(), count);
+   });
 
     //passing paginated post
     model.addAttribute("query", query);
-    model.addAttribute("categoryList", categoryService.allCategories());
+    model.addAttribute("totalCounts", totalCounts);
+    model.addAttribute("categoryList", categoryLists);
     model.addAttribute("allPosts", allPosts);
 
     return "pages/home";
@@ -144,6 +143,7 @@ public void disableFavicon() {
     model.addAttribute("indexPost", post);
     return authentication == null ? "view-post" : "redirect:/home";
   }
+
 }
 
 

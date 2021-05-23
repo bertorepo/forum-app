@@ -2,8 +2,6 @@ package com.hubert.crudlogin.repository;
 
 import com.hubert.crudlogin.model.Customer;
 
-
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;

@@ -8,7 +8,7 @@
   <body class="fixed-sn white-skin">
     <nav th:replace="/fragments/navbar :: navbar" />
     <div class="container">
-      <section class="dark-grey-text  my-5">
+      <section sec:authorize="isAnonymous()" class="dark-grey-text  my-5">
         <h6 class="font-weight-normal text-uppercase font-small grey-text mb-4 text-center">
           | bert0
         </h6>

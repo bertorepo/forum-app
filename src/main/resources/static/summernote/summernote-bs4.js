@@ -2283,7 +2283,7 @@
           blank: blankHTML,
 
           /** @property {String} emptyPara */
-          emptyPara: '<div class="px-4" id="edit-wrapper">'.concat(blankHTML, '</div>'),
+          emptyPara: '<div class="px-2" id="edit-wrapper">'.concat(blankHTML, '</div>'),
           makePredByNodeName: makePredByNodeName,
           isEditable: isEditable,
           isControlSizing: isControlSizing,
