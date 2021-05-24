@@ -18,10 +18,10 @@ Simple Forum App using Spring Security, Spring Boot, Thymeleaf and Spring Data J
 ![dashboardpage](https://github.com/bertorepo/forum-app/blob/master/screenshots/home_dashboard.png)
 
  1. View Other Post [See Screenshot here](https://github.com/bertorepo/forum-app/blob/master/screenshots/view_post.png)
- 2. Create Post[See Screenshot here](https://github.com/bertorepo/forum-app/blob/master/screenshots/Create-Post.png)
- 3. Can Filter Post[See Screenshot here](https://github.com/bertorepo/forum-app/blob/master/screenshots/Filter_Your_Posts.png)
+ 2. Create Post [See Screenshot here](https://github.com/bertorepo/forum-app/blob/master/screenshots/Create-Post.png)
+ 3. Can Filter Post [See Screenshot here](https://github.com/bertorepo/forum-app/blob/master/screenshots/Filter_Your_Posts.png)
  4. Can search Post
- 5. Can Edit His/Her Profile[See Screenshot here](https://github.com/bertorepo/forum-app/blob/master/screenshots/My-Profile.png)
+ 5. Can Edit His/Her Profile [See Screenshot here](https://github.com/bertorepo/forum-app/blob/master/screenshots/My-Profile.png)
  6. A member has full control on his post. He/She can Edit Post, Delete Post, Update Post.
  
 ### Administrator Functionality: 
