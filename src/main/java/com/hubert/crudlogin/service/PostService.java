@@ -53,7 +53,7 @@ public class PostService {
     return customer;
   }
 
-  @Transactional
+  
   public Post save(Post post) {
     return postRepository.save(post);
   }
@@ -108,6 +108,7 @@ public class PostService {
     Category category = postDto.getCategory();
 
     Post post = new Post();
+    postDto.setViewCounts(postDto.getViewCounts());
     postDto.setCustomer(customer);
     postDto.setCategory(category);
     modelMapper.map(postDto, post);

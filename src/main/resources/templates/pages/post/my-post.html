@@ -93,6 +93,12 @@
                     [[*{postList.customer.firstName} + ' ' +
                     *{postList.customer.lastName}]]</a
                   >
+
+                  
+                  <a  class="text-muted p-1 mr-2" style="font-size: 75%">
+                    <i class="far fa-eye mx-1"></i>
+                    [[*{postList.viewCounts} == 0 ? 'No views' : ${postList.viewCounts}]]</a
+                  >
                 </span>
               </div>
             </div>

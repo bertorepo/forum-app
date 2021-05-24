@@ -27,24 +27,25 @@
         </div>
 
        
-
-        <form id="form-search" th:action="@{/admin/manage-post}">
-          <div class="d-flex justify-content-center h-100">
-            <div class="searchbar">
-            <input
-              id="query-post"
-              type="text"
-              class="search_input"
-              placeholder="Search Post"
-              aria-describedby="basic-addon1"
-              autocomplete="off"
-              name="query"
-              th:value="${query}"
-            />
-            <span class="search_icon"><i class="fas fa-search"></i></span>
-          </div>
-          </div>
-        </form>
+        <th:block  th:if="${not #lists.isEmpty(membersPosts)}">
+          <form id="form-search" th:action="@{/admin/manage-post}">
+            <div class="d-flex justify-content-center h-100">
+              <div class="searchbar">
+              <input
+                id="query-post"
+                type="text"
+                class="search_input"
+                placeholder="Search Post"
+                aria-describedby="basic-addon1"
+                autocomplete="off"
+                name="query"
+                th:value="${query}"
+              />
+              <span class="search_icon"><i class="fas fa-search"></i></span>
+            </div>
+            </div>
+          </form>
+        </th:block>
 
         <hr class="hr" />
 

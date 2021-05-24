@@ -28,6 +28,9 @@ public class Post extends AuditableBase {
   @JsonIgnore
   private Customer customer;
 
+  @Column(name = "view_count")
+  private int viewCounts;
+
   @ManyToOne
   @JoinColumn(name = "category_id")
   private Category category;
@@ -78,4 +81,20 @@ public class Post extends AuditableBase {
   public void setCategory(Category category) {
     this.category = category;
   }
+
+  public int getViewCounts() {
+    return viewCounts;
+  }
+
+  public void setViewCounts(int viewCounts) {
+    this.viewCounts = viewCounts;
+  }
+
+  @Override
+  public String toString() {
+    return "Post [category=" + category + ", content=" + content + ", customer=" + customer + ", id=" + id + ", title="
+        + title + ", viewCounts=" + viewCounts + "]";
+  }
+
+  
 }

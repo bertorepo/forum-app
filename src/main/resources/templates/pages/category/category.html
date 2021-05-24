@@ -86,16 +86,21 @@
                     >[[*{categoryPost.category.name}]]</a
                   >
 
-                  <a href="#" class="text-danger p-1 mr-2" style="font-size: 75%"
+                  <a  class="text-danger p-1 mr-2" style="font-size: 75%"
                     ><i class="fas fa-calendar-alt mx-1"></i>
                     [[*{#dates.format(categoryPost.createdDate,
                     'MMM-dd-yyy')}]]</a
                   >
 
-                  <a href="#" class="text-success p-1 mr-2" style="font-size: 75%">
+                  <a  class="text-success p-1 mr-2" style="font-size: 75%">
                     <i class="fas fa-user-circle mx-1"></i>
                     [[*{categoryPost.customer.firstName} + ' ' +
                     *{categoryPost.customer.lastName}]]</a
+                  >
+
+                  <a  class="text-muted p-1 mr-2" style="font-size: 75%">
+                    <i class="far fa-eye mx-1"></i>
+                    [[*{categoryPost.viewCounts} == 0 ? 'No views' : ${categoryPost.viewCounts}]]</a
                   >
                 </span>
               </div>

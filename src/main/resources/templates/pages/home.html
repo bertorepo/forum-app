@@ -14,24 +14,26 @@
       <!-- tab_header -->
       <section th:replace="fragments/stats :: tab_header('home')"></section>
       <!-- tab_header -->
+     
 
-      <form class="mt-4" id="form-search" th:action="@{/home}">
-        <div class="d-flex justify-content-center h-100">
-          <div class="searchbar">
-          <input
-            id="query-home"
-            type="text"
-            class="search_input"
-            placeholder="Search Post"
-            aria-describedby="basic-addon1"
-            autocomplete="off"
-            name="query"
-            th:value="${query}"
-          />
-          <span class="search_icon"><i class="fas fa-search"></i></span>
-        </div>
-        </div>
-      </form>
+        <form class="mt-4" id="form-search" th:action="@{/home}">
+          <div class="d-flex justify-content-center h-100">
+            <div class="searchbar">
+            <input
+              id="query-home"
+              type="text"
+              class="search_input"
+              placeholder="Search Post"
+              aria-describedby="basic-addon1"
+              autocomplete="off"
+              name="query"
+              th:value="${query}"
+            />
+            <span class="search_icon"><i class="fas fa-search"></i></span>
+          </div>
+          </div>
+        </form>
+      
 
       <hr class="hr" />
 
@@ -74,15 +76,20 @@
                     >[[*{post.category.name}]]</a
                   >
 
-                  <a href="#" class="text-danger p-1 mr-2" style="font-size: 75%"
+                  <a  class="text-danger p-1 mr-2" style="font-size: 75%"
                     ><i class="fas fa-calendar-alt mx-1"></i>
                     [[*{#dates.format(post.createdDate, 'MMM-dd-yyy')}]]</a
                   >
 
-                  <a href="#" class="text-success p-1 mr-2" style="font-size: 75%">
+                  <a  class="text-success p-1 mr-2" style="font-size: 75%">
                     <i class="fas fa-user-circle mx-1"></i>
                     [[*{post.customer.firstName} + ' ' +
                     *{post.customer.lastName}]]</a
+                  >
+
+                  <a  class="text-muted p-1 mr-2" style="font-size: 75%">
+                    <i class="far fa-eye mx-1"></i>
+                    [[*{post.viewCounts} == 0 ? 'No views' : ${post.viewCounts}]]</a
                   >
                 </span>
               </div>

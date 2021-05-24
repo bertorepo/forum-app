@@ -16,24 +16,26 @@
         <h3 class="font-weight-bold text-success mb-4 pb-2 text-center banner">
           MOBILARIAN FORUM
         </h3>
-
-        <form class="mt-4 mx-4" id="form-search" th:action="@{/}">
-          <div class="d-flex justify-content-center h-100">
-            <div class="searchbar">
-            <input
-              id="query-home"
-              type="text"
-              class="search_input"
-              placeholder="Search Post"
-              aria-describedby="basic-addon1"
-              autocomplete="off"
-              name="query"
-              th:value="${query}"
-            />
-            <span class="search_icon"><i class="fas fa-search"></i></span>
+        <th:block  th:if="${not #lists.isEmpty(viewPosts)}">
+          <form class="mt-4 mx-4" id="form-search" th:action="@{/}">
+            <div class="d-flex justify-content-center h-100">
+              <div class="searchbar">
+              <input
+                id="query-home"
+                type="text"
+                class="search_input"
+                placeholder="Search Post"
+                aria-describedby="basic-addon1"
+                autocomplete="off"
+                name="query"
+                th:value="${query}"
+              />
+              <span class="search_icon"><i class="fas fa-search"></i></span>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </th:block>
+
         <div class="row">
           <div
           th:if="${#lists.isEmpty(viewPosts)}"
@@ -72,15 +74,20 @@
                     >[[*{post.category.name}]]</a
                   >
 
-                  <a href="#" class="text-danger mr-2" style="font-size: 75%"
+                  <a class="text-danger mr-2" style="font-size: 75%"
                     ><i class="fas fa-calendar-alt mx-1"></i>
                     [[*{#dates.format(post.createdDate, 'MMM-dd-yyy')}]]</a
                   >
 
-                  <a href="#" class="text-success t  mr-2" style="font-size: 75%">
+                  <a  class="text-success t  mr-2" style="font-size: 75%">
                     <i class="fas fa-user-circle mx-1"></i>
                     [[*{post.customer.username}]]
                    </a
+                  >
+
+                  <a class="text-muted p-1 mr-2" style="font-size: 75%">
+                    <i class="far fa-eye mx-1"></i>
+                    [[*{post.viewCounts} == 0 ? 'No views' : ${post.viewCounts}]]</a
                   >
                 </span>
               </div>
@@ -95,7 +102,7 @@
       
       </section>
        <!-- pagination here -->
-       <div th:replace="fragments/pagination_post::pagination(path='/')" />
+       <div th:replace="fragments/pagination_post::pagination(path='/page-view/')" />
        <!-- end pagination here -->
     </div>
     <script

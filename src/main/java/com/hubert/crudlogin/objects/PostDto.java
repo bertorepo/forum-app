@@ -18,6 +18,8 @@ public class PostDto {
   @NotEmpty(message = "Please enter content post")
   private String content;
 
+  private int viewCounts;
+
   public PostDto() {}
 
   public PostDto(Long id, String title, String content) {
@@ -66,20 +68,21 @@ public class PostDto {
     this.id = id;
   }
 
+  
+
+  public int getViewCounts() {
+    return viewCounts;
+  }
+
+  public void setViewCounts(int viewCounts) {
+    this.viewCounts = viewCounts;
+  }
+
   @Override
   public String toString() {
-    return (
-      "PostDto [category=" +
-      category +
-      ", content=" +
-      content +
-      ", customer=" +
-      customer +
-      ", id=" +
-      id +
-      ", title=" +
-      title +
-      "]"
-    );
+    return "PostDto [category=" + category + ", content=" + content + ", customer=" + customer + ", id=" + id
+        + ", title=" + title + ", viewCounts=" + viewCounts + "]";
   }
+
+ 
 }

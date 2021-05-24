@@ -77,6 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .hasAuthority("ADMIN")
       .antMatchers(
         "/",
+        "/page-view/**",
         "/css/**",
         "/mdb/**",
         "/assets/**",

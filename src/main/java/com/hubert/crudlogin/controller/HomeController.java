@@ -17,7 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -109,13 +109,13 @@ public void disableFavicon() {
   }
 
 
-@GetMapping("/{pageNumber}")
+@GetMapping("page-view/{pageNumber}")
   public String findPaginatedPostIndex(
     @PathVariable(value = "pageNumber") int pageNumber,
     Model model, String query
   ) {
     //initial page size
-    int pageSize = 15;
+    int pageSize = 10;
 
     Page<Post> page = postService.paginateList(pageNumber, pageSize, query);
     List<Post> viewPosts = page.getContent();
@@ -136,7 +136,7 @@ public void disableFavicon() {
     return "index";
   }
 
-  @GetMapping("/view/{id}")
+  @RequestMapping("/view/{id}")
   public String  showPostIndex(@PathVariable("id") int id, Model model, Authentication authentication){
     Post post = postService.showPost(id);
 

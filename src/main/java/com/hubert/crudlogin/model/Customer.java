@@ -41,6 +41,8 @@ public class Customer implements UserDetails {
   @Column(name = "last_name")
   private String lastName;
 
+  
+
   private String email;
   private String password;
 
@@ -214,7 +216,8 @@ public class Customer implements UserDetails {
   public String toString() {
     return "Customer [authorities=" + authorities + ", createdAt=" + createdAt + ", description=" + description
         + ", email=" + email + ", enabled=" + enabled + ", firstName=" + firstName + ", id=" + id + ", lastName="
-        + lastName + ", password=" + password + ", profileImage=" + profileImage + ", username=" + username + "]";
+        + lastName + ", password=" + password + ", posts=" + posts + ", profileImage=" + profileImage + ", username="
+        + username + "]";
   }
 
   

@@ -161,7 +161,8 @@ public class PostController implements ErrorController {
     modelMapper.map(post, postDto);
 
     postDto.setId(post.getId());
-
+    postDto.setViewCounts(post.getViewCounts());
+    
     model.addAttribute("categoryList", categoryService.allCategories());
     model.addAttribute("postDto", postDto);
     mav.addObject(postDto);
@@ -179,6 +180,10 @@ public class PostController implements ErrorController {
     if (post == null) {
       return "redirect:" + PATH;
     }
+
+    //update post views every click of the post
+    post.setViewCounts(post.getViewCounts() + 1);
+    postService.save(post);
 
        
     List<Category> categoryLists = categoryService.allCategories();

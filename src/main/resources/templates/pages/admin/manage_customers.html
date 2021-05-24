@@ -27,30 +27,30 @@
           </div>
         </div>
 
-        <form
-       
-          id="form-search"
-          th:action="@{/admin/manage-customers}"
-        >
+        <th:block  th:if="${not #lists.isEmpty(customersLists)}">
+          <form
+            id="form-search"
+            th:action="@{/admin/manage-customers}"
+          >
+          <div class="d-flex justify-content-center h-100">
+            <div class="searchbar">
+              <input
+              id="query"
+                type="text"
+                class="search_input"
+                placeholder="Search Members"
+                aria-describedby="basic-addon1"
+                autocomplete="off"
+                name="query"
+                th:value="${query}"
+              />
+              <span class="search_icon"><i class="fas fa-search"></i></span>
+              </div>
+          </div>   
+          </form>
 
-        <div class="d-flex justify-content-center h-100">
-          <div class="searchbar">
-            <input
-            id="query"
-              type="text"
-              class="search_input"
-              placeholder="Search Members"
-              aria-describedby="basic-addon1"
-              autocomplete="off"
-              name="query"
-              th:value="${query}"
-            />
-            <span class="search_icon"><i class="fas fa-search"></i></span>
-            </div>
-        </div>
-         
-          
-        </form>
+        </th:block>
+
 
         <hr class="hr" />
 
