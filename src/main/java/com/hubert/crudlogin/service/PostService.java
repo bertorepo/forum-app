@@ -53,7 +53,6 @@ public class PostService {
     return customer;
   }
 
-  
   public Post save(Post post) {
     return postRepository.save(post);
   }
@@ -73,12 +72,18 @@ public class PostService {
   }
 
   @Transactional
-  public Page<Post> findPostByCategory(String name, int pageNumber, int pageSize) {
-
+  public Page<Post> findPostByCategory(
+    String name,
+    int pageNumber,
+    int pageSize
+  ) {
     Category category = categoryService.findCategory(name);
-    Pageable page = PageRequest.of(pageNumber -1, pageSize, Sort.by(Sort.Direction.DESC, "createdDate"));
+    Pageable page = PageRequest.of(
+      pageNumber - 1,
+      pageSize,
+      Sort.by(Sort.Direction.DESC, "createdDate")
+    );
     return postRepository.findByCategorySortedByDate(category.getId(), page);
-   
   }
 
   @Transactional
@@ -92,15 +97,18 @@ public class PostService {
   }
 
   @Transactional
-  public long totalPostCount(){
+  public long totalPostCount() {
     return postRepository.count();
   }
 
   @Transactional
   public Page<Post> findMyPost(int pageNumber, int pageSize) {
-    Pageable page = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.DESC, "createdDate"));
-    return postRepository.findMyPost(
-      getPrincipal().getId(), page);
+    Pageable page = PageRequest.of(
+      pageNumber - 1,
+      pageSize,
+      Sort.by(Sort.Direction.DESC, "createdDate")
+    );
+    return postRepository.findMyPost(getPrincipal().getId(), page);
   }
 
   public Post createPost(PostDto postDto) {
@@ -122,7 +130,7 @@ public class PostService {
     Sort sort = Sort.by(Sort.Direction.DESC, "createdDate");
     Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
 
-    if(query != null){
+    if (query != null) {
       return postRepository.findPostByTitle(query, pageable);
     }
     return postRepository.findAll(pageable);
@@ -130,15 +138,15 @@ public class PostService {
 
   //search Post
   @Transactional
-  public List<Post> searchPost(String query){
+  public List<Post> searchPost(String query) {
     return postRepository.findByTitleAnPosts(query);
   }
 
   @Transactional
-  public Long countPostByCategory(long id){
+  public Long countPostByCategory(long id) {
     Long totalCount = postRepository.countPostByCategory(id);
 
-    if(totalCount == 0){
+    if (totalCount == 0) {
       return 0L;
     }
 

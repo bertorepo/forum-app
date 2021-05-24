@@ -31,7 +31,7 @@ public class CustomerDTO {
 
   @Nullable
   private String profileImage;
-  
+
   @Nullable
   private String description;
 
@@ -112,11 +112,26 @@ public class CustomerDTO {
 
   @Override
   public String toString() {
-    return "CustomerDTO [description=" + description + ", email=" + email + ", firstName=" + firstName + ", id=" + id
-        + ", lastName=" + lastName + ", password=" + password + ", profileImage=" + profileImage + ", rPassword="
-        + rPassword + ", username=" + username + "]";
+    return (
+      "CustomerDTO [description=" +
+      description +
+      ", email=" +
+      email +
+      ", firstName=" +
+      firstName +
+      ", id=" +
+      id +
+      ", lastName=" +
+      lastName +
+      ", password=" +
+      password +
+      ", profileImage=" +
+      profileImage +
+      ", rPassword=" +
+      rPassword +
+      ", username=" +
+      username +
+      "]"
+    );
   }
-
- 
- 
 }

@@ -1,132 +1,88 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-  layout:decorate="~{/fragments/layout}"
->
-  <body class="fixed-sn white-skin">
-    <div layout:fragment="content">
-      <!-- stats -->
-      <section th:replace="fragments/stats :: stats"></section>
-      <!-- stats -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" layout:decorate="~{/fragments/layout}">
 
-      <!-- tab_header -->
-      <section th:replace="fragments/stats :: tab_header('home')"></section>
-      <!-- tab_header -->
-     
+<body class="fixed-sn white-skin">
+  <div layout:fragment="content">
+    <!-- stats -->
+    <section th:replace="fragments/stats :: stats"></section>
+    <!-- stats -->
 
-        <form class="mt-4" id="form-search" th:action="@{/home}">
-          <div class="d-flex justify-content-center h-100">
-            <div class="searchbar">
-            <input
-              id="query-home"
-              type="text"
-              class="search_input"
-              placeholder="Search Post"
-              aria-describedby="basic-addon1"
-              autocomplete="off"
-              name="query"
-              th:value="${query}"
-            />
-            <span class="search_icon"><i class="fas fa-search"></i></span>
-          </div>
-          </div>
-        </form>
-      
+    <!-- tab_header -->
+    <section th:replace="fragments/stats :: tab_header('home')"></section>
+    <!-- tab_header -->
 
-      <hr class="hr" />
-
-      <div class="row">
-        <div
-          th:if="${#lists.isEmpty(allPosts)}"
-          class="text-center mx-auto text-black-50 h2-responsive"
-        >
-          <i
-            class="fas fa-exclamation-triangle my-lg-5 fa-5x text-black-50"
-          ></i>
-          <h4 class="h4-responsive">No available post!</h4>
+    <form class="mt-4" id="form-search" th:action="@{/home}">
+      <div class="d-flex justify-content-center h-100">
+        <div class="searchbar">
+          <input id="query-home" type="text" class="search_input" placeholder="Search Post"
+            aria-describedby="basic-addon1" autocomplete="off" name="query" th:value="${query}" />
+          <span class="search_icon"><i class="fas fa-search"></i></span>
         </div>
+      </div>
+    </form>
 
-        <!-- card -->
-        <div th:each="post: ${allPosts}" class="col-lg-12 col-md-12">
-          <div class="card card-wrapper">
-            <!-- Card content -->
+    <hr class="hr" />
+    <div class="row">
+      <div th:if="${#lists.isEmpty(allPosts)}" class="text-center mx-auto text-black-50 h2-responsive">
+        <i class="fas fa-exclamation-triangle my-lg-5 fa-5x text-black-50"></i>
+        <h4 class="h4-responsive">No available post!</h4>
+      </div>
 
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-8 col-sm-6">
-                  <a th:href="@{/post/}  + ${post.id}">
-                    <h5
-                      th:text="*{post.title}"
-                      class="card-title black-text font-small float-md-left"
-                    ></h5
-                  ></a>
-                </div>
-              </div>
-
-              <!-- Text -->
-              <div class="card-text justify-content-md-center">
-                <span class="mx-2 text-black-50">
-                  <a class="badge badge-danger p-1 mr-2">
-                    <i
-                      class="fab fa-slack-hash mr-2"
-                      aria-hidden="true"
-                    ></i
-                    >[[*{post.category.name}]]</a
-                  >
-
-                  <a  class="text-danger p-1 mr-2" style="font-size: 75%"
-                    ><i class="fas fa-calendar-alt mx-1"></i>
-                    [[*{#dates.format(post.createdDate, 'MMM-dd-yyy')}]]</a
-                  >
-
-                  <a  class="text-success p-1 mr-2" style="font-size: 75%">
-                    <i class="fas fa-user-circle mx-1"></i>
-                    [[*{post.customer.firstName} + ' ' +
-                    *{post.customer.lastName}]]</a
-                  >
-
-                  <a  class="text-muted p-1 mr-2" style="font-size: 75%">
-                    <i class="far fa-eye mx-1"></i>
-                    [[*{post.viewCounts} == 0 ? 'No views' : ${post.viewCounts}]]</a
-                  >
-                </span>
+      <!-- card -->
+      <div th:each="post: ${allPosts}" class="col-lg-12 col-md-12">
+        <div class="card card-wrapper">
+          <!-- Card content -->
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-8 col-sm-6">
+                <a th:href="@{/post/}  + ${post.id}">
+                  <h5 th:text="*{post.title}" class="card-title black-text font-small float-md-left"></h5>
+                </a>
               </div>
             </div>
-            <!-- Card content -->
-          </div>
-          <!-- end card -->
+            <!-- Text -->
+            <div class="card-text justify-content-md-center">
+              <span class="mx-2 text-black-50">
+                <a class="badge p-1 mr-2" th:classappend="*{post.category.name} == 'Beginners' ? 'badge-success' :
+                   (*{post.category.name} == 'Discuss' ? 'badge-info' :
+                  ( *{post.category.name} == 'Career' ? 'badge-secondary' :
+                  ( *{post.category.name} == 'Productivity' ? 'badge-secondary' :   
+                  (*{post.category.name} == 'Opensource' ? 'badge-warning' : 
+                  (*{post.category.name} == 'Development' ? 'badge-primary': 'badge-danger')))))">
+                  <i class="fab fa-slack-hash mr-2" aria-hidden="true"></i>[[*{post.category.name}]]</a>
 
-          <!-- Modal -->
-          <div
-            class="modal fade"
-            th:id="*{'delete-post' + {post.id}}"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true"
-          >
-            <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
-            <div
-              class="modal-dialog modal-sm modal-notify modal-danger"
-              role="document"
-            >
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="text-center d-flex">
-                    <i
-                      class="
+                <a class="text-danger p-1 mr-2" style="font-size: 75%"><i class="fas fa-calendar-alt mx-1"></i>
+                  [[*{#dates.format(post.createdDate, 'MMM-dd-yyy')}]]</a>
+
+                <a class="text-success p-1 mr-2" style="font-size: 75%">
+                  <i class="fas fa-user-circle mx-1"></i>
+                  [[*{post.customer.firstName} + ' ' +
+                  *{post.customer.lastName}]]</a>
+
+                <a class="text-muted p-1 mr-2" style="font-size: 75%">
+                  <i class="far fa-eye mx-1"></i>
+                  [[*{post.viewCounts} == 0 ? 'No views' : ${post.viewCounts}]]</a>
+              </span>
+            </div>
+          </div>
+          <!-- Card content -->
+        </div>
+        <!-- end card -->
+        <!-- Modal -->
+        <div class="modal fade" th:id="*{'delete-post' + {post.id}}" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+          <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="text-center d-flex">
+                  <i class="
                         fas
                         fa-exclamation-triangle
                         mx-2
@@ -134,38 +90,31 @@
                         text-danger
                         animated
                         rotateIn
-                      "
-                    ></i>
-                    <p class="my-2">Are you sure you want to delete?</p>
-                  </div>
+                      "></i>
+                  <p class="my-2">Are you sure you want to delete?</p>
                 </div>
-                <div class="modal-footer flex-center">
-                  <a
-                    th:href="@{/delete-post/} + ${post.id}"
-                    class="btn btn-sm btn-danger"
-                  >
-                    <i class="far fa-trash-alt animated"></i>
-                    Delete Post
-                  </a>
-                  <button
-                    type="button"
-                    class="btn btn-sm btn-outline-danger"
-                    data-dismiss="modal"
-                  >
-                    <i class="far fa-times-circle"></i>
-                    Close
-                  </button>
-                </div>
+              </div>
+              <div class="modal-footer flex-center">
+                <a th:href="@{/delete-post/} + ${post.id}" class="btn btn-sm btn-danger">
+                  <i class="far fa-trash-alt animated"></i>
+                  Delete Post
+                </a>
+                <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="modal">
+                  <i class="far fa-times-circle"></i>
+                  Close
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- end column -->
-
-      <!-- pagination here -->
-      <div th:replace="fragments/pagination_post::pagination(path='/page/')" />
-      <!-- end pagination here -->
     </div>
-  </body>
+    <!-- end column -->
+
+    <!-- pagination here -->
+    <div th:replace="fragments/pagination_post::pagination(path='/page/')" />
+    <!-- end pagination here -->
+  </div>
+</body>
+
 </html>

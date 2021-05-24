@@ -1,53 +1,39 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
->
-  <head th:replace="/fragments/header :: header('Welcome')" />
-  <body class="fixed-sn white-skin">
-    <nav th:replace="/fragments/navbar :: navbar" />
-    <div class="container">
-      <section sec:authorize="isAnonymous()" class="dark-grey-text  my-5">
-        <h6 class="font-weight-normal text-uppercase font-small grey-text mb-4 text-center">
-          | bert0
-        </h6>
-        <!-- Section heading -->
-        <h3 class="font-weight-bold text-success mb-4 pb-2 text-center banner">
-          MOBILARIAN FORUM
-        </h3>
-        <th:block  th:if="${not #lists.isEmpty(viewPosts)}">
-          <form class="mt-4 mx-4" id="form-search" th:action="@{/}">
-            <div class="d-flex justify-content-center h-100">
-              <div class="searchbar">
-              <input
-                id="query-home"
-                type="text"
-                class="search_input"
-                placeholder="Search Post"
-                aria-describedby="basic-addon1"
-                autocomplete="off"
-                name="query"
-                th:value="${query}"
-              />
-              <span class="search_icon"><i class="fas fa-search"></i></span>
-              </div>
-            </div>
-          </form>
-        </th:block>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-        <div class="row">
-          <div
-          th:if="${#lists.isEmpty(viewPosts)}"
-          class="text-center mx-auto text-black-50 h2-responsive"
-        >
-          <i
-            class="fas fa-exclamation-triangle my-lg-5 fa-3x text-black-50"
-          ></i>
+<head th:replace="/fragments/header :: header('Welcome')" />
+
+<body class="fixed-sn white-skin">
+  <nav th:replace="/fragments/navbar :: navbar" />
+  <div class="container">
+    <section sec:authorize="isAnonymous()" class="dark-grey-text  my-5">
+      <h6 class="font-weight-normal text-uppercase font-small grey-text mb-4 text-center">
+        | Hubert
+      </h6>
+      <!-- Section heading -->
+      <h3 class="font-weight-bold text-success mb-4 pb-2 text-center banner">
+        MOBILARIAN FORUM
+      </h3>
+      <th:block th:if="${not #lists.isEmpty(viewPosts)}">
+        <form class="mt-4 mx-4" id="form-search" th:action="@{/}">
+          <div class="d-flex justify-content-center h-100">
+            <div class="searchbar">
+              <input id="query-home" type="text" class="search_input" placeholder="Search Post"
+                aria-describedby="basic-addon1" autocomplete="off" name="query" th:value="${query}" />
+              <span class="search_icon"><i class="fas fa-search"></i></span>
+            </div>
+          </div>
+        </form>
+      </th:block>
+
+      <div class="row">
+        <div th:if="${#lists.isEmpty(viewPosts)}" class="text-center mx-auto text-black-50 h2-responsive">
+          <i class="fas fa-exclamation-triangle my-lg-5 fa-3x text-black-50"></i>
           <h4 class="h4-responsive">No available post!</h4>
         </div>
-                <!-- card -->
-         <div th:each="post: ${viewPosts}" class="col-lg-12 col-md-12">
+        <!-- card -->
+        <div th:each="post: ${viewPosts}" class="col-lg-12 col-md-12">
           <div class="card card-wrapper">
             <!-- Card content -->
 
@@ -55,40 +41,33 @@
               <div class="row">
                 <div class="col-md-8 col-sm-6">
                   <a th:href="@{/view/}  + ${post.id}">
-                    <h5
-                      th:text="*{post.title}"
-                      class="card-title black-text font-small float-md-left"
-                    ></h5
-                  ></a>
+                    <h5 th:text="*{post.title}" class="card-title black-text font-small float-md-left"></h5>
+                  </a>
                 </div>
               </div>
 
               <!-- Text -->
               <div class="card-text justify-content-md-center">
                 <span class="mx-2 text-black-50">
-                  <a class="badge badge-danger mr-2">
-                    <i
-                      class="fab fa-slack-hash mr-2"
-                      aria-hidden="true"
-                    ></i
-                    >[[*{post.category.name}]]</a
-                  >
+                  <a class="badge mr-2" th:classappend="*{post.category.name} == 'Beginners' ? 'badge-success' :
+                  (*{post.category.name} == 'Discuss' ? 'badge-info' :
+                 ( *{post.category.name} == 'Career' ? 'badge-secondary' :
+                 ( *{post.category.name} == 'Productivity' ? 'badge-secondary' :   
+                 (*{post.category.name} == 'Opensource' ? 'badge-warning' : 
+                 (*{post.category.name} == 'Development' ? 'badge-primary': 'badge-danger')))))">
+                    <i class="fab fa-slack-hash mr-2" aria-hidden="true"></i>[[*{post.category.name}]]</a>
 
-                  <a class="text-danger mr-2" style="font-size: 75%"
-                    ><i class="fas fa-calendar-alt mx-1"></i>
-                    [[*{#dates.format(post.createdDate, 'MMM-dd-yyy')}]]</a
-                  >
+                  <a class="text-danger mr-2" style="font-size: 75%"><i class="fas fa-calendar-alt mx-1"></i>
+                    [[*{#dates.format(post.createdDate, 'MMM-dd-yyy')}]]</a>
 
-                  <a  class="text-success t  mr-2" style="font-size: 75%">
+                  <a class="text-success t  mr-2" style="font-size: 75%">
                     <i class="fas fa-user-circle mx-1"></i>
-                    [[*{post.customer.username}]]
-                   </a
-                  >
+                    [[*{post.customer.FullName}]]
+                  </a>
 
                   <a class="text-muted p-1 mr-2" style="font-size: 75%">
                     <i class="far fa-eye mx-1"></i>
-                    [[*{post.viewCounts} == 0 ? 'No views' : ${post.viewCounts}]]</a
-                  >
+                    [[*{post.viewCounts} == 0 ? 'No views' : ${post.viewCounts}]]</a>
                 </span>
               </div>
             </div>
@@ -96,22 +75,16 @@
           </div>
           <!-- end card -->
         </div>
-
-   
-      
-      
-      </section>
-       <!-- pagination here -->
-       <div th:replace="fragments/pagination_post::pagination(path='/page-view/')" />
-       <!-- end pagination here -->
-    </div>
-    <script
-    th:fragment="script"
-    th:src="@{/mdb/js/jquery-3.4.1.min.js}"
-  ></script>
+    </section>
+    <!-- pagination here -->
+    <div th:replace="fragments/pagination_post::pagination(path='/page-view/')" />
+    <!-- end pagination here -->
+  </div>
+  <script th:fragment="script" th:src="@{/mdb/js/jquery-3.4.1.min.js}"></script>
   <script th:fragment="script" th:src="@{/mdb/js/popper.min.js}"></script>
   <script th:fragment="script" th:src="@{/mdb/js/bootstrap.min.js}"></script>
   <script th:fragment="script" th:src="@{/mdb/js/mdb.min.js}"></script>
   <script th:fragment="script" th:src="@{/mdb/js/script.js}"></script>
-  </body>
+</body>
+
 </html>

@@ -53,14 +53,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   //   return firewall;
   // }
 
-
   // @Override
   // public void configure(WebSecurity web) throws Exception {
   //   super.configure(web);
 
   //   web.httpFirewall(allowUrlEncodedSlashHttpFirewall());
   // }
-
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {

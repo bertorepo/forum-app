@@ -1,5 +1,6 @@
 package com.hubert.crudlogin.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,8 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Post extends AuditableBase {
@@ -92,9 +91,20 @@ public class Post extends AuditableBase {
 
   @Override
   public String toString() {
-    return "Post [category=" + category + ", content=" + content + ", customer=" + customer + ", id=" + id + ", title="
-        + title + ", viewCounts=" + viewCounts + "]";
+    return (
+      "Post [category=" +
+      category +
+      ", content=" +
+      content +
+      ", customer=" +
+      customer +
+      ", id=" +
+      id +
+      ", title=" +
+      title +
+      ", viewCounts=" +
+      viewCounts +
+      "]"
+    );
   }
-
-  
 }

@@ -68,8 +68,6 @@ public class PostDto {
     this.id = id;
   }
 
-  
-
   public int getViewCounts() {
     return viewCounts;
   }
@@ -80,9 +78,20 @@ public class PostDto {
 
   @Override
   public String toString() {
-    return "PostDto [category=" + category + ", content=" + content + ", customer=" + customer + ", id=" + id
-        + ", title=" + title + ", viewCounts=" + viewCounts + "]";
+    return (
+      "PostDto [category=" +
+      category +
+      ", content=" +
+      content +
+      ", customer=" +
+      customer +
+      ", id=" +
+      id +
+      ", title=" +
+      title +
+      ", viewCounts=" +
+      viewCounts +
+      "]"
+    );
   }
-
- 
 }

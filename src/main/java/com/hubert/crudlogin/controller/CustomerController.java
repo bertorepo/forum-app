@@ -3,16 +3,13 @@ package com.hubert.crudlogin.controller;
 import com.hubert.crudlogin.model.Customer;
 import com.hubert.crudlogin.objects.CustomerDTO;
 import com.hubert.crudlogin.service.CustomerService;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-
 import javax.validation.Valid;
-
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,9 +41,12 @@ public class CustomerController {
   );
 
   @Autowired
-  public CustomerController(CustomerService customerService, ModelMapper modelMapper) {
+  public CustomerController(
+    CustomerService customerService,
+    ModelMapper modelMapper
+  ) {
     this.customerService = customerService;
-    this.modelMapper =  modelMapper;
+    this.modelMapper = modelMapper;
   }
 
   @InitBinder
@@ -99,7 +99,6 @@ public class CustomerController {
     }
 
     //check if password id not null and matches the re enter ppassword field
-
     if (
       customerDTO.getPassword() != null && customerDTO.getrPassword() != null
     ) {
@@ -125,95 +124,90 @@ public class CustomerController {
   }
 
   //profile area
-
   @GetMapping("/profile")
-  public String showProfile(Model model, Authentication authentication, CustomerDTO customerDTO){
-
+  public String showProfile(
+    Model model,
+    Authentication authentication,
+    CustomerDTO customerDTO
+  ) {
     Customer customer = customerService.findOwnerDetails();
     modelMapper.map(customer, customerDTO);
     model.addAttribute("customerDTO", customerDTO);
-
     return "pages/profile";
   }
 
   @PostMapping("/update-profile")
-  public String updateProfile(@Valid CustomerDTO customerDTO, BindingResult bindingResult,
-   @AuthenticationPrincipal Customer loggedCustomer,
-    @RequestParam("profileImage") MultipartFile multipartFile, Model model
-    ) throws IOException {
-
-
-    // if(customerDTO.getUsername() == null){
-    //   bindingResult.addError(new FieldError("customerDTO", "username", "Username is empty"));
-    //   return "pages/profile";
-    // }
-
-
-    String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-
-    if(fileName.isEmpty()){
+  public String updateProfile(
+    @Valid CustomerDTO customerDTO,
+    BindingResult bindingResult,
+    @AuthenticationPrincipal Customer loggedCustomer,
+    @RequestParam("profileImage") MultipartFile multipartFile,
+    Model model
+  )
+    throws IOException {
+    if (customerDTO.getUsername() == null) {
+      bindingResult.addError(
+        new FieldError("customerDTO", "username", "Username is empty")
+      );
+      return "pages/profile";
+    }
+    String fileName = StringUtils.cleanPath(
+      multipartFile.getOriginalFilename()
+    );
+    if (fileName.isEmpty()) {
       customerService.updateCustomer(customerDTO);
-    }else {
-
-      if(multipartFile.getContentType().equalsIgnoreCase("image/jpg") || 
-      multipartFile.getContentType().equalsIgnoreCase("image/jpeg") || multipartFile.getContentType().equalsIgnoreCase("image/png")){
-
+    } else {
+      if (
+        multipartFile.getContentType().equalsIgnoreCase("image/jpg") ||
+        multipartFile.getContentType().equalsIgnoreCase("image/jpeg") ||
+        multipartFile.getContentType().equalsIgnoreCase("image/png")
+      ) {
         double fileSize = multipartFile.getSize();
 
-        double kl = (fileSize/1024);
-        double mb = (kl/1024);
-        if(mb < 5){
-        
+        double kl = (fileSize / 1024);
+        double mb = (kl / 1024);
+        if (mb < 5) {
+          Customer existingCustomer = customerService.findOwnerDetails();
+          String uploadDir = "./uploads/" + existingCustomer.getEmail();
+          Path uploadPath = Paths.get(uploadDir);
+          String oldFileLocation =
+            uploadDir + "/" + existingCustomer.getProfileImage();
+          Path getImage = Paths.get(oldFileLocation);
 
-        Customer existingCustomer = customerService.findOwnerDetails();
-         
-         String uploadDir = "./uploads/" + existingCustomer.getEmail();
-         Path uploadPath = Paths.get(uploadDir);
+          if (Files.exists(getImage)) {
+            Files.delete(getImage);
+            System.out.println("Files deleted");
+          }
 
-         String oldFileLocation = uploadDir + "/" + existingCustomer.getProfileImage();
-         Path getImage = Paths.get(oldFileLocation);
-         
-         if(Files.exists(getImage)){
-           Files.delete(getImage);
-           System.out.println("Files deleted");  
-         }
-
-           
-         if(!Files.exists(uploadPath)){
-          Files.createDirectories(uploadPath); 
-        }
-           try(InputStream inputStream = multipartFile.getInputStream()) { 
+          if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+          }
+          try (InputStream inputStream = multipartFile.getInputStream()) {
             String newFileName = System.currentTimeMillis() + "_" + fileName;
             customerDTO.setProfileImage(newFileName);
-            
             customerService.updateCustomer(customerDTO);
-            
             loggedCustomer.setProfileImage(customerDTO.getProfileImage());
-
-             Path filePath = uploadPath.resolve(newFileName).normalize();
-             Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-           } catch (IOException e) {
-             throw new IOException("Error in uploading File!");
-           }
-         }else {
-           model.addAttribute("errorProfile", "file is too large");
-           return "pages/profile";
-         }
-
-      }else {
+            Path filePath = uploadPath.resolve(newFileName).normalize();
+            Files.copy(
+              inputStream,
+              filePath,
+              StandardCopyOption.REPLACE_EXISTING
+            );
+          } catch (IOException e) {
+            throw new IOException("Error in uploading File!");
+          }
+        } else {
+          model.addAttribute("errorProfile", "file is too large");
+          return "pages/profile";
+        }
+      } else {
         model.addAttribute("errorProfile", "Please enter a valid image file");
-         return "pages/profile";
+        return "pages/profile";
       }
-     }
-    
+    }
     loggedCustomer.setFirstName(customerDTO.getFirstName());
     loggedCustomer.setLastName(customerDTO.getLastName());
     loggedCustomer.setDescription(customerDTO.getDescription());
-   
-    
-
     return "redirect:/home";
   }
-
-  
 }

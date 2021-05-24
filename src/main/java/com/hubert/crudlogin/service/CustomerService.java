@@ -3,7 +3,6 @@ package com.hubert.crudlogin.service;
 import com.hubert.crudlogin.model.Customer;
 import com.hubert.crudlogin.objects.CustomerDTO;
 import com.hubert.crudlogin.repository.CustomerRepository;
-
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -56,18 +55,17 @@ public class CustomerService {
   }
 
   @Transactional
-  public Customer getCustomer(long id){
+  public Customer getCustomer(long id) {
     return customerRepository.findById(id).get();
   }
 
   @Transactional
-  public void deleteCustomer(long id){
+  public void deleteCustomer(long id) {
     customerRepository.deleteById(id);
   }
 
-
   @Transactional
-  public List<Customer> showAllCustomers(){
+  public List<Customer> showAllCustomers() {
     return customerRepository.findAll();
   }
 
@@ -87,13 +85,15 @@ public class CustomerService {
   }
 
   @Transactional
-  public Customer findOwnerDetails(){
-    Optional<Customer> customer = findCustomerByEmail(getPrincipal().getEmail());
+  public Customer findOwnerDetails() {
+    Optional<Customer> customer = findCustomerByEmail(
+      getPrincipal().getEmail()
+    );
 
-    if(!customer.isPresent()){
+    if (!customer.isPresent()) {
       throw new IllegalStateException("Customer is not found");
     }
-    
+
     return customer.get();
   }
 
@@ -103,7 +103,7 @@ public class CustomerService {
   }
 
   @Transactional
-  public long countAllCustomer(){
+  public long countAllCustomer() {
     return customerRepository.count();
   }
 
@@ -131,45 +131,44 @@ public class CustomerService {
     return StringUtils.capitalize(name.toLowerCase());
   }
 
-  public Customer updateCustomer(CustomerDTO customerDTO){
-
+  public Customer updateCustomer(CustomerDTO customerDTO) {
     Customer customer = findOwnerDetails();
 
-    if(customerDTO.getProfileImage() !=null){
+    if (customerDTO.getProfileImage() != null) {
       customer.setProfileImage(customerDTO.getProfileImage());
     }
 
-    if(customerDTO.getDescription() !=null){
+    if (customerDTO.getDescription() != null) {
       customer.setDescription(customerDTO.getDescription());
     }
 
-    if(customerDTO.getFirstName() != null){
+    if (customerDTO.getFirstName() != null) {
       customer.setFirstName(customerDTO.getFirstName());
     }
 
-    if(customerDTO.getLastName() !=null){
+    if (customerDTO.getLastName() != null) {
       customer.setLastName(customerDTO.getLastName());
     }
 
-    if(customerDTO.getUsername() != null){
+    if (customerDTO.getUsername() != null) {
       customer.setUsername(customerDTO.getUsername());
     }
 
     return save(customer);
-    
   }
 
-  
   @Transactional
-  public Page<Customer> paginateList(int pageNumber, int pageSize, String query) {
+  public Page<Customer> paginateList(
+    int pageNumber,
+    int pageSize,
+    String query
+  ) {
     Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
     Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
 
-    if(query != null){
+    if (query != null) {
       return customerRepository.findAll(query, pageable);
     }
     return customerRepository.findAll(pageable);
   }
-
-
 }

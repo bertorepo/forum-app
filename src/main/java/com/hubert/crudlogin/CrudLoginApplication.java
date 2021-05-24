@@ -10,7 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class CrudLoginApplication {
 
   public static void main(String[] args) {
-     SpringApplication.run(CrudLoginApplication.class, args);
+    SpringApplication.run(CrudLoginApplication.class, args);
   }
 
   @Bean

@@ -1,257 +1,179 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <head th:replace="/fragments/header :: header('Create Post')" />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"
-    />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Reggae+One&display=swap"
-      rel="stylesheet"
-    />
 
-    <link rel="stylesheet" th:href="@{/mdb/css/bootstrap.min.css}" />
-    <link rel="stylesheet" th:href="@{/mdb/css/mdb.min.css}" />
-    <link th:href="@{/summernote/summernote-bs4.min.css}" rel="stylesheet" />
-    <link rel="stylesheet" th:href="@{/mdb/css/style.css}" />
-  </head>
-  <body class="fixed-sn white-skin">
-    <nav th:replace="/fragments/navbar :: navbar" />
-    <main class="px-0">
-      <div class="container">
-        <div class="row justify-content-md-center">
-          <div class="col-md-10 col-lg-12 mb-4 mt-5">
-            <!--Card -->
-            <div class="card p-3">
-              <!--Card content -->
-              <div class="card-body">
-                <!-- Register form -->
-                <form
-                  th:action="@{/save-post}"
-                  th:object="${postDto}"
-                  method="POST"
-                >
-                  <div
-                    class="
+<head>
+  <meta charset="UTF-8" />
+
+  <head th:replace="/fragments/header :: header('Create Post')" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Reggae+One&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" th:href="@{/mdb/css/bootstrap.min.css}" />
+  <link rel="stylesheet" th:href="@{/mdb/css/mdb.min.css}" />
+  <link th:href="@{/summernote/summernote-bs4.min.css}" rel="stylesheet" />
+  <link rel="stylesheet" th:href="@{/mdb/css/style.css}" />
+</head>
+
+<body class="fixed-sn white-skin">
+  <nav th:replace="/fragments/navbar :: navbar" />
+  <main class="px-0">
+    <div class="container">
+      <div class="row justify-content-md-center">
+        <div class="col-md-10 col-lg-12 mb-4 mt-5">
+          <!--Card -->
+          <div class="card p-3">
+            <!--Card content -->
+            <div class="card-body">
+              <!-- Register form -->
+              <form th:action="@{/save-post}" th:object="${postDto}" method="POST">
+                <div class="
                       form-header
                       aqua-gradient
                       p-3
                       d-flex
                       align-items-center
-                    "
-                  >
-                    <div class="float-left">
-                      <a class="black-text" th:href="@{/}">
-                        <i
-                          class="
+                    ">
+                  <div class="float-left">
+                    <a class="black-text" th:href="@{/}">
+                      <i class="
                             fas
                             fa-chevron-circle-left fa-2x
                             prefix
                             text-black
                             ml-3
-                          "
-                        ></i>
-                      </a>
-                    </div>
-                    <div class="mx-auto">
-                      <p
-                        th:if="*{id} > 0"
-                        class="h5 text-center text-dark my-2 text-uppercase"
-                      >
-                        Update post
-                      </p>
-                      <p
-                        th:unless="*{id} > 0"
-                        class="h5 text-center text-dark my-2 text-uppercase"
-                      >
-                        Create a post
-                      </p>
-                    </div>
+                          "></i>
+                    </a>
                   </div>
+                  <div class="mx-auto">
+                    <p th:if="*{id} > 0" class="h5 text-center text-dark my-2 text-uppercase">
+                      Update post
+                    </p>
+                    <p th:unless="*{id} > 0" class="h5 text-center text-dark my-2 text-uppercase">
+                      Create a post
+                    </p>
+                  </div>
+                </div>
 
-                  <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                      <!-- input group -->
-                      <label for="basic-addon1">Post Title</label>
-                      <div class="input-group input-group-lg mb-4">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1"
-                            ><i
-                              class="
+                <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                    <!-- input group -->
+                    <label for="basic-addon1">Post Title</label>
+                    <div class="input-group input-group-lg mb-4">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="
                                 fas
                                 fa-clipboard-list fa-lg
                                 prefix
                                 text-success
-                              "
-                            ></i
-                          ></span>
-                        </div>
-                        <input
-                          type="hidden"
-                          class="form-control"
-                          name="id"
-                          th:field="*{id}"
-                        />
-
-                        <input
-                        type="hidden"
-                        class="form-control"
-                        name="id"
-                        th:field="*{viewCounts}"
-                      />
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="Post Title"
-                          aria-describedby="basic-addon1"
-                          autocomplete="off"
-                          name="title"
-                          th:field="*{title}"
-                          th:errorclass="error"
-                        />
+                              "></i></span>
                       </div>
-                      <p
-                        th:if="${#fields.hasErrors('title')}"
-                        th:errors="*{title}"
-                        class="text-danger"
-                      ></p>
+                      <input type="hidden" class="form-control" name="id" th:field="*{id}" />
 
-                      <!-- end input group -->
+                      <input type="hidden" class="form-control" name="id" th:field="*{viewCounts}" />
+                      <input type="text" class="form-control" placeholder="Post Title" aria-describedby="basic-addon1"
+                        autocomplete="off" name="title" th:field="*{title}" th:errorclass="error" />
                     </div>
+                    <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger"></p>
 
-                    <div class="col-md-6 col-sm-12">
-                      <!-- input group -->
-                      <label for="basic-addon1">Select category</label>
-                      <div class="input-group input-group-lg mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1"
-                            ><i
-                              class="
+                    <!-- end input group -->
+                  </div>
+
+                  <div class="col-md-6 col-sm-12">
+                    <!-- input group -->
+                    <label for="basic-addon1">Select category</label>
+                    <div class="input-group input-group-lg mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="
                                 fas
                                 fa-plus-circle fa-lg
                                 prefix
                                 text-success
-                              "
-                            ></i
-                          ></span>
-                        </div>
-
-                        <select
-                          class="browser-default custom-select"
-                          name="category"
-                          th:field="*{category}"
-                        >
-                          <option
-                            th:each="category: ${categoryList}"
-                            th:text="${category.name}"
-                            th:value="${category.id}"
-                          ></option>
-                        </select>
+                              "></i></span>
                       </div>
-                      <!-- end input group -->
+
+                      <select class="browser-default custom-select" name="category" th:field="*{category}">
+                        <option th:each="category: ${categoryList}" th:text="${category.name}"
+                          th:value="${category.id}"></option>
+                      </select>
                     </div>
+                    <!-- end input group -->
                   </div>
+                </div>
 
-                  <!-- summernot editor -->
-                  <div class="form-group">
-                    <textarea
-                      class="form-control"
-                      th:errorclass="error"
-                      id="summernote"
-                      name="content"
-                      th:field="*{content}"
-                      autocomplete="off"
-                    ></textarea>
-                  </div>
-                  <p
-                    th:if="${#fields.hasErrors('content')}"
-                    th:errors="*{content}"
-                    class="text-danger"
-                  ></p>
+                <!-- summernot editor -->
+                <div class="form-group">
+                  <textarea class="form-control" th:errorclass="error" id="summernote" name="content"
+                    th:field="*{content}" autocomplete="off"></textarea>
+                </div>
+                <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="text-danger"></p>
 
-                  <div class="text-center mt-4">
-                    <a
-                      th:href="@{/home}"
-                      class="btn btn-outline-danger waves-dark"
-                    >
-                      <i class="fas fa-angle-double-left fa-lg prefix mr-2"></i>
-                      Go Back
-                    </a>
-                    <button
-                      th:if="*{id} > 0"
-                      type="submit"
-                      class="btn btn-success waves-effect waves-light"
-                    >
-                      <i class="far fa-edit fa-lg prefix mr-2"></i>
-                      Update Post
-                    </button>
-                    <button
-                      th:unless="*{id} > 0"
-                      type="submit"
-                      class="btn btn-success waves-effect waves-light"
-                    >
-                      <i class="far fa-plus-square fa-lg prefix mr-2"></i>
-                      Create Post
-                    </button>
-                  </div>
-                </form>
-              </div>
+                <div class="text-center mt-4">
+                  <a th:href="@{/home}" class="btn btn-outline-danger waves-dark">
+                    <i class="fas fa-angle-double-left fa-lg prefix mr-2"></i>
+                    Go Back
+                  </a>
+                  <button th:if="*{id} > 0" type="submit" class="btn btn-success waves-effect waves-light">
+                    <i class="far fa-edit fa-lg prefix mr-2"></i>
+                    Update Post
+                  </button>
+                  <button th:unless="*{id} > 0" type="submit" class="btn btn-success waves-effect waves-light">
+                    <i class="far fa-plus-square fa-lg prefix mr-2"></i>
+                    Create Post
+                  </button>
+                </div>
+              </form>
             </div>
-            <!--Card -->
           </div>
+          <!--Card -->
         </div>
       </div>
-    </main>
-    <footer class="aqua-gradient p-0">
-      <div class="container">
-        <!-- Copyright -->
-        <div class="text-center text-dark py-3">
-          © 2021 Copyright:
-          <a class="text-center text-dark" href="#"> Develop By Hubert B</a>
-        </div>
-        <!-- Copyright -->
+    </div>
+  </main>
+  <footer class="aqua-gradient p-0">
+    <div class="container">
+      <!-- Copyright -->
+      <div class="text-center text-dark py-3">
+        © 2021 Copyright:
+        <a class="text-center text-dark" href="#"> Develop By Hubert B</a>
       </div>
-    </footer>
-    <script
-      th:fragment="script"
-      th:src="@{/mdb/js/jquery-3.4.1.min.js}"
-    ></script>
-    <script th:fragment="script" th:src="@{/mdb/js/popper.min.js}"></script>
-    <script th:fragment="script" th:src="@{/mdb/js/bootstrap.min.js}"></script>
+      <!-- Copyright -->
+    </div>
+  </footer>
+  <script th:fragment="script" th:src="@{/mdb/js/jquery-3.4.1.min.js}"></script>
+  <script th:fragment="script" th:src="@{/mdb/js/popper.min.js}"></script>
+  <script th:fragment="script" th:src="@{/mdb/js/bootstrap.min.js}"></script>
 
-    <script th:src="@{/summernote/summernote-bs4.js}"></script>
+  <script th:src="@{/summernote/summernote-bs4.js}"></script>
 
-    <script>
-      $(document).ready(function () {
-        $('#summernote').summernote({
-          height: 500,
-          placeholder: 'Enter your content here!',
-          tabsize: 2,
-          fontNames: [
-            'Arial',
-            'Arial Black',
-            'Comic Sans MS',
-            'Courier New',
-            'Poppins',
-          ],
-          toolbar: [
-            ['style', ['style']],
-            ['font', ['bold', 'underline', 'clear']],
-            ['fontname', ['fontname']],
-            ['fontsize', ['fontsize']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['insert', ['link', 'picture']],
-            ['view', ['help']],
-          ], 
-        },
-        );
-       
+  <script>
+    $(document).ready(function () {
+      $('#summernote').summernote({
+        height: 500,
+        placeholder: 'Enter your content here!',
+        tabsize: 2,
+        fontNames: [
+          'Arial',
+          'Arial Black',
+          'Comic Sans MS',
+          'Courier New',
+          'Poppins',
+        ],
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['fontname', ['fontname']],
+          ['fontsize', ['fontsize']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['insert', ['link', 'picture']],
+          ['view', ['help']],
+        ],
+      },
+      );
 
-      });
-     
-      </script>
-  </body>
+
+    });
+
+  </script>
+</body>
+
 </html>

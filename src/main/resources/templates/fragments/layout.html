@@ -1,116 +1,109 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
->
-  <head th:replace="/fragments/header :: header('Home')" />
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-  <body class="fixed-sn white-skin">
-    <!-- navbar -->
-    <nav th:replace="/fragments/navbar :: navbar" />
+<head th:replace="/fragments/header :: header('Home')" />
 
-    <main class="px-0" style="min-height: 100vh">
-      <div class="fluid-container">
-        <div class="row justify-content-between">
-          <div
-            sec:authorize="isAuthenticated"
-            class="col-lg-3 col-md-3 d-none d-xl-block"
-          >
-            <!-- Card -->
-            <div class="card testimonial-card">
-              <!-- Background color -->
-              <div class="card-up gradient-card-header aqua-gradient"></div>
+<body class="fixed-sn white-skin">
+  <!-- navbar -->
+  <nav th:replace="/fragments/navbar :: navbar" />
 
-              <!-- Avatar -->
-              <div class="avatar mx-auto white">
-                <img
-                  th:src="@{${customer.ProfileImagePath}}"
-                  class="mx-auto rounded-circle"
-                  width="150"
-                  height="150"
-                />
-              </div>
+  <main class="px-0" style="min-height: 100vh">
+    <div class="fluid-container">
+      <div class="row justify-content-between">
+        <div sec:authorize="isAuthenticated" class="col-lg-3 col-md-3 d-none d-xl-block">
+          <!-- Card -->
+          <div class="card testimonial-card">
+            <!-- Background color -->
+            <div class="card-up gradient-card-header aqua-gradient"></div>
 
-              <!-- Content -->
-              <div class="card-body">
-                <!-- Name -->
-                <h4 class="card-title">[[${customer.FullName}]]</h4>
-                <hr />
-                <!-- Quotation -->
-                <p class="text-black-50 font-small">
-                  <i class="fas fa-quote-left text-black-50 fa-sm"></i>
-                  [[${customer.description}]]
-                  <i class="fas fa-quote-right text-black-50 fa-sm"></i>
-                </p>
-              </div>
+            <!-- Avatar -->
+            <div class="avatar mx-auto white">
+              <img th:src="@{${customer.ProfileImagePath}}" class="mx-auto rounded-circle" width="150" height="150" />
             </div>
-            <!-- Card -->
 
-            <!-- caregories -->
-            <!-- Section: Block Content -->
-            <section class="my-5">
-              <div class="list-group list-group-flush card rounded">
-                <div
-                  class="
+            <!-- Content -->
+            <div class="card-body">
+              <!-- Name -->
+              <h4 class="card-title">[[${customer.FullName}]]</h4>
+              <hr />
+              <!-- Quotation -->
+              <p class="text-black-50 font-small">
+                <i class="fas fa-quote-left text-black-50 fa-sm"></i>
+                [[${customer.description}]]
+                <i class="fas fa-quote-right text-black-50 fa-sm"></i>
+              </p>
+            </div>
+          </div>
+          <!-- Card -->
+
+          <!-- caregories -->
+          <!-- Section: Block Content -->
+          <section class="my-5">
+            <div class="list-group list-group-flush card rounded">
+              <div class="
                     list-group-item
                     d-flex
                     aqua-gradient
                     justify-content-start
                     align-items-center
                     py-3
-                  "
-                >
-                  <div class="d-flex flex-column pl-3">
-                    <p class="font-weight-normal mb-0">List of Categories</p>
-                  </div>
+                  ">
+                <div class="d-flex flex-column pl-3">
+                  <p class="font-weight-normal mb-0">List of Categories</p>
                 </div>
-                <th:block th:each="listCat : ${categoryList}">
-                  <a
-                    th:href="@{/category/} + ${listCat.name}"
-                    class="
+              </div>
+              <th:block th:each="listCat : ${categoryList}">
+                <a th:href="@{/category/} + ${listCat.name}" class="
                       list-group-item list-group-item-action
                       d-flex
                       justify-content-between
                       align-items-center
-                    "
-                  >
-                    <div>
-                      <i class="fab fa-slack-hash text-danger mr-2"></i
-                      >[[${listCat.name}]]
-                    </div>
-                    <th:block th:each="val : ${totalCounts}">
-                      <span class="badge badge-danger badge-pill">[[${listCat.name} == ${val.key} ? ${val.value} : '']]</span>
-                    </th:block>
-                    
-                  </a>
-                </th:block>
-              </div>
-            </section>
-          </div>
-          <!-- content here -->
-          <div layout:fragment="content" class="col pb-5"></div>
-        </div>
-      </div>
-    </main>
+                    ">
+                  <div>
+                    <i class="fab fa-slack-hash  mr-2" th:classappend="*{listCat.name} == 'Beginners' ? 'text-success' :
+                      (*{listCat.name} == 'Discuss' ? 'text-info' :
+                     ( *{listCat.name} == 'Career' ? 'text-secondary' :
+                     ( *{listCat.name} == 'Productivity' ? 'text-secondary' :   
+                     (*{listCat.name} == 'Opensource' ? 'text-warning' : 
+                     (*{listCat.name} == 'Development' ? 'text-primary': 'text-danger')))))"></i>[[${listCat.name}]]
+                  </div>
+                  <th:block th:each="val : ${totalCounts}">
+                    <span class="badge badge-pill" th:classappend="*{listCat.name} == 'Beginners' ? 'badge-success' :
+                      (*{listCat.name} == 'Discuss' ? 'badge-info' :
+                     ( *{listCat.name} == 'Career' ? 'badge-secondary' :
+                     ( *{listCat.name} == 'Productivity' ? 'badge-secondary' :   
+                     (*{listCat.name} == 'Opensource' ? 'badge-warning' : 
+                     (*{listCat.name} == 'Development' ? 'badge-primary': 'badge-danger')))))">[[${listCat.name} ==
+                      ${val.key} ? ${val.value} : '']]</span>
+                  </th:block>
 
-    <footer class="shadow p-0">
-      <div class="container">
-        <!-- Copyright -->
-        <div class="text-center text-dark py-3">
-          © 2021 Copyright:
-          <a class="text-center text-dark" href="#"> Developed By Hubert B</a>
+                </a>
+              </th:block>
+            </div>
+          </section>
         </div>
-        <!-- Copyright -->
+        <!-- content here -->
+        <div layout:fragment="content" class="col pb-5"></div>
       </div>
-    </footer>
-    <script
-      th:fragment="script"
-      th:src="@{/mdb/js/jquery-3.4.1.min.js}"
-    ></script>
-    <script th:fragment="script" th:src="@{/mdb/js/popper.min.js}"></script>
-    <script th:fragment="script" th:src="@{/mdb/js/bootstrap.min.js}"></script>
-    <script th:fragment="script" th:src="@{/mdb/js/mdb.min.js}"></script>
-    <script th:fragment="script" th:src="@{/mdb/js/script.js}"></script>
-  </body>
+    </div>
+  </main>
+
+  <footer class="shadow p-0">
+    <div class="container">
+      <!-- Copyright -->
+      <div class="text-center text-dark py-3">
+        © 2021 Copyright:
+        <a class="text-center text-dark" href="#"> Developed By Hubert B</a>
+      </div>
+      <!-- Copyright -->
+    </div>
+  </footer>
+  <script th:fragment="script" th:src="@{/mdb/js/jquery-3.4.1.min.js}"></script>
+  <script th:fragment="script" th:src="@{/mdb/js/popper.min.js}"></script>
+  <script th:fragment="script" th:src="@{/mdb/js/bootstrap.min.js}"></script>
+  <script th:fragment="script" th:src="@{/mdb/js/mdb.min.js}"></script>
+  <script th:fragment="script" th:src="@{/mdb/js/script.js}"></script>
+</body>
+
 </html>

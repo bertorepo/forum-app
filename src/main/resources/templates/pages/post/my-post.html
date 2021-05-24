@@ -1,140 +1,97 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-  layout:decorate="~{/fragments/layout}"
->
-  <body class="fixed-sn white-skin">
-    <div layout:fragment="content">
-      <!-- stats -->
-      <section th:replace="fragments/stats :: stats"></section>
-      <!-- stats -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" layout:decorate="~{/fragments/layout}">
 
-      <!-- tab_header -->
-      <section th:replace="fragments/stats :: tab_header('my-post')"></section>
-      <!-- tab_header -->
-      <hr class="hr" />
-      <div class="row">
-        <div
-          th:if="${#lists.isEmpty(myPostList)}"
-          class="text-center mx-auto text-black-50 h2-responsive"
-        >
-          <i
-            class="fas fa-exclamation-triangle my-lg-5 fa-5x text-black-50"
-          ></i>
-          <h4 class="h4-responsive">You have no available post yet!</h4>
-        </div>
-        <!-- card -->
-        <div th:each="postList: ${myPostList}" class="col-lg-12 col-md-12">
-          <div class="card card-wrapper">
-            <!-- Card content -->
+<body class="fixed-sn white-skin">
+  <div layout:fragment="content">
+    <!-- stats -->
+    <section th:replace="fragments/stats :: stats"></section>
+    <!-- stats -->
 
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-8 col-sm-6">
-                  <a th:href="@{/post/}  + ${postList.id}">
-                    <h5
-                      th:text="${postList.title}"
-                      class="card-title black-text font-small float-md-left"
-                    ></h5
-                  ></a>
-                </div>
+    <!-- tab_header -->
+    <section th:replace="fragments/stats :: tab_header('my-post')"></section>
+    <!-- tab_header -->
+    <hr class="hr" />
+    <div class="row">
+      <div th:if="${#lists.isEmpty(myPostList)}" class="text-center mx-auto text-black-50 h2-responsive">
+        <i class="fas fa-exclamation-triangle my-lg-5 fa-5x text-black-50"></i>
+        <h4 class="h4-responsive">You have no available post yet!</h4>
+      </div>
+      <!-- card -->
+      <div th:each="postList: ${myPostList}" class="col-lg-12 col-md-12">
+        <div class="card card-wrapper">
+          <!-- Card content -->
 
-                <div
-                  th:if="${customer.username} == ${postList.customer.username}"
-                  class="col-md-4 col-sm-6 d-none d-sm-block text-center"
-                >
-                  <span
-                    class="float-md-right"
-                    sec:authorize="isAuthenticated()"
-                  >
-                    <a
-                      class="
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-8 col-sm-6">
+                <a th:href="@{/post/}  + ${postList.id}">
+                  <h5 th:text="${postList.title}" class="card-title black-text font-small float-md-left"></h5>
+                </a>
+              </div>
+
+              <div th:if="${customer.username} == ${postList.customer.username}"
+                class="col-md-4 col-sm-6 d-none d-sm-block text-center">
+                <span class="float-md-right" sec:authorize="isAuthenticated()">
+                  <a class="
                         btn
                         btn-outline-success
                         btn-outline-no-padding
                         btn-floating
-                      "
-                      th:href="@{/edit-post/} + ${postList.id}"
-                      ><i class="fas fa-edit text-success"> </i
-                    ></a>
-                    <a
-                      class="
+                      " th:href="@{/edit-post/} + ${postList.id}"><i class="fas fa-edit text-success"> </i></a>
+                  <a class="
                         btn
                         btn-outline-danger
                         btn-outline-no-padding
                         btn-floating
-                      "
-                      data-toggle="modal"
-                      th:attr="data-target='#delete-post'+ *{postList.id}"
-                    >
-                      <i class="fas fa-trash pink-text"></i>
-                    </a>
-                  </span>
-                </div>
-              </div>
-
-              <!-- Text -->
-              <div class="card-text justify-content-md-center">
-                <span class="mx-2 text-black-50">
-                  <a class="badge badge-danger p-1 mr-2">
-                    <i class="fab fa-slack-hash mr-2" aria-hidden="true"></i
-                    >[[*{postList.category.name}]]</a
-                  >
-
-                  <a href="#" class="text-danger p-1 mr-2" style="font-size: 75%"
-                    ><i class="fas fa-calendar-alt mx-1"></i>
-                    [[*{#dates.format(postList.createdDate, 'MMM-dd-yyy')}]]</a
-                  >
-
-                  <a href="#" class="text-success p-1 mr-2" style="font-size: 75%">
-                    <i class="fas fa-user-circle mx-1"></i>
-                    [[*{postList.customer.firstName} + ' ' +
-                    *{postList.customer.lastName}]]</a
-                  >
-
-                  
-                  <a  class="text-muted p-1 mr-2" style="font-size: 75%">
-                    <i class="far fa-eye mx-1"></i>
-                    [[*{postList.viewCounts} == 0 ? 'No views' : ${postList.viewCounts}]]</a
-                  >
+                      " data-toggle="modal" th:attr="data-target='#delete-post'+ *{postList.id}">
+                    <i class="fas fa-trash pink-text"></i>
+                  </a>
                 </span>
               </div>
             </div>
-            <!-- Card content -->
-          </div>
-          <!-- end card -->
 
-          <!-- Modal -->
-          <div
-            class="modal fade"
-            th:id="*{'delete-post' + {postList.id}}"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true"
-          >
-            <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
-            <div
-              class="modal-dialog modal-sm modal-notify modal-danger"
-              role="document"
-            >
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="text-center d-flex">
-                    <i
-                      class="
+            <!-- Text -->
+            <div class="card-text justify-content-md-center">
+              <span class="mx-2 text-black-50">
+                <a class="badge badge-danger p-1 mr-2" th:classappend="*{postList.category.name} == 'Beginners' ? 'badge-success' :
+                  (*{postList.category.name} == 'Discuss' ? 'badge-info' :
+                 ( *{postList.category.name} == 'Career' ? 'badge-secondary' :
+                 ( *{postList.category.name} == 'Productivity' ? 'badge-secondary' :   
+                 (*{postList.category.name} == 'Opensource' ? 'badge-warning' : 
+                 (*{postList.category.name} == 'Development' ? 'badge-primary': 'badge-danger')))))">
+                  <i class="fab fa-slack-hash mr-2" aria-hidden="true"></i>[[*{postList.category.name}]]</a>
+
+                <a href="#" class="text-danger p-1 mr-2" style="font-size: 75%"><i class="fas fa-calendar-alt mx-1"></i>
+                  [[*{#dates.format(postList.createdDate, 'MMM-dd-yyy')}]]</a>
+                <a href="#" class="text-success p-1 mr-2" style="font-size: 75%">
+                  <i class="fas fa-user-circle mx-1"></i>
+                  [[*{postList.customer.firstName} + ' ' +
+                  *{postList.customer.lastName}]]</a>
+                <a class="text-muted p-1 mr-2" style="font-size: 75%">
+                  <i class="far fa-eye mx-1"></i>
+                  [[*{postList.viewCounts} == 0 ? 'No views' : ${postList.viewCounts}]]</a>
+              </span>
+            </div>
+          </div>
+          <!-- Card content -->
+        </div>
+        <!-- end card -->
+
+        <!-- Modal -->
+        <div class="modal fade" th:id="*{'delete-post' + {postList.id}}" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+          <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="text-center d-flex">
+                  <i class="
                         fas
                         fa-exclamation-triangle
                         mx-2
@@ -142,43 +99,33 @@
                         text-danger
                         animated
                         rotateIn
-                      "
-                    ></i>
-                    <p class="my-2">Are you sure you want to delete?</p>
-                  </div>
+                      "></i>
+                  <p class="my-2">Are you sure you want to delete?</p>
                 </div>
-                <div class="modal-footer flex-center">
-                  <a
-                    th:href="@{/delete-post/} + ${postList.id}"
-                    class="btn btn-sm btn-danger"
-                  >
-                    <i class="far fa-trash-alt animated"></i>
-                    Delete Post
-                  </a>
-                  <button
-                    type="button"
-                    class="btn btn-sm btn-outline-danger"
-                    data-dismiss="modal"
-                  >
-                    <i class="far fa-times-circle"></i>
-                    Close
-                  </button>
-                </div>
+              </div>
+              <div class="modal-footer flex-center">
+                <a th:href="@{/delete-post/} + ${postList.id}" class="btn btn-sm btn-danger">
+                  <i class="far fa-trash-alt animated"></i>
+                  Delete Post
+                </a>
+                <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="modal">
+                  <i class="far fa-times-circle"></i>
+                  Close
+                </button>
               </div>
             </div>
           </div>
         </div>
-        <!-- end modal -->
       </div>
-      <!-- end column -->
-      <!-- pagination here -->
-      <div
-        th:replace="fragments/pagination_post::pagination(path='/my-post/')"
-      />
-      <!-- end pagination here -->
+      <!-- end modal -->
     </div>
-    <!-- end row -->
+    <!-- end column -->
+    <!-- pagination here -->
+    <div th:replace="fragments/pagination_post::pagination(path='/my-post/')" />
+    <!-- end pagination here -->
+  </div>
+  <!-- end row -->
+  <script th:replace="/fragments/script :: script"></script>
+</body>
 
-    <script th:replace="/fragments/script :: script"></script>
-  </body>
 </html>

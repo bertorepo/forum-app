@@ -6,7 +6,6 @@ import com.hubert.crudlogin.objects.PostDto;
 import com.hubert.crudlogin.service.CategoryService;
 import com.hubert.crudlogin.service.CustomerService;
 import com.hubert.crudlogin.service.PostService;
-
 import java.util.HashMap;
 import java.util.List;
 import javax.validation.Valid;
@@ -99,51 +98,59 @@ public class PostController implements ErrorController {
     }
 
     log.info("post dto >> " + postDto.toString());
-
     postService.createPost(postDto);
     return "redirect:/home";
   }
 
-   //get customer login post
-   @RequestMapping("/my-post")
-   public String getMyPost(Model model) {
-    
-     return getMyPost(1, model);
-   }
- 
+  //get customer login post
+  @RequestMapping("/my-post")
+  public String getMyPost(Model model) {
+    return getMyPost(1, model);
+  }
 
   //get customer login post
   @GetMapping("/my-post/{pageNumber}")
-  public String getMyPost(@PathVariable(value = "pageNumber") int pageNumber, Model model) {
-
+  public String getMyPost(
+    @PathVariable(value = "pageNumber") int pageNumber,
+    Model model
+  ) {
     int pageSize = 5;
+    int totalViewsCount = 0;
 
     Page<Post> page = postService.findMyPost(pageNumber, pageSize);
     String nav = "my-post";
-    //link activer
+    //link active
     model.addAttribute("navActive", nav);
 
-    
     List<Category> categoryLists = categoryService.allCategories();
     HashMap<String, Long> totalCounts = new HashMap<String, Long>();
 
-    categoryLists.stream().forEach(cat -> {
-      Long count = postService.countPostByCategory(cat.getId());
-       totalCounts.put(cat.getName(), count);
-    });
+    categoryLists
+      .stream()
+      .forEach(
+        cat -> {
+          Long count = postService.countPostByCategory(cat.getId());
+          totalCounts.put(cat.getName(), count);
+        }
+      );
+
+    for (Post p : postService.allPost()) {
+      totalViewsCount += p.getViewCounts();
+    }
 
     model.addAttribute("totalCounts", totalCounts);
-
-      //passing pagination attribute
+    //passing pagination attribute
     model.addAttribute("pageNumber", pageNumber);
     model.addAttribute("totalPages", page.getTotalPages());
     model.addAttribute("totalItems", page.getTotalElements());
-
     model.addAttribute("categoryList", categoryLists);
     model.addAttribute("myPostList", page.getContent());
     model.addAttribute("totalPostCount", postService.totalPostCount());
-    model.addAttribute("totalCustomerCount", customerService.countAllCustomer());
-
+    model.addAttribute("totalViewsCount", totalViewsCount);
+    model.addAttribute(
+      "totalCustomerCount",
+      customerService.countAllCustomer()
+    );
 
     return "pages/post/my-post";
   }
@@ -156,13 +163,10 @@ public class PostController implements ErrorController {
     @ModelAttribute("postDto") PostDto postDto
   ) {
     ModelAndView mav = new ModelAndView("pages/post/create-post");
-
     Post post = postService.showPost(id);
     modelMapper.map(post, postDto);
-
     postDto.setId(post.getId());
     postDto.setViewCounts(post.getViewCounts());
-    
     model.addAttribute("categoryList", categoryService.allCategories());
     model.addAttribute("postDto", postDto);
     mav.addObject(postDto);
@@ -184,19 +188,18 @@ public class PostController implements ErrorController {
     //update post views every click of the post
     post.setViewCounts(post.getViewCounts() + 1);
     postService.save(post);
-
-       
     List<Category> categoryLists = categoryService.allCategories();
     HashMap<String, Long> totalCounts = new HashMap<String, Long>();
-
-    categoryLists.stream().forEach(cat -> {
-      Long count = postService.countPostByCategory(cat.getId());
-       totalCounts.put(cat.getName(), count);
-    });
-
+    categoryLists
+      .stream()
+      .forEach(
+        cat -> {
+          Long count = postService.countPostByCategory(cat.getId());
+          totalCounts.put(cat.getName(), count);
+        }
+      );
     model.addAttribute("totalCounts", totalCounts);
     model.addAttribute("categoryList", categoryLists);
-    
     model.addAttribute("myPost", post);
     return "pages/post/view-post";
   }
@@ -206,13 +209,11 @@ public class PostController implements ErrorController {
     @PathVariable("category_name") String name,
     Model model
   ) {
-
     int pageSize = 9;
+    int totalViewsCount = 0;
 
     Page<Post> page = postService.findPostByCategory(name, 1, pageSize);
-
     List<Post> categoryPosts = page.getContent();
-
     //make button active
     for (Post getPost : categoryPosts) {
       if (getPost.getCategory().getName().equals(name)) {
@@ -220,31 +221,38 @@ public class PostController implements ErrorController {
       }
     }
 
-     
+    for (Post p : postService.allPost()) {
+      totalViewsCount += p.getViewCounts();
+    }
+
     List<Category> categoryLists = categoryService.allCategories();
     HashMap<String, Long> totalCounts = new HashMap<String, Long>();
-
-    categoryLists.stream().forEach(cat -> {
-      Long count = postService.countPostByCategory(cat.getId());
-       totalCounts.put(cat.getName(), count);
-    });
+    categoryLists
+      .stream()
+      .forEach(
+        cat -> {
+          Long count = postService.countPostByCategory(cat.getId());
+          totalCounts.put(cat.getName(), count);
+        }
+      );
 
     model.addAttribute("totalCounts", totalCounts);
-
     //passing pagination attribute
     model.addAttribute("totalPages", page.getTotalPages());
     model.addAttribute("totalItems", page.getTotalElements());
-
     model.addAttribute("categoryList", categoryLists);
     model.addAttribute("categoryPosts", categoryPosts);
     model.addAttribute("totalPostCount", postService.totalPostCount());
-    model.addAttribute("totalCustomerCount", customerService.countAllCustomer());
+    model.addAttribute("totalViewsCount", totalViewsCount);
+    model.addAttribute(
+      "totalCustomerCount",
+      customerService.countAllCustomer()
+    );
 
     return "pages/category/category";
   }
 
   //delete post
-
   @RequestMapping("/delete-post/{id}")
   public String deletePost(
     @PathVariable("id") int id,

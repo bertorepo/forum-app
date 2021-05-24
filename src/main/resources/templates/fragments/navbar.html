@@ -1,125 +1,79 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
->
-  <!--Navbar -->
-  <nav
-    th:fragment="navbar"
-    class="navbar px-lg-5 navbar-expand-lg navbar-light"
-  >
-    <a
-      class="navbar-brand text-success font-weight-bold py-0 "
-      style="
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<!--Navbar -->
+<nav th:fragment="navbar" class="navbar px-lg-5 navbar-expand-lg navbar-light">
+  <a class="navbar-brand text-success font-weight-bold py-0 " style="
         font-family: 'Aladin', cursive;
         font-size: 40px;
         
-      "
-      href="/"
-    >
-      mobilarian
-    </a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarSupportedContent-4"
-      aria-controls="navbarSupportedContent-4"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-      <ul class="navbar-nav mr-auto">
-        <li
-          sec:authorize="isAuthenticated()"
-          class="nav-item ml-2"
-          th:classappend="${navActive} == 'home' ? 'active active-border' : ''"
-        >
-          <a class="nav-link" th:href="@{/home}">
-            <i class="fas fa-home mr-2"></i>Home</a
-          >
-        </li>
-      </ul>
+      " href="/">
+    mobilarian
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+    aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+    <ul class="navbar-nav mr-auto">
+      <li sec:authorize="isAuthenticated()" class="nav-item ml-2"
+        th:classappend="${navActive} == 'home' ? 'active active-border' : ''">
+        <a class="nav-link" th:href="@{/home}">
+          <i class="fas fa-home mr-2"></i>Home</a>
+      </li>
+    </ul>
 
-      <ul class="navbar-nav ml-auto">
-        <li sec:authorize="isAnonymous()" class="nav-item  mr-2">
-          <a class="nav-link text-success" href="/login">
-            <i class="far fa-user"></i> Login
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
+    <ul class="navbar-nav ml-auto">
+      <li sec:authorize="isAnonymous()" class="nav-item  mr-2">
+        <a class="nav-link text-success" href="/login">
+          <i class="far fa-user"></i> Login
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
 
-        <li sec:authorize="isAnonymous()" class="nav-item ml-lg-2 mr-2 shadow">
-          <a class="nav-link bg-success" href="/register">
-            <i class="fas fa-user-lock"></i> Create an Account
-            <span class="sr-only"></span>
-          </a>
-        </li>
+      <li sec:authorize="isAnonymous()" class="nav-item ml-lg-2 mr-2 shadow">
+        <a class="nav-link bg-success" href="/register">
+          <i class="fas fa-user-lock"></i> Create an Account
+          <span class="sr-only"></span>
+        </a>
+      </li>
 
-        <li
-          sec:authorize="isAuthenticated()"
-          class="nav-item mr-2"
-          th:classappend="${navActive} == 'create-post' ? 'active active-border' : ''"
-        >
-          <a class="nav-link" th:href="@{/create-post}">
-            <i class="far fa-plus-square"></i> Create Post
-            <span class="sr-only">(current)</span>
-          </a>
+      <li sec:authorize="isAuthenticated()" class="nav-item mr-2"
+        th:classappend="${navActive} == 'create-post' ? 'active active-border' : ''">
+        <a class="nav-link" th:href="@{/create-post}">
+          <i class="far fa-plus-square"></i> Create Post
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li sec:authorize="isAuthenticated()" class="nav-item mr-2"
+        th:classappend="${navActive} == 'my-post' ? 'active active-border' : ''">
+        <a class="nav-link" th:href="@{/my-post}">
+          <i class="far fa-user"></i> My Post</a>
+      </li>
+      <th:block sec:authorize="hasAuthority('ADMIN')">
+        <li sec:authorize="isAuthenticated()" class="nav-item mr-2"
+          th:classappend="${navActive} == 'admin' ? 'active active-border' : ''">
+          <a class="nav-link" th:href="@{/admin}">
+            <i class="far fa-star"></i> Administrator</a>
         </li>
-        <li
-          sec:authorize="isAuthenticated()"
-          class="nav-item mr-2"
-          th:classappend="${navActive} == 'my-post' ? 'active active-border' : ''"
-        >
-          <a class="nav-link" th:href="@{/my-post}">
-            <i class="far fa-user"></i> My Post</a
-          >
-        </li>
-        <th:block sec:authorize="hasAuthority('ADMIN')">
-          <li
-            sec:authorize="isAuthenticated()"
-            class="nav-item mr-2"
-            th:classappend="${navActive} == 'admin' ? 'active active-border' : ''"
-          >
-            <a class="nav-link" th:href="@{/admin}">
-              <i class="far fa-star"></i> Administrator</a
-            >
-          </li>
-        </th:block>
-        <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            id="navbarDropdownMenuLink-4"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            <img
-              th:src="@{${customer.ProfileImagePath}}"
-              class="rounded-circle z-depth-1-half mr-2"
-              width="30px"
-              height="30px"
-              alt="avatar image"
-            />
+      </th:block>
+      <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <img th:src="@{${customer.ProfileImagePath}}" class="rounded-circle z-depth-1-half mr-2" width="30px"
+            height="30px" alt="avatar image" />
 
-            [[${customer.fullName}]]
-          </a>
-          <div
-            class="dropdown-menu dropdown-menu-right dropdown-success"
-            aria-labelledby="navbarDropdownMenuLink-4"
-          >
-            <a class="dropdown-item" th:href="@{/profile}">
-              <i class="fas fa-user-circle mr-2"></i> My account</a
-            >
-            <a class="dropdown-item" href="/logout">
-              <i class="fas fa-sign-out-alt mr-2"></i>Log out</a
-            >
-          </div>
-        </li>
-      </ul>
-    </div>
-  </nav>
+          [[${customer.fullName}]]
+        </a>
+        <div class="dropdown-menu dropdown-menu-right dropdown-success" aria-labelledby="navbarDropdownMenuLink-4">
+          <a class="dropdown-item" th:href="@{/profile}">
+            <i class="fas fa-user-circle mr-2"></i> My account</a>
+          <a class="dropdown-item" href="/logout">
+            <i class="fas fa-sign-out-alt mr-2"></i>Log out</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
 </html>

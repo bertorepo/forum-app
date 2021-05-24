@@ -17,7 +17,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
@@ -41,8 +40,6 @@ public class Customer implements UserDetails {
   @Column(name = "last_name")
   private String lastName;
 
-  
-
   private String email;
   private String password;
 
@@ -58,12 +55,16 @@ public class Customer implements UserDetails {
   @Column(name = "customer_description", nullable = true)
   private String description;
 
-  @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(
+    mappedBy = "customer",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true
+  )
   private List<Post> posts;
 
   @OneToMany(
     fetch = FetchType.EAGER,
-    cascade =CascadeType.ALL,
+    cascade = CascadeType.ALL,
     orphanRemoval = true
   )
   @JoinTable(
@@ -176,7 +177,7 @@ public class Customer implements UserDetails {
     this.authorities = authorities;
   }
 
-  public String getFullName(){
+  public String getFullName() {
     return this.firstName + " " + this.lastName;
   }
 
@@ -195,7 +196,6 @@ public class Customer implements UserDetails {
   public void setDescription(String description) {
     this.description = description;
   }
-  
 
   public List<Post> getPosts() {
     return posts;
@@ -206,19 +206,42 @@ public class Customer implements UserDetails {
   }
 
   @Transient
-  public String getProfileImagePath(){
-    if(profileImage == null){ return "/uploads/default/default.jpg";}
+  public String getProfileImagePath() {
+    if (profileImage == null) {
+      return "/uploads/default/default.jpg";
+    }
 
     return "/uploads/" + getEmail() + "/" + getProfileImage();
   }
 
   @Override
   public String toString() {
-    return "Customer [authorities=" + authorities + ", createdAt=" + createdAt + ", description=" + description
-        + ", email=" + email + ", enabled=" + enabled + ", firstName=" + firstName + ", id=" + id + ", lastName="
-        + lastName + ", password=" + password + ", posts=" + posts + ", profileImage=" + profileImage + ", username="
-        + username + "]";
+    return (
+      "Customer [authorities=" +
+      authorities +
+      ", createdAt=" +
+      createdAt +
+      ", description=" +
+      description +
+      ", email=" +
+      email +
+      ", enabled=" +
+      enabled +
+      ", firstName=" +
+      firstName +
+      ", id=" +
+      id +
+      ", lastName=" +
+      lastName +
+      ", password=" +
+      password +
+      ", posts=" +
+      posts +
+      ", profileImage=" +
+      profileImage +
+      ", username=" +
+      username +
+      "]"
+    );
   }
-
-  
 }

@@ -1,173 +1,120 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
->
-  <head th:replace="/fragments/header :: header('Manage Post')" />
-  <body class="fixed-sn white-skin">
-    <nav th:replace="/fragments/navbar :: navbar" />
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-    <main class="px-0 pb-4" style="min-height: 100vh">
-      <div class="container my-5">
-        <div class="d-flex align-items-start">
-          <div class="float-left">
-            <a class="black-text" th:href="@{/admin}">
-              <i
-                class="fas fa-chevron-circle-left fa-2x prefix text-black ml-3"
-              ></i>
-            </a>
-          </div>
-          <div class="mx-auto">
-             <h2 class="text-center font-weight-bold mb-4 pb-1">MANAGE POSTS</h2>
-        <p class="text-center lead mb-5 pb-2 text-muted">
-          As an Administrator, you have the authority to delete post.
-        </p>
-          </div>
+<head th:replace="/fragments/header :: header('Manage Post')" />
+
+<body class="fixed-sn white-skin">
+  <nav th:replace="/fragments/navbar :: navbar" />
+
+  <main class="px-0 pb-4" style="min-height: 100vh">
+    <div class="container my-5">
+      <div class="d-flex align-items-start">
+        <div class="float-left">
+          <a class="black-text" th:href="@{/admin}">
+            <i class="fas fa-chevron-circle-left fa-2x prefix text-black ml-3"></i>
+          </a>
         </div>
+        <div class="mx-auto">
+          <h2 class="text-center font-weight-bold mb-4 pb-1">MANAGE POSTS</h2>
+          <p class="text-center lead mb-5 pb-2 text-muted">
+            As an Administrator, you have the authority to delete post.
+          </p>
+        </div>
+      </div>
 
-       
-        <th:block  th:if="${not #lists.isEmpty(membersPosts)}">
-          <form id="form-search" th:action="@{/admin/manage-post}">
-            <div class="d-flex justify-content-center h-100">
-              <div class="searchbar">
-              <input
-                id="query-post"
-                type="text"
-                class="search_input"
-                placeholder="Search Post"
-                aria-describedby="basic-addon1"
-                autocomplete="off"
-                name="query"
-                th:value="${query}"
-              />
+
+      <th:block th:if="${not #lists.isEmpty(membersPosts)}">
+        <form id="form-search" th:action="@{/admin/manage-post}">
+          <div class="d-flex justify-content-center h-100">
+            <div class="searchbar">
+              <input id="query-post" type="text" class="search_input" placeholder="Search Post"
+                aria-describedby="basic-addon1" autocomplete="off" name="query" th:value="${query}" />
               <span class="search_icon"><i class="fas fa-search"></i></span>
             </div>
-            </div>
-          </form>
-        </th:block>
-
-        <hr class="hr" />
-
-        <div class="row">
-          <div
-            th:if="${#lists.isEmpty(membersPosts)}"
-            class="text-center mx-auto text-black-50 h2-responsive"
-          >
-            <i
-              class="fas fa-exclamation-triangle my-lg-5 fa-5x text-black-50"
-            ></i>
-            <h4 class="h4-responsive">No available post!</h4>
           </div>
-          <!-- card -->
-          <div
-            th:each="memberPost: ${membersPosts}"
-            class="col-lg-12 col-md-12"
-          >
-            <div class="card card-wrapper">
-              <!-- Card content -->
+        </form>
+      </th:block>
 
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-8 col-sm-6">
-                    <a th:href="@{/post/}  + ${memberPost.id}">
-                      <h5
-                        th:text="*{memberPost.title}"
-                        class="card-title black-text float-md-left font-small"
-                      ></h5
-                    ></a>
-                  </div>
+      <hr class="hr" />
+      <div class="row">
+        <div th:if="${#lists.isEmpty(membersPosts)}" class="text-center mx-auto text-black-50 h2-responsive">
+          <i class="fas fa-exclamation-triangle my-lg-5 fa-5x text-black-50"></i>
+          <h4 class="h4-responsive">No available post!</h4>
+        </div>
+        <!-- card -->
+        <div th:each="memberPost: ${membersPosts}" class="col-lg-12 col-md-12">
+          <div class="card card-wrapper">
+            <!-- Card content -->
 
-                  <div class="col-md-4 col-sm-6 d-none d-sm-block text-center">
-                    <span
-                      class="float-md-right"
-                      sec:authorize="isAuthenticated()"
-                    >
-                      <a
-                        th:if="${customer.username} == *{memberPost.customer.username}"
-                        class="
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-8 col-sm-6">
+                  <a th:href="@{/post/}  + ${memberPost.id}">
+                    <h5 th:text="*{memberPost.title}" class="card-title black-text float-md-left font-small"></h5>
+                  </a>
+                </div>
+
+                <div class="col-md-4 col-sm-6 d-none d-sm-block text-center">
+                  <span class="float-md-right" sec:authorize="isAuthenticated()">
+                    <a th:if="${customer.username} == *{memberPost.customer.username}" class="
                           btn
                           btn-outline-success
                           btn-outline-no-padding
                           btn-floating
-                        "
-                        th:href="@{/edit-post/} + ${memberPost.id}"
-                        ><i class="fas fa-edit text-success"> </i
-                      ></a>
-                      <a
-                        sec:authorize="hasAuthority('ADMIN')"
-                        class="
+                        " th:href="@{/edit-post/} + ${memberPost.id}"><i class="fas fa-edit text-success"> </i></a>
+                    <a sec:authorize="hasAuthority('ADMIN')" class="
                           btn
                           btn-floating
                           btn-outline-danger
                           btn-outline-no-padding
-                        "
-                        data-toggle="modal"
-                        th:attr="data-target='#delete-post'+ *{memberPost.id}"
-                      >
-                        <i class="fas fa-trash text-danger"></i>
-                      </a>
-                    </span>
-                  </div>
-                </div>
-
-                <!-- Text -->
-                <div class="card-text justify-content-md-center">
-                  <span class="mx-2 text-black-50">
-                    <a class="badge badge-danger p-1 mr-2">
-                      <i
-                        class="fab fa-slack-hash mr-2 "
-                        aria-hidden="true"
-                      ></i
-                      >[[*{memberPost.category.name}]]</a
-                    >
-
-                    <a href="#" class="text-danger p-1 mr-2" style="font-size: 75%"
-                      ><i class="fas fa-calendar-alt mx-1"></i>
-                      [[*{#dates.format(memberPost.createdDate,
-                      'MMM-dd-yyy')}]]</a
-                    >
-
-                    <a href="#" class="text-success p-1 mr-2" style="font-size: 75%">
-                      <i class="fas fa-user-circle mx-1"></i>
-                      [[*{memberPost.customer.firstName} + ' ' +
-                      *{memberPost.customer.lastName}]]</a
-                    >
+                        " data-toggle="modal" th:attr="data-target='#delete-post'+ *{memberPost.id}">
+                      <i class="fas fa-trash text-danger"></i>
+                    </a>
                   </span>
                 </div>
               </div>
-              <!-- Card content -->
+
+              <!-- Text -->
+              <div class="card-text justify-content-md-center">
+                <span class="mx-2 text-black-50">
+                  <a class="badge p-1 mr-2" th:classappend="*{memberPost.category.name} == 'Beginners' ? 'badge-success' :
+                    (*{memberPost.category.name} == 'Discuss' ? 'badge-info' :
+                   ( *{memberPost.category.name} == 'Career' ? 'badge-secondary' :
+                   ( *{memberPost.category.name} == 'Productivity' ? 'badge-secondary' :   
+                   (*{memberPost.category.name} == 'Opensource' ? 'badge-warning' : 
+                   (*{memberPost.category.name} == 'Development' ? 'badge-primary': 'badge-danger')))))">
+                    <i class="fab fa-slack-hash mr-2 " aria-hidden="true"></i>[[*{memberPost.category.name}]]</a>
+
+                  <a href="#" class="text-danger p-1 mr-2" style="font-size: 75%"><i
+                      class="fas fa-calendar-alt mx-1"></i>
+                    [[*{#dates.format(memberPost.createdDate,
+                    'MMM-dd-yyy')}]]</a>
+
+                  <a href="#" class="text-success p-1 mr-2" style="font-size: 75%">
+                    <i class="fas fa-user-circle mx-1"></i>
+                    [[*{memberPost.customer.firstName} + ' ' +
+                    *{memberPost.customer.lastName}]]</a>
+                </span>
+              </div>
             </div>
-            <!-- end card -->
-            <!-- Modal -->
-            <div
-              class="modal fade"
-              th:id="*{'delete-post' + {memberPost.id}}"
-              tabindex="-1"
-              role="dialog"
-              aria-labelledby="exampleModalCenterTitle"
-              aria-hidden="true"
-            >
-              <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
-              <div
-                class="modal-dialog modal-sm modal-notify modal-danger"
-                role="document"
-              >
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button
-                      type="button"
-                      class="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="text-center d-flex">
-                      <i
-                        class="
+            <!-- Card content -->
+          </div>
+          <!-- end card -->
+          <!-- Modal -->
+          <div class="modal fade" th:id="*{'delete-post' + {memberPost.id}}" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+            <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="text-center d-flex">
+                    <i class="
                           fas
                           fa-exclamation-triangle
                           mx-2
@@ -175,63 +122,54 @@
                           text-danger
                           animated
                           rotateIn
-                        "
-                      ></i>
-                      <p class="my-2">Are you sure you want to delete?</p>
-                    </div>
+                        "></i>
+                    <p class="my-2">Are you sure you want to delete?</p>
                   </div>
-                  <div class="modal-footer flex-center">
-                    <a
-                      th:href="@{/delete-post/} + ${memberPost.id}"
-                      class="btn btn-sm btn-danger"
-                    >
-                      <i class="far fa-trash-alt animated"></i>
-                      Delete Post
-                    </a>
-                    <button
-                      type="button"
-                      class="btn btn-sm btn-outline-danger"
-                      data-dismiss="modal"
-                    >
-                      <i class="far fa-times-circle"></i>
-                      Close
-                    </button>
-                  </div>
+                </div>
+                <div class="modal-footer flex-center">
+                  <a th:href="@{/delete-post/} + ${memberPost.id}" class="btn btn-sm btn-danger">
+                    <i class="far fa-trash-alt animated"></i>
+                    Delete Post
+                  </a>
+                  <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="modal">
+                    <i class="far fa-times-circle"></i>
+                    Close
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-          <!-- end modal -->
         </div>
-        <!-- end column -->
+        <!-- end modal -->
+      </div>
+      <!-- end column -->
 
-        <!-- pagination here -->
-        <div
-          th:replace="fragments/pagination_post::pagination(path='/post-page/')"
-        />
-        <!-- end pagination here -->
+      <!-- pagination here -->
+      <div th:replace="fragments/pagination_post::pagination(path='/admin/post-page/')" />
+      <!-- end pagination here -->
+    </div>
+    <!-- end row -->
+  </main>
+  <footer class="shadow p-0">
+    <div class="container">
+      <!-- Copyright -->
+      <div class="text-center text-dark py-3">
+        © 2021 Copyright:
+        <a class="text-center text-dark" href="#"> Develop By Hubert B</a>
       </div>
-      <!-- end row -->
-    </main>
-    <footer class="aqua-gradient p-0">
-      <div class="container">
-        <!-- Copyright -->
-        <div class="text-center text-dark py-3">
-          © 2021 Copyright:
-          <a class="text-center text-dark" href="#"> Develop By Hubert B</a>
-        </div>
-        <!-- Copyright -->
-      </div>
-    </footer>
-    <script th:replace="/fragments/script :: script"></script>
-    <script>
-      $(document).ready(function () {
-        $('#form-search').submit(function (e) {
-          if (!$('#query-post').val().trim()) {
-            e.preventDefault();
-          }
-        });
+      <!-- Copyright -->
+    </div>
+  </footer>
+  <script th:replace="/fragments/script :: script"></script>
+  <script>
+    $(document).ready(function () {
+      $('#form-search').submit(function (e) {
+        if (!$('#query-post').val().trim()) {
+          e.preventDefault();
+        }
       });
-    </script>
-  </body>
+    });
+  </script>
+</body>
+
 </html>
